@@ -91,7 +91,7 @@ namespace Notation
                         beatIndex = 0;
                         noteIndex = 0;
 
-                        if (!tokens.Any() || tokens.First().TokenType == TokenType.NextBeatNewLine)
+                        if (!tokens.Any() || tokens.First().TokenType == TokenType.NextBeatNewLine || tokens.First().TokenType == TokenType.End)
                         {
                             break;
                         }
@@ -153,7 +153,8 @@ namespace Notation
                         if (flamStart != null)
                         {
                             measures[measureIndex].Beats[beatIndex].AddSound(noteIndex, TokenToSound(flamStart.Value));
-                            measures[measureIndex].Beats[beatIndex].AddSound(noteIndex + .1f, TokenToSound(token.TokenType));
+                            measures[measureIndex].Beats[beatIndex].AddSound(noteIndex, TokenToSound(token.TokenType), .05f);
+                            flamStart = null;
                         }
                         else
                         {
@@ -200,28 +201,16 @@ namespace Notation
 
         public Note NoteAt(float index)
         {
-            var measureCount = _measures.Count;
-            var subnotesPerBeat = NotesPerBeat * 2;
-            var subnotesPerMeasure = Measure.BeatCount * subnotesPerBeat;
+            var notesPerMeasure = Measure.BeatCount * NotesPerBeat;
 
-            var measureIndex = (int)index / subnotesPerMeasure;
-            var subnotesRemainder = index % subnotesPerMeasure;
-            var beatIndex = (int)subnotesRemainder / subnotesPerBeat;
-            var subnoteIndex = subnotesRemainder % subnotesPerBeat;
+            var measureIndex = (int)index / notesPerMeasure;
+            var subnotesRemainder = index % notesPerMeasure;
+            var beatIndex = (int)subnotesRemainder / NotesPerBeat;
+            var noteIndex = subnotesRemainder % NotesPerBeat;
 
-
-            // index: 76
-            // measureCount: 4
-            // beatsCount: 16
-            // subnotesPerBeat: 8
-            // subnotesPerMeasure: 32
-            // totalSubnotes: 128
-            // measureIndex: 2 (2.375)
-            // subnotesRemainder: 12
-            // beatIndex: 1
-            // subnoteIndex = 4
+            if (index > 15) { }
             var beat = _measures[measureIndex][beatIndex];
-            return beat[subnoteIndex / 2];
+            return beat[noteIndex];
         }
 
         private static void EnsureMeasures(Measure[] measures, int tokenIndex, Token token)

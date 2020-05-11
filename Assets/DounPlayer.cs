@@ -20,11 +20,11 @@ public abstract class DounPlayer : MonoBehaviour
 
     protected abstract void LoadAudioClips();
 
-    public void Play(SoundType sound, float channel = 0f)
+    public void Play(Sound sound, float channel = 0f)
     {
         _audioSource.panStereo = channel;
 
-        switch (sound)
+        switch (sound.Type)
         {
             case SoundType.DounBell:
                 _audioSource.PlayOneShot(DounBellClip);

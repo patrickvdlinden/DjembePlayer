@@ -67,11 +67,13 @@
     <Compile Include="Assets\DounPlayer.cs" />
     <Compile Include="Assets\DununbaPlayer.cs" />
     <Compile Include="Assets\KenkeniPlayer.cs" />
+    <Compile Include="Assets\MetronomePlayer.cs" />
     <Compile Include="Assets\Notation\Beat.cs" />
     <Compile Include="Assets\Notation\Measure.cs" />
     <Compile Include="Assets\Notation\Notation.cs" />
     <Compile Include="Assets\Notation\Note.cs" />
     <Compile Include="Assets\Notation\ParseException.cs" />
+    <Compile Include="Assets\Notation\Sound.cs" />
     <Compile Include="Assets\Notation\SoundType.cs" />
     <Compile Include="Assets\NotationPlayer.cs" />
     <Compile Include="Assets\NotationTokenizer\EnumExtensions.cs" />

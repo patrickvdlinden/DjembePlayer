@@ -19,14 +19,14 @@ namespace Notation
             }
         }
 
-        public void AddSound(float index, SoundType sound)
+        public void AddSound(float index, SoundType soundType, float delay = 0f)
         {
             if (!_notes.ContainsKey(index))
             {
                 _notes.Add(index, new Note());
             }
 
-            _notes[index].Sounds.Add(sound);
+            _notes[index].Sounds.Add(new Sound(soundType, delay));
         }
     }
 }

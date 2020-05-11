@@ -4,6 +4,6 @@ namespace Notation
 {
     public class Note
     {
-        public List<SoundType> Sounds { get; } = new List<SoundType>();
+        public List<Sound> Sounds { get; } = new List<Sound>();
     }
 }
