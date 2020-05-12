@@ -96,6 +96,7 @@ LightmapSettings:
     m_PVRFilteringAtrousPositionSigmaAO: 1
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
+    m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
   m_UseShadowmask: 1
 --- !u!196 &4
@@ -939,9 +940,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b08608fe021a8524d91093d077cb85fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Solo: 1
-  Echauffement: 0
-  Call: 0
+  IsSolist: 1
 --- !u!4 &1710261004
 Transform:
   m_ObjectHideFlags: 0
@@ -1178,9 +1177,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b08608fe021a8524d91093d077cb85fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Solo: 0
-  Echauffement: 0
-  Call: 0
+  IsSolist: 0
 --- !u!4 &1863985071
 Transform:
   m_ObjectHideFlags: 0

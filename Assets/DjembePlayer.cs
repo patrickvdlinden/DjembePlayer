@@ -5,32 +5,62 @@ using UnityEngine;
 [RequireComponent(typeof(AudioSource))]
 public class DjembePlayer : MonoBehaviour
 {
-    public bool Solo;
-    public bool Echauffement;
-    public bool Call;
+    public bool IsSolist;
+
+    public bool PlayEchauffement
+    {
+        get => _playEchauffement;
+        set
+        {
+            _playEchauffement = value;
+            if (value)
+            {
+                _playCall = false;
+            }
+        }
+    }
+
+    public bool PlayCall
+    {
+        get => _playCall;
+        set
+        {
+            _playCall = value;
+            if (value)
+            {
+                _playEchauffement = false;
+            }
+        }
+    }
 
     AudioSource _audioSource;
-    AudioClip _bassClip;
-    AudioClip _toneClip;
-    AudioClip _slapClip;
+
+    AudioClip _bassSoloClip;
+    AudioClip _toneSoloClip;
+    AudioClip _slapSoloClip;
+    
+    AudioClip _bassAccompanyClip;
+    AudioClip _toneAccompanyClip;
+    AudioClip _slapAccompanyClip;
+
+    private bool _playEchauffement;
+    private bool _playCall;
 
     void Start()
     {
         _audioSource = GetComponent<AudioSource>();
+        LoadAudioClips();
+    }
 
-        if (Solo)
-        {
-            _bassClip = Resources.Load<AudioClip>("Audio/0101 Djembe bas");
-            _toneClip = Resources.Load<AudioClip>("Audio/0102 Djembe toon");
-            _slapClip = Resources.Load<AudioClip>("Audio/0103 Djembe slap");
-        }
-        else
-        {
-            _bassClip = Resources.Load<AudioClip>("Audio/Djembe Bass");
-            _toneClip = Resources.Load<AudioClip>("Audio/Djembe Tone");
-            _slapClip = Resources.Load<AudioClip>("Audio/Djembe Slap");
+    private void LoadAudioClips()
+    {
+        _bassSoloClip = Resources.Load<AudioClip>("Audio/0101 Djembe bas");
+        _toneSoloClip = Resources.Load<AudioClip>("Audio/0102 Djembe toon");
+        _slapSoloClip = Resources.Load<AudioClip>("Audio/0103 Djembe slap");
 
-        }
+        _bassAccompanyClip = Resources.Load<AudioClip>("Audio/Djembe Bass");
+        _toneAccompanyClip = Resources.Load<AudioClip>("Audio/Djembe Tone");
+        _slapAccompanyClip = Resources.Load<AudioClip>("Audio/Djembe Slap");
     }
 
     public void Play(Sound sound, float channel = 0f)
@@ -44,7 +74,7 @@ public class DjembePlayer : MonoBehaviour
             PlayInternal(sound, channel);
         }
     }
-        
+
     private IEnumerator PlayDelayed(Sound sound, float channel = 0f)
     {
         while (true)
@@ -62,15 +92,15 @@ public class DjembePlayer : MonoBehaviour
         switch (sound.Type)
         {
             case SoundType.BassOpen:
-                _audioSource.PlayOneShot(_bassClip, 0.5f);
+                _audioSource.PlayOneShot(IsSolist ? _bassSoloClip : _bassAccompanyClip, 0.5f);
                 break;
 
             case SoundType.ToneOpenOrDounOpen:
-                _audioSource.PlayOneShot(_toneClip, 0.5f);
+                _audioSource.PlayOneShot(IsSolist ? _toneSoloClip : _toneAccompanyClip, 0.5f);
                 break;
 
             case SoundType.SlapOpenOrDounClosed:
-                _audioSource.PlayOneShot(_slapClip, 0.5f);
+                _audioSource.PlayOneShot(IsSolist ? _slapSoloClip : _slapAccompanyClip, 0.5f);
                 break;
         }
     }

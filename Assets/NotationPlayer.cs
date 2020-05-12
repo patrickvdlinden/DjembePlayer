@@ -6,6 +6,8 @@ using UnityEngine;
 [RequireComponent(typeof(AudioListener))]
 public class NotationPlayer : MonoBehaviour
 {
+    public const int DefaultBpm = 100;
+
     public GameObject Djembe;
     public GameObject Djembe2;
     public GameObject Kenkeni;
@@ -21,7 +23,8 @@ public class NotationPlayer : MonoBehaviour
     DununbaPlayer _dununbaPlayer;
     MetronomePlayer _metronomePlayer;
 
-    int _bpm = 100;
+    int _bpm = DefaultBpm;
+    string _bpmValue = DefaultBpm.ToString();
 
     bool _playDjembe1 = true;
     bool _playDjembe2 = true;
@@ -57,17 +60,18 @@ public class NotationPlayer : MonoBehaviour
         var dununbaNotation = Notation.Notation.Parse("m>vO1.1vO1vO .1v1v1. v1.1vO1. vO1.1vO1.<m");
         
         var index = 0f;
-        var interval = 60000f / _bpm / (djembeNotation1.NotesPerBeat * 2) / 1000f;
 
         while (true)
         {
+            var interval = 60000f / _bpm / (djembeNotation1.NotesPerBeat * 2) / 1000f;
+
             //var soundsToPlay = new List<Notation.SoundType>();
             var djembe1Notation = djembeNotation1;
-            if (_djembePlayer1.Echauffement)
+            if (_djembePlayer1.PlayEchauffement)
             {
                 djembe1Notation = djembeEchauffementNotation;
             }
-            else if (_djembePlayer1.Call)
+            else if (_djembePlayer1.PlayCall)
             {
                 djembe1Notation = djembeCallNotation;
             }
@@ -83,11 +87,11 @@ public class NotationPlayer : MonoBehaviour
             }
 
             var djembe2Notation = djembeNotation2;
-            if (_djembePlayer2.Echauffement)
+            if (_djembePlayer2.PlayEchauffement)
             {
                 djembe2Notation = djembeEchauffementNotation;
             }
-            else if (_djembePlayer2.Call)
+            else if (_djembePlayer2.PlayCall)
             {
                 djembe2Notation = djembeCallNotation;
             }
@@ -150,26 +154,43 @@ public class NotationPlayer : MonoBehaviour
     }
     void OnGUI()
     {
-        if (GUI.Button(new Rect(10, 70, 150, 30), "Play"))
+        GUI.color = Color.white;
+        if (GUI.Button(new Rect(10, 70, 150, 30), "Play") && _coroutine == null)
         {
             _coroutine = StartCoroutine(WaitAndPlay());
         }
 
-        if (GUI.Button(new Rect(170, 70, 150, 30), "Stop"))
+        if (GUI.Button(new Rect(170, 70, 150, 30), "Stop") && _coroutine != null)
         {
             StopCoroutine(_coroutine);
         }
 
-        int.TryParse(GUI.TextField(new Rect(10, 10, 150, 30), _bpm.ToString()), out _bpm);
-
+        GUI.BeginGroup(new Rect(10, 10, 200, 30));
         GUI.color = Color.black;
+        GUI.Label(new Rect(0, 0, 50, 30), "BPM:");
+
+        GUI.color = Color.white;
+        _bpmValue = GUI.TextField(new Rect(50, 0, 50, 30), _bpmValue);
+        if (GUI.Button(new Rect(100, 0, 35, 30), "OK"))
+        {
+            int.TryParse(_bpmValue, out _bpm);
+        }
+        if (GUI.Button(new Rect(135, 0, 60, 30), "Reset"))
+        {
+            _bpm = DefaultBpm;
+            _bpmValue = DefaultBpm.ToString();
+        }
+
+        GUI.EndGroup();
+
         GUI.BeginGroup(new Rect(10, 100, 600, 190));
+        GUI.color = Color.black;
         _playDjembe1 = GUI.Toggle(new Rect(10, 10, 150, 30), _playDjembe1, "Djembe 1");
-        _djembePlayer1.Echauffement = GUI.Toggle(new Rect(160, 10, 150, 30), _djembePlayer1.Echauffement, "Echauffement");
-        _djembePlayer1.Call = GUI.Toggle(new Rect(320, 10, 150, 30), _djembePlayer1.Call, "Call");
+        _djembePlayer1.PlayEchauffement = GUI.Toggle(new Rect(160, 10, 150, 30), _djembePlayer1.PlayEchauffement, "Echauffement");
+        _djembePlayer1.PlayCall = GUI.Toggle(new Rect(320, 10, 150, 30), _djembePlayer1.PlayCall, "Call");
         _playDjembe2 = GUI.Toggle(new Rect(10, 40, 150, 30), _playDjembe2, "Djembe 2");
-        _djembePlayer2.Echauffement = GUI.Toggle(new Rect(160, 40, 150, 30), _djembePlayer2.Echauffement, "Echauffement");
-        _djembePlayer2.Call = GUI.Toggle(new Rect(320, 40, 150, 30), _djembePlayer2.Call, "Call");
+        _djembePlayer2.PlayEchauffement = GUI.Toggle(new Rect(160, 40, 150, 30), _djembePlayer2.PlayEchauffement, "Echauffement");
+        _djembePlayer2.PlayCall = GUI.Toggle(new Rect(320, 40, 150, 30), _djembePlayer2.PlayCall, "Call");
         _playKenkeni = GUI.Toggle(new Rect(10, 70, 150, 30), _playKenkeni, "Kenkeni");
         _playSangban = GUI.Toggle(new Rect(10, 100, 150, 30), _playSangban, "Sangban");
         _playDununba = GUI.Toggle(new Rect(10, 130, 150, 30), _playDununba, "Dununba");
