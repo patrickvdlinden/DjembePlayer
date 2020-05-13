@@ -1,6 +1,6 @@
 ﻿namespace NotationTokenizer
 {
-    public class Token
+    public class Token : IToken
     {
         public Token(TokenType tokenType)
             : this(tokenType, string.Empty)
@@ -17,7 +17,9 @@
 
         public string Value { get; set; }
 
-        public Token Clone()
+        public static Token Empty => new Token(TokenType.Unknown);
+
+        public IToken Clone()
         {
             return new Token(TokenType, Value);
         }

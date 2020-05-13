@@ -64,19 +64,34 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\DjembePlayer.cs" />
-    <Compile Include="Assets\DounPlayer.cs" />
+    <Compile Include="Assets\DjembeType.cs" />
     <Compile Include="Assets\DununbaPlayer.cs" />
+    <Compile Include="Assets\InstrumentPlayer.cs" />
     <Compile Include="Assets\KenkeniPlayer.cs" />
     <Compile Include="Assets\MetronomePlayer.cs" />
     <Compile Include="Assets\Notation\Beat.cs" />
+    <Compile Include="Assets\Notation\BeatType.cs" />
+    <Compile Include="Assets\Notation\IBeat.cs" />
+    <Compile Include="Assets\Notation\IListExtensions.cs" />
+    <Compile Include="Assets\Notation\IMeasure.cs" />
+    <Compile Include="Assets\Notation\INotation.cs" />
+    <Compile Include="Assets\Notation\INotationParser.cs" />
+    <Compile Include="Assets\Notation\INote.cs" />
+    <Compile Include="Assets\Notation\ISound.cs" />
+    <Compile Include="Assets\Notation\InstrumentType.cs" />
     <Compile Include="Assets\Notation\Measure.cs" />
     <Compile Include="Assets\Notation\Notation.cs" />
+    <Compile Include="Assets\Notation\NotationParser.cs" />
     <Compile Include="Assets\Notation\Note.cs" />
     <Compile Include="Assets\Notation\ParseException.cs" />
     <Compile Include="Assets\Notation\Sound.cs" />
     <Compile Include="Assets\Notation\SoundType.cs" />
     <Compile Include="Assets\NotationPlayer.cs" />
     <Compile Include="Assets\NotationTokenizer\EnumExtensions.cs" />
+    <Compile Include="Assets\NotationTokenizer\IToken.cs" />
+    <Compile Include="Assets\NotationTokenizer\ITokenDefinition.cs" />
+    <Compile Include="Assets\NotationTokenizer\ITokenMatch.cs" />
+    <Compile Include="Assets\NotationTokenizer\ITokenizer.cs" />
     <Compile Include="Assets\NotationTokenizer\PatternAttribute.cs" />
     <Compile Include="Assets\NotationTokenizer\Token.cs" />
     <Compile Include="Assets\NotationTokenizer\TokenDefinition.cs" />

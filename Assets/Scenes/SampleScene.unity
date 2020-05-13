@@ -225,6 +225,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e53534e67981f75498f76367a78471f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  PanStereo: 1
+  VolumeScale: 0.5
 --- !u!82 &570608408
 AudioSource:
   m_ObjectHideFlags: 0
@@ -365,6 +367,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 32a077163c8cf9349a2a29728df0284a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  PanStereo: 0.33
+  VolumeScale: 0.5
 --- !u!82 &593954530
 AudioSource:
   m_ObjectHideFlags: 0
@@ -505,6 +509,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 241fa553ab71d9a488865ca4b7acfcf3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  PanStereo: 0.66
+  VolumeScale: 0.5
 --- !u!82 &695122166
 AudioSource:
   m_ObjectHideFlags: 0
@@ -800,6 +806,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a7019328cd099a4189e7d65cc8ff964, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  PanStereo: 0
+  VolumeScale: 0.5
 --- !u!82 &1532729126
 AudioSource:
   m_ObjectHideFlags: 0
@@ -940,7 +948,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b08608fe021a8524d91093d077cb85fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsSolist: 1
+  PanStereo: -0.66
+  VolumeScale: 0.5
+  Type: 1
 --- !u!4 &1710261004
 Transform:
   m_ObjectHideFlags: 0
@@ -1177,7 +1187,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b08608fe021a8524d91093d077cb85fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsSolist: 0
+  PanStereo: -0.33
+  VolumeScale: 0.5
+  Type: 0
 --- !u!4 &1863985071
 Transform:
   m_ObjectHideFlags: 0

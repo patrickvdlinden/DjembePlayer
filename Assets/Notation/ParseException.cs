@@ -5,20 +5,20 @@ namespace Notation
 {
     public class ParseException : Exception
     {
-        private readonly string _message;
-
-        public ParseException(string message, int index, Token token)
-            : base()
+        public ParseException(string message)
+            : base(message)
         {
-            _message = message;
+        }
+
+        public ParseException(string message, int index, IToken token)
+            : base($"{message} (At: {index}, Token: {token.TokenType} ({token.Value}))")
+        {
             Index = index;
             Token = token;
         }
 
         public int Index { get; }
 
-        public Token Token { get; }
-
-        public override string Message => $"{_message} (At: {Index}, Token: {Token.TokenType} ({Token.Value}))";
+        public IToken Token { get; }
     }
 }

@@ -2,24 +2,24 @@
 
 namespace Notation
 {
-    public class Measure
+    public class Measure : IMeasure
     {
         public const int BeatCount = 4;
 
-        private List<Beat> _beats = new List<Beat>();
+        private List<IBeat> _beats = new List<IBeat>();
 
-        public Measure(Notation notation)
+        public Measure(INotation notation)
         {
             Notation = notation;
-            _beats = new List<Beat>(BeatCount);
 
+            _beats = new List<IBeat>(BeatCount);
             for (var i = 0; i < BeatCount; i++)
             {
-                _beats.Add(new Beat());
+                _beats.Add(CreateBeat());
             }
         }
 
-        public Beat this[int index]
+        public virtual IBeat this[int index]
         {
             get
             {
@@ -27,8 +27,13 @@ namespace Notation
             }
         }
 
-        public Notation Notation { get; }
+        public virtual INotation Notation { get; }
 
-        public Beat[] Beats => _beats.ToArray();
+        public virtual IBeat[] Beats => _beats.ToArray();
+
+        protected virtual IBeat CreateBeat()
+        {
+            return new Beat();
+        }
     }
 }

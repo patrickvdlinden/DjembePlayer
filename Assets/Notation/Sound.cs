@@ -1,6 +1,6 @@
 ﻿namespace Notation
 {
-    public class Sound
+    public class Sound : ISound
     {
         public Sound(SoundType type, float delay = 0f)
         {

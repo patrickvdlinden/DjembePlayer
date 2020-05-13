@@ -3,8 +3,11 @@
 [RequireComponent(typeof(AudioSource))]
 public class MetronomePlayer : MonoBehaviour
 {
-    AudioSource _audioSource;
-    AudioClip _audioClip;
+    private AudioSource _audioSource;
+    private AudioClip _audioClip;
+
+    public float PanStereo = 0f;
+    public float VolumeScale = 0.5f;
 
     private void Start()
     {
@@ -12,9 +15,9 @@ public class MetronomePlayer : MonoBehaviour
         _audioClip = Resources.Load<AudioClip>("Audio/1001 Metronome");
     }
 
-    public void Play(float channel = 0f)
+    public void PlaySound()
     {
-        _audioSource.panStereo = channel;
-        _audioSource.PlayOneShot(_audioClip, 0.5f);
+        _audioSource.panStereo = PanStereo;
+        _audioSource.PlayOneShot(_audioClip, VolumeScale);
     }
 }

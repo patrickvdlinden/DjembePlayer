@@ -2,8 +2,8 @@
 
 namespace Notation
 {
-    public class Note
+    public class Note : INote
     {
-        public List<Sound> Sounds { get; } = new List<Sound>();
+        public IList<ISound> Sounds { get; } = new List<ISound>();
     }
 }

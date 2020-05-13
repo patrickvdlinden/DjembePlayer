@@ -1,32 +1,41 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace Notation
 {
-    public class Beat
+    public class Beat : IBeat
     {
-        private Dictionary<float, Note> _notes = new Dictionary<float, Note>();
-
         public Beat()
         {
         }
 
-        public Note this[float index]
+        public virtual INote this[float index]
         {
             get
             {
-                return _notes.ContainsKey(index) ? _notes[index] : null;
+                return Notes.ContainsKey(index) ? Notes[index] : null;
             }
         }
 
-        public void AddSound(float index, SoundType soundType, float delay = 0f)
+        public virtual IDictionary<float, INote> Notes { get; protected set; } = new Dictionary<float, INote>();
+
+        public virtual void AddSound(float index, SoundType soundType, float delay = 0f)
         {
-            if (!_notes.ContainsKey(index))
+            if (!Notes.ContainsKey(index))
             {
-                _notes.Add(index, new Note());
+                Notes.Add(index, CreateNote());
             }
 
-            _notes[index].Sounds.Add(new Sound(soundType, delay));
+            Notes[index].Sounds.Add(CreateSound(soundType, delay));
+        }
+
+        protected virtual INote CreateNote()
+        {
+            return new Note();
+        }
+
+        protected virtual ISound CreateSound(SoundType soundType, float delay)
+        {
+            return new Sound(soundType, delay);
         }
     }
 }

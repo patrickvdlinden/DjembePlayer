@@ -2,20 +2,21 @@
 
 namespace NotationTokenizer
 {
-    public class TokenDefinition
+    public class TokenDefinition : ITokenDefinition
     {
-        private Regex _regex;
-        private readonly TokenType _tokenType;
-
         public TokenDefinition(TokenType tokenType, string regexPattern)
         {
-            _tokenType = tokenType;
-            _regex = new Regex(regexPattern);
+            TokenType = tokenType;
+            Regex = new Regex(regexPattern);
         }
 
-        public TokenMatch Match(string inputString)
+        public virtual Regex Regex { get; }
+
+        public virtual TokenType TokenType { get; }
+
+        public virtual ITokenMatch Match(string inputString)
         {
-            var match = _regex.Match(inputString);
+            var match = Regex.Match(inputString);
             if (match.Success)
             {
                 var remainingText = string.Empty;
@@ -24,7 +25,7 @@ namespace NotationTokenizer
                     remainingText = inputString.Substring(match.Length);
                 }
 
-                return new TokenMatch(true, _tokenType, match.Value, remainingText);
+                return new TokenMatch(true, TokenType, match.Value, remainingText);
             }
 
             return new TokenMatch(false);

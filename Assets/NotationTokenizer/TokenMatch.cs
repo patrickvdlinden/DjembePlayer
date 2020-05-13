@@ -1,6 +1,6 @@
 ﻿namespace NotationTokenizer
 {
-    public class TokenMatch
+    public class TokenMatch : ITokenMatch
     {
         public TokenMatch(bool isMatch)
         {
