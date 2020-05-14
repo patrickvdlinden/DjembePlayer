@@ -108,33 +108,18 @@ public class NotationPlayer : MonoBehaviour
             foreach (var notation in notations)
             {
                 var player = players[notation.InstrumentType];
-
-                if (notation.InstrumentType != InstrumentType.Djembe || djembeIndex == 0)
+                var playerIndex = notation.InstrumentType == InstrumentType.Djembe ? djembeIndex : 0;
+                note = notation.NoteAt(noteIndex);
+                if (note != null && player[playerIndex].enabled)
                 {
-                    note = notation.NoteAt(noteIndex);
-                    if (note != null && player[0].enabled)
+                    foreach (var sound in note.Sounds)
                     {
-                        foreach (var sound in note.Sounds)
-                        {
-                            player[0].PlaySound(sound);
-                        }
+                        player[playerIndex].PlaySound(sound);
                     }
                 }
 
                 if (notation.InstrumentType == InstrumentType.Djembe)
                 {
-                    if (djembeIndex == 1)
-                    {
-                        note = notation.NoteAt(noteIndex);
-                        if (note != null && player[1].enabled)
-                        {
-                            foreach (var sound in note.Sounds)
-                            {
-                                player[1].PlaySound(sound);
-                            }
-                        }
-                    }
-
                     djembeIndex++;
                 }
             }
