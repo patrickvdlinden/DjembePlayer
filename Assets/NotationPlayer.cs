@@ -45,21 +45,98 @@ public class NotationPlayer : MonoBehaviour
     IEnumerator WaitAndPlay()
     {
         //var notation = Notation.Notation.Parse("m>O1O1O .1Xr1. Or1O1O X1X1. <m");
-        var djembeNotation1 = Notation.Notation.Parse("m>X1.1.1X X1.1O1O X1.1.1X X1.1O1O<m", InstrumentType.Djembe);
-        var djembeEchauffementNotation = Notation.Notation.Parse("m>O1O1O1X X1X1X1X O1O1O1X X1X1X1X<m", InstrumentType.Djembe);
-        var djembeCallNotation = Notation.Notation.Parse("m>iX1.1O1O .1O1.1O O1.1O1. O1.1.1 miX1.1.1. .1.1.1. .1.1.1. .1.1.1.<m", InstrumentType.Djembe);
-        var djembeNotation2 = Notation.Notation.Parse("m>B1.1O1O .1.1X1. B1.1O1O .1B1X1.<m", InstrumentType.Djembe);
-        var kenkeniNotation = Notation.Notation.Parse("m>vO1.1v1. vO1.1v1. vO1.1v1. vO1.1v1.<m", InstrumentType.Kenkeni);
-        var sangbanNotation = Notation.Notation.Parse("m>vO1.1v1. v1.1vX1. vX1.1v1. vO1.1v1.<m", InstrumentType.Sangban);
-        var dununbaNotation = Notation.Notation.Parse("m>vO1.1vO1vO .1v1v1. v1.1vO1. vO1.1vO1.<m", InstrumentType.Dununba);
-        
-        var index = 0f;
+        var djembeCallNotation                  = Notation.Notation.Parse("Call",                   "miX1.1O1O .1O1.1O O1.1O1. O1.1.1 m",                                       InstrumentType.Djembe);
+        var sangbanStartNotation                = Notation.Notation.Parse("Start",                  "m.1.1.1. .1.1.1. .1.1.1. vO1.1v1.m",                                       InstrumentType.Sangban);
+        var dununbaStartNotation                = Notation.Notation.Parse("Start",                  "m.1.1.1. .1.1.1. .1.1.1. vO1.1vO1.m",                                      InstrumentType.Dununba);
+
+        var djembeNotation1                     = Notation.Notation.Parse("Beg. 2",                 "m>X1.1.1X X1.1O1O X1.1.1X X1.1O1O<m",                                      InstrumentType.Djembe);
+        var djembeNotation2                     = Notation.Notation.Parse("Beg. 1",                 "m>B1.1O1O .1.1X1. B1.1O1O .1B1X1.<m",                                      InstrumentType.Djembe);
+        var kenkeniNotation                     = Notation.Notation.Parse("Base",                   "m>vO1.1v1. vO1.1v1. vO1.1v1. vO1.1v1.<m",                                  InstrumentType.Kenkeni);
+        var sangbanNotation                     = Notation.Notation.Parse("Base",                   "m>vO1.1v1. v1.1vX1. vX1.1v1. vO1.1v1.<m",                                  InstrumentType.Sangban);
+        var dununbaNotation                     = Notation.Notation.Parse("Base",                   "m>vO1.1vO1vO .1v1v1. v1.1vO1. vO1.1vO1.<m",                                InstrumentType.Dununba);
+
+        var djembeEchauffementNotation          = Notation.Notation.Parse("Echauffement",           "m>O1O1O1X X1X1X1X O1O1O1X X1X1X1X<m",                                      InstrumentType.Djembe);
+        var djembeEchauffementEndNotation       = Notation.Notation.Parse("Echauffement End",       "mO1O1O1X X1X1X1X O1O1O1. X1.1.1.m",                                        InstrumentType.Djembe);
+
+        var sangbanEchauffementNotation         = Notation.Notation.Parse("Echauffement",           "m>vO1.1v1vO .1v1vO1. v1vO1.1v vO1.1v1.<m",                                 InstrumentType.Sangban);
+        var sangbanEchauffementEndNotation      = Notation.Notation.Parse("Echauffement End",       "mv1.1vO1. vO1.1vO1. vO1vO1.1v vO1.1v1.m",                                  InstrumentType.Sangban);
+
+        var dununbaEchauffementStartNotation    = Notation.Notation.Parse("Echauffement Start",     "mvO1.1vO1vO .1vO1.1vO vO1.1vO1vO .1vO1vO1.m",                              InstrumentType.Dununba);
+        var dununbaEchauffementNotation         = Notation.Notation.Parse("Echauffement",           "m>vO1vO1.1vO .1vO1.1vO vO1.1vO1vO .1vO1vO1.<m",                            InstrumentType.Dununba);
+        var dununbaEchauffementEndNotation      = Notation.Notation.Parse("Echauffement End",       "mvO1vO1.1vO .1vO1.1vO vO1.1vO1. vO1.1vO1.m",                               InstrumentType.Dununba);
+
+        var djembeEndNotation                   = Notation.Notation.Parse("End",                    "miX1.1.1. .1.1.1. .1.1.1. .1.1.1.m",                                       InstrumentType.Djembe);
+        var kenkeniEndNotation                  = Notation.Notation.Parse("End",                    "mvO1.1.1. .1.1.1. .1.1.1. .1.1.1.m",                                       InstrumentType.Kenkeni);
+        var sangbanEndNotation                  = Notation.Notation.Parse("End",                    "mvO1.1.1. .1.1.1. .1.1.1. .1.1.1.m",                                       InstrumentType.Sangban);
+        var dununbaEndNotation                  = Notation.Notation.Parse("End",                    "mvO1.1.1. .1.1.1. .1.1.1. .1.1.1.m",                                       InstrumentType.Dununba);
+
+        // TODO: Rename Song to SongDefinition and add Song as a new class.
+        // Each SongDefinition describes how a song is played for ONE instrument only. The Song contains all the definitions.
+        // Else, it is not possible to have different parts playing for the same instrument type. For example; There can be 
+        // multiple djembe's, krins or even multiple douns of the same type playing different parts.
+        var song = new Song()
+            .AddPart(djembeCallNotation, sangbanStartNotation, dununbaStartNotation)
+            .AddPart(3, djembeNotation1, djembeNotation2, kenkeniNotation, sangbanNotation, dununbaNotation)
+            .AddPart(djembeCallNotation, djembeNotation2, kenkeniNotation, sangbanNotation, dununbaNotation)
+            .AddPart(djembeEchauffementNotation, djembeNotation2, kenkeniNotation, sangbanNotation, dununbaEchauffementStartNotation)
+            .AddPart(1, djembeEchauffementNotation, djembeNotation2, kenkeniNotation, sangbanEchauffementNotation, dununbaEchauffementNotation)
+            .AddPart(djembeEchauffementEndNotation, djembeNotation2, kenkeniNotation, sangbanEchauffementNotation, dununbaEchauffementNotation)
+            .AddPart(djembeCallNotation, djembeNotation2, kenkeniNotation, sangbanEchauffementEndNotation, dununbaEchauffementEndNotation)
+            .AddPart(djembeEndNotation, kenkeniEndNotation, sangbanEndNotation, dununbaEndNotation);
+
+        var players = new Dictionary<InstrumentType, InstrumentPlayer[]>
+        {
+            { InstrumentType.Djembe, new[] { _djembePlayer1, _djembePlayer2 } },
+            { InstrumentType.Kenkeni, new[] { _kenkeniPlayer } },
+            { InstrumentType.Sangban, new[] { _sangbanPlayer } },
+            { InstrumentType.Dununba, new[] { _dununbaPlayer } },
+        };
+
+        var noteIndex = 0f;
+        var songPartIndex = 0;
+        var songPartRepeatIndex = 0;
         var totalTime = 0f;
         while (true)
         {
-            //Debug.Log("total time: " + totalTime);
-            var interval = ((60000f / _bpm / sangbanNotation.NotesPerBeat) / 2f) / 1000f;
+            var interval = ((60000f / _bpm / djembeNotation1.NotesPerBeat) / 2f) / 1000f;
+            var songPart = song.Parts[songPartIndex];
+            var notations = songPart.Notations;
+            var totalNotes = notations.Max(n => n.TotalNotes);
+            INote note;
 
+            var djembeIndex = 0;
+            foreach (var notation in notations)
+            {
+                var player = players[notation.InstrumentType];
+                note = notation.NoteAt(noteIndex);
+                if (note != null && player[0].enabled)
+                {
+                    foreach (var sound in note.Sounds)
+                    {
+                        player[0].PlaySound(sound);
+                    }
+                }
+
+                if (notation.InstrumentType == InstrumentType.Djembe)
+                {
+                    if (djembeIndex == 1)
+                    {
+                        note = notation.NoteAt(noteIndex);
+                        if (note != null && player[1].enabled)
+                        {
+                            foreach (var sound in note.Sounds)
+                            {
+                                player[1].PlaySound(sound);
+                            }
+                        }
+                    }
+
+                    djembeIndex++;
+                }
+            }
+
+
+            /*
             var soundsToPlay = new List<ISound>();
             var djembe1Notation = djembeNotation1;
             if (_djembePlayer1.PlayEchauffement)
@@ -70,8 +147,8 @@ public class NotationPlayer : MonoBehaviour
             {
                 djembe1Notation = djembeCallNotation;
             }
-                       
-            var note = djembe1Notation.NoteAt(index);
+
+            note = djembe1Notation.NoteAt(noteIndex);
             soundsToPlay.AddRange(note?.Sounds ?? new List<ISound>());
             if (note != null && _djembePlayer1.enabled)
             {
@@ -91,7 +168,7 @@ public class NotationPlayer : MonoBehaviour
                 djembe2Notation = djembeCallNotation;
             }
 
-            note = djembe2Notation.NoteAt(index);
+            note = djembe2Notation.NoteAt(noteIndex);
             soundsToPlay.AddRange(note?.Sounds ?? new List<ISound>());
             if (note != null && _djembePlayer2.enabled)
             {
@@ -101,7 +178,7 @@ public class NotationPlayer : MonoBehaviour
                 }
             }
 
-            note = kenkeniNotation.NoteAt(index);
+            note = kenkeniNotation.NoteAt(noteIndex);
             soundsToPlay.AddRange(note?.Sounds ?? new List<ISound>());
             if (note != null && _kenkeniPlayer.enabled)
             {
@@ -111,7 +188,7 @@ public class NotationPlayer : MonoBehaviour
                 }
             }
 
-            note = sangbanNotation.NoteAt(index);
+            note = sangbanNotation.NoteAt(noteIndex);
             soundsToPlay.AddRange(note?.Sounds ?? new List<ISound>());
             if (note != null && _sangbanPlayer.enabled)
             {
@@ -121,7 +198,7 @@ public class NotationPlayer : MonoBehaviour
                 }
             }
 
-            note = dununbaNotation.NoteAt(index);
+            note = dununbaNotation.NoteAt(noteIndex);
             soundsToPlay.AddRange(note?.Sounds ?? new List<ISound>());
             if (note != null && _dununbaPlayer.enabled)
             {
@@ -130,22 +207,33 @@ public class NotationPlayer : MonoBehaviour
                     _dununbaPlayer.PlaySound(sound);
                 }
             }
+            */
 
-            if (index % 4 == 0 && _metronomePlayer.enabled)
+            if (noteIndex % 4 == 0 && _metronomePlayer.enabled)
             {
                 _metronomePlayer.PlaySound();
             }
 
-            Debug.Log(index + " ("+ totalTime +"): " + string.Join(", ", soundsToPlay.Select(e => e.Type)));
+            //Debug.Log(noteIndex + " ("+ totalTime +"): " + string.Join(", ", soundsToPlay.Select(e => e.Type)));
 
             yield return new WaitForSecondsRealtime(interval);
             totalTime += interval;
 
-            if (index > sangbanNotation.TotalNotes - 1f)
+            if (noteIndex > totalNotes - 1f)
             {
-                index = 0f;
+                noteIndex = 0f;
 
-                if (!sangbanNotation.Repeating)
+                if (songPartRepeatIndex >= songPart.RepeatCount)
+                {
+                    songPartIndex++;
+                    songPartRepeatIndex = 0;
+                }
+                else
+                {
+                    songPartRepeatIndex++;
+                }
+
+                if (songPartIndex >= song.Parts.Length)
                 {
                     StopCoroutine(_coroutine);
                     _coroutine = null;
@@ -155,7 +243,7 @@ public class NotationPlayer : MonoBehaviour
             }
             else
             {
-                index += .5f;
+                noteIndex += .5f;
             }
         }
     }

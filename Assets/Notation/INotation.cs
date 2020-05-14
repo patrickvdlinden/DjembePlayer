@@ -1,7 +1,11 @@
-﻿namespace Notation
+using System.Collections.Generic;
+
+namespace Notation
 {
     public interface INotation
     {
+        string Name { get; set; }
+
         IMeasure[] Measures { get; }
 
         bool Repeating { get; set; }

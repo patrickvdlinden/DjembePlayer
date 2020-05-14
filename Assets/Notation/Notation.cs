@@ -6,15 +6,14 @@ namespace Notation
     {
         private readonly List<IMeasure> _measures = new List<IMeasure>();
 
-        public Notation()
+        public Notation(string name, BeatType beatType, InstrumentType instrumentType)
         {
-        }
-
-        public Notation(BeatType beatType, InstrumentType instrumentType)
-        {
+            Name = name;
             BeatType = beatType;
             InstrumentType = instrumentType;
         }
+
+        public string Name { get; set; }
 
         public IMeasure[] Measures => _measures.ToArray();
 
@@ -37,24 +36,24 @@ namespace Notation
 
         public InstrumentType InstrumentType { get; set; }
 
-        public static Notation Parse(string notation)
+        public static Notation Parse(string name, string notation)
         {
-            return Parse(notation, BeatType.Unknown, InstrumentType.Djembe);
+            return Parse(name, notation, BeatType.Unknown, InstrumentType.Djembe);
         }
 
-        public static Notation Parse(string notation, BeatType beatType)
+        public static Notation Parse(string name, string notation, BeatType beatType)
         {
-            return Parse(notation, beatType, InstrumentType.Djembe);
+            return Parse(name, notation, beatType, InstrumentType.Djembe);
         }
 
-        public static Notation Parse(string notation, InstrumentType instrumentType)
+        public static Notation Parse(string name, string notation, InstrumentType instrumentType)
         {
-            return Parse(notation, BeatType.Unknown, instrumentType);
+            return Parse(name, notation, BeatType.Unknown, instrumentType);
         }
 
-        public static Notation Parse(string notation, BeatType beatType, InstrumentType instrumentType)
+        public static Notation Parse(string name, string notation, BeatType beatType, InstrumentType instrumentType)
         {
-            return (Notation)new NotationParser().Parse(notation, beatType, instrumentType);
+            return (Notation)new NotationParser().Parse(name, notation, beatType, instrumentType);
         }
 
         public virtual IMeasure AddMeasure()

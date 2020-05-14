@@ -2,12 +2,12 @@
 {
     public interface INotationParser
     {
-        INotation Parse(string input);
+        INotation Parse(string name, string input);
 
-        INotation Parse(string input, BeatType beatType);
+        INotation Parse(string name, string input, BeatType beatType);
 
-        INotation Parse(string input, InstrumentType instrumentType);
+        INotation Parse(string name, string input, InstrumentType instrumentType);
 
-        INotation Parse(string input, BeatType beatType, InstrumentType instrumentType);
+        INotation Parse(string name, string input, BeatType beatType, InstrumentType instrumentType);
     }
 }

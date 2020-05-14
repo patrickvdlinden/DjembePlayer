@@ -11,28 +11,34 @@ namespace Notation
         {
         }
 
-        public virtual INotation Parse(string input)
+        public virtual INotation Parse(string name, string input)
         {
-            return Parse(input, BeatType.Unknown, InstrumentType.Djembe);
+            return Parse(name, input, BeatType.Unknown, InstrumentType.Djembe);
         }
 
-        public virtual INotation Parse(string input, BeatType beatType)
+        public virtual INotation Parse(string name, string input, BeatType beatType)
         {
-            return Parse(input, beatType, InstrumentType.Djembe);
+            return Parse(name, input, beatType, InstrumentType.Djembe);
         }
 
-        public virtual INotation Parse(string input, InstrumentType instrumentType)
+        public virtual INotation Parse(string name, string input, InstrumentType instrumentType)
         {
-            return Parse(input, BeatType.Unknown, instrumentType);
+            return Parse(name, input, BeatType.Unknown, instrumentType);
         }
 
-        public virtual INotation Parse(string input, BeatType beatType, InstrumentType instrumentType)
+        public virtual INotation Parse(string name, string input, BeatType beatType, InstrumentType instrumentType)
         {
             EnsureInput(input);
 
             var tokenizer = CreateTokenizer();
             var tokens = tokenizer.Tokenize(input);
-            var notation = CreateNotation(beatType, instrumentType);
+
+            if (beatType == BeatType.Unknown)
+            {
+                beatType = DetectBeatType(tokens);
+            }
+
+            var notation = CreateNotation(name, beatType, instrumentType);
 
             EnsureTokens(tokens);
             EnsureMeasureLines(tokens);
@@ -42,9 +48,9 @@ namespace Notation
             return notation;
         }
 
-        protected virtual INotation CreateNotation(BeatType beatType, InstrumentType instrumentType)
+        protected virtual INotation CreateNotation(string name, BeatType beatType, InstrumentType instrumentType)
         {
-            return new Notation(beatType, instrumentType);
+            return new Notation(name, beatType, instrumentType);
         }
 
         protected virtual ITokenizer CreateTokenizer()
@@ -122,7 +128,7 @@ namespace Notation
         protected virtual void Parse(IList<IToken> tokens, INotation notation, BeatType beatType, InstrumentType instrumentType)
         {
             notation.Repeating = DetectRepeating(tokens);
-            notation.BeatType = beatType == BeatType.Unknown ? DetectBeatType(tokens) : beatType;
+            notation.BeatType = beatType;
             notation.InstrumentType = instrumentType;
 
             var tokenIndex = 0;

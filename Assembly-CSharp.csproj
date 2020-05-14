@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <LangVersion>latest</LangVersion>
@@ -77,6 +77,8 @@
     <Compile Include="Assets\Notation\INotation.cs" />
     <Compile Include="Assets\Notation\INotationParser.cs" />
     <Compile Include="Assets\Notation\INote.cs" />
+    <Compile Include="Assets\Notation\ISong.cs" />
+    <Compile Include="Assets\Notation\ISongPart.cs" />
     <Compile Include="Assets\Notation\ISound.cs" />
     <Compile Include="Assets\Notation\InstrumentType.cs" />
     <Compile Include="Assets\Notation\Measure.cs" />
@@ -84,6 +86,8 @@
     <Compile Include="Assets\Notation\NotationParser.cs" />
     <Compile Include="Assets\Notation\Note.cs" />
     <Compile Include="Assets\Notation\ParseException.cs" />
+    <Compile Include="Assets\Notation\Song.cs" />
+    <Compile Include="Assets\Notation\SongPart.cs" />
     <Compile Include="Assets\Notation\Sound.cs" />
     <Compile Include="Assets\Notation\SoundType.cs" />
     <Compile Include="Assets\NotationPlayer.cs" />
