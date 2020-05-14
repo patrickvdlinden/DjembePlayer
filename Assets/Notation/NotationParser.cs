@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using NotationTokenizer;
@@ -13,12 +13,12 @@ namespace Notation
 
         public virtual INotation Parse(string input)
         {
-            return Parse(input, BeatType.Unknown, InstrumentType.Any);
+            return Parse(input, BeatType.Unknown, InstrumentType.Djembe);
         }
 
         public virtual INotation Parse(string input, BeatType beatType)
         {
-            return Parse(input, beatType, InstrumentType.Any);
+            return Parse(input, beatType, InstrumentType.Djembe);
         }
 
         public virtual INotation Parse(string input, InstrumentType instrumentType)
@@ -84,7 +84,7 @@ namespace Notation
 
         protected virtual bool DetectRepeating(IList<IToken> tokens)
         {
-            return tokens.Count >= 4 && tokens[1].TokenType == TokenType.RepeatStart && tokens[tokens.Count - 1].TokenType == TokenType.RepeatEnd;
+            return tokens.Count >= 4 && tokens[1].TokenType == TokenType.RepeatStart && tokens[tokens.Count - 3].TokenType == TokenType.RepeatEnd;
         }
 
         protected virtual void EnsureMeasureLines(IList<IToken> tokens)
@@ -133,10 +133,11 @@ namespace Notation
             TokenType? flamStart = null;
             IMeasure[] measures = null;
 
-            while (tokens.Any())
+            var tokensToParse = tokens.ToList();
+            while (tokensToParse.Any())
             {
-                var token = tokens.First();
-                tokens.RemoveAt(0);
+                var token = tokensToParse.First();
+                tokensToParse.RemoveAt(0);
 
                 switch (token.TokenType)
                 {
@@ -144,7 +145,7 @@ namespace Notation
                         beatIndex = 0;
                         noteIndex = 0;
 
-                        if (!tokens.Any() || tokens.First().TokenType == TokenType.NextBeatNewLine || tokens.First().TokenType == TokenType.End)
+                        if (!tokensToParse.Any() || tokensToParse.First().TokenType == TokenType.NextBeatNewLine || tokensToParse.First().TokenType == TokenType.End)
                         {
                             break;
                         }
@@ -225,10 +226,12 @@ namespace Notation
                         break;
 
                     case TokenType.ConnectionLineHalf:
+                    case TokenType.DoubleConnectionLineHalf:
                         noteIndex += .5f;
                         break;
 
                     case TokenType.ConnectionLineTwoThird:
+                    case TokenType.DoubleConnectionLineTwoThird:
                         noteIndex += .6667f;
                         break;
                 }
@@ -248,8 +251,9 @@ namespace Notation
             switch (tokenType1)
             {
                 case TokenType.OpenBass:
+                case TokenType.OpenBassSmall:
                 case TokenType.OpenBassFlam:
-                    if (instrumentType == InstrumentType.Djembe || instrumentType == InstrumentType.Any)
+                    if (instrumentType == InstrumentType.Djembe)
                     {
                         return SoundType.BassOpen;
                     }
@@ -261,8 +265,9 @@ namespace Notation
                     return SoundType.None;
 
                 case TokenType.OpenTone:
+                case TokenType.OpenToneSmall:
                 case TokenType.OpenToneFlam:
-                    if (instrumentType == InstrumentType.Djembe || instrumentType == InstrumentType.Any)
+                    if (instrumentType == InstrumentType.Djembe)
                     {
                         return SoundType.ToneOpen;
                     }
@@ -284,8 +289,9 @@ namespace Notation
                     return SoundType.None;
 
                 case TokenType.OpenSlap:
+                case TokenType.OpenSlapSmall:
                 case TokenType.OpenSlapFlam:
-                    if (instrumentType == InstrumentType.Djembe || instrumentType == InstrumentType.Any)
+                    if (instrumentType == InstrumentType.Djembe)
                     {
                         return SoundType.SlapOpen;
                     }
@@ -303,8 +309,7 @@ namespace Notation
                     return SoundType.None;
 
                 case TokenType.DounBell:
-                    if (instrumentType == InstrumentType.Any
-                        || instrumentType == InstrumentType.Kenkeni
+                    if (instrumentType == InstrumentType.Kenkeni
                         || instrumentType == InstrumentType.Sangban
                         || instrumentType == InstrumentType.Dununba)
                     {

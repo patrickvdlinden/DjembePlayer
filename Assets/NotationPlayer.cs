@@ -1,4 +1,6 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using Notation;
 using UnityEngine;
 
@@ -52,12 +54,13 @@ public class NotationPlayer : MonoBehaviour
         var dununbaNotation = Notation.Notation.Parse("m>vO1.1vO1vO .1v1v1. v1.1vO1. vO1.1vO1.<m", InstrumentType.Dununba);
         
         var index = 0f;
-
+        var totalTime = 0f;
         while (true)
         {
-            var interval = 60000f / _bpm / (djembeNotation1.NotesPerBeat * 2) / 1000f;
+            //Debug.Log("total time: " + totalTime);
+            var interval = ((60000f / _bpm / sangbanNotation.NotesPerBeat) / 2f) / 1000f;
 
-            //var soundsToPlay = new List<Notation.SoundType>();
+            var soundsToPlay = new List<ISound>();
             var djembe1Notation = djembeNotation1;
             if (_djembePlayer1.PlayEchauffement)
             {
@@ -69,7 +72,7 @@ public class NotationPlayer : MonoBehaviour
             }
                        
             var note = djembe1Notation.NoteAt(index);
-            //soundsToPlay.AddRange(note?.Sounds ?? new List<Notation.SoundType>());
+            soundsToPlay.AddRange(note?.Sounds ?? new List<ISound>());
             if (note != null && _djembePlayer1.enabled)
             {
                 foreach (var sound in note.Sounds)
@@ -89,7 +92,7 @@ public class NotationPlayer : MonoBehaviour
             }
 
             note = djembe2Notation.NoteAt(index);
-            //soundsToPlay.AddRange(note?.Sounds ?? new List<Notation.SoundType>());
+            soundsToPlay.AddRange(note?.Sounds ?? new List<ISound>());
             if (note != null && _djembePlayer2.enabled)
             {
                 foreach (var sound in note.Sounds)
@@ -99,7 +102,7 @@ public class NotationPlayer : MonoBehaviour
             }
 
             note = kenkeniNotation.NoteAt(index);
-            //soundsToPlay.AddRange(note?.Sounds ?? new List<Notation.SoundType>());
+            soundsToPlay.AddRange(note?.Sounds ?? new List<ISound>());
             if (note != null && _kenkeniPlayer.enabled)
             {
                 foreach (var sound in note.Sounds)
@@ -109,7 +112,7 @@ public class NotationPlayer : MonoBehaviour
             }
 
             note = sangbanNotation.NoteAt(index);
-            //soundsToPlay.AddRange(note?.Sounds ?? new List<Notation.SoundType>());
+            soundsToPlay.AddRange(note?.Sounds ?? new List<ISound>());
             if (note != null && _sangbanPlayer.enabled)
             {
                 foreach (var sound in note.Sounds)
@@ -119,7 +122,7 @@ public class NotationPlayer : MonoBehaviour
             }
 
             note = dununbaNotation.NoteAt(index);
-            //soundsToPlay.AddRange(note?.Sounds ?? new List<Notation.SoundType>());
+            soundsToPlay.AddRange(note?.Sounds ?? new List<ISound>());
             if (note != null && _dununbaPlayer.enabled)
             {
                 foreach (var sound in note.Sounds)
@@ -133,14 +136,26 @@ public class NotationPlayer : MonoBehaviour
                 _metronomePlayer.PlaySound();
             }
 
-            //Debug.Log(index + ": " + string.Join(", ", soundsToPlay));
+            Debug.Log(index + " ("+ totalTime +"): " + string.Join(", ", soundsToPlay.Select(e => e.Type)));
 
-            yield return new WaitForSeconds(interval);
+            yield return new WaitForSecondsRealtime(interval);
+            totalTime += interval;
 
-            index += .5f;
-            if (index > djembeNotation1.TotalNotes - .5f)
+            if (index > sangbanNotation.TotalNotes - 1f)
             {
                 index = 0f;
+
+                if (!sangbanNotation.Repeating)
+                {
+                    StopCoroutine(_coroutine);
+                    _coroutine = null;
+                    break;
+                }
+
+            }
+            else
+            {
+                index += .5f;
             }
         }
     }
@@ -155,6 +170,7 @@ public class NotationPlayer : MonoBehaviour
         if (GUI.Button(new Rect(170, 70, 150, 30), "Stop") && _coroutine != null)
         {
             StopCoroutine(_coroutine);
+            _coroutine = null;
         }
 
         GUI.BeginGroup(new Rect(10, 10, 200, 30));

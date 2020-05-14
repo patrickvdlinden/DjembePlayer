@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 
 namespace Notation
 {
@@ -39,12 +39,12 @@ namespace Notation
 
         public static Notation Parse(string notation)
         {
-            return Parse(notation, BeatType.Unknown, InstrumentType.Any);
+            return Parse(notation, BeatType.Unknown, InstrumentType.Djembe);
         }
 
         public static Notation Parse(string notation, BeatType beatType)
         {
-            return Parse(notation, beatType, InstrumentType.Any);
+            return Parse(notation, beatType, InstrumentType.Djembe);
         }
 
         public static Notation Parse(string notation, InstrumentType instrumentType)
@@ -67,7 +67,7 @@ namespace Notation
         public virtual INote NoteAt(float index)
         {
             var notesPerMeasure = Measure.BeatCount * (int)NotesPerBeat;
-            var measureIndex = (int)index / notesPerMeasure;
+            var measureIndex = (int)(index / notesPerMeasure);
             var subnotesRemainder = index % notesPerMeasure;
             var beatIndex = (int)subnotesRemainder / (int)NotesPerBeat;
             var noteIndex = subnotesRemainder % (int)NotesPerBeat;

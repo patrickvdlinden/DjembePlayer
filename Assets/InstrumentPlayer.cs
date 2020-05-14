@@ -11,20 +11,7 @@ public abstract class InstrumentPlayer : MonoBehaviour
     public float PanStereo = 0f;
     public float VolumeScale = 0.5f;
 
-    protected Dictionary<SoundType, AudioClip> AudioClips { get; private set; } = new Dictionary<SoundType, AudioClip>();
-
-    public void Start()
-    {
-        OnStart();
-    }
-
-    protected virtual void OnStart()
-    {
-        _audioSource = GetComponent<AudioSource>();
-        LoadAudioClips();
-    }
-
-    protected abstract void LoadAudioClips();
+    protected Dictionary<SoundType, AudioClip> AudioClips = new Dictionary<SoundType, AudioClip>();
 
     public virtual void PlaySound(ISound sound)
     {
@@ -38,11 +25,19 @@ public abstract class InstrumentPlayer : MonoBehaviour
         }
     }
 
+    protected virtual void OnStart()
+    {
+        _audioSource = GetComponent<AudioSource>();
+        LoadAudioClips();
+    }
+
+    protected abstract void LoadAudioClips();
+
     protected virtual IEnumerator PlaySoundDelayed(ISound sound)
     {
         while (true)
         {
-            yield return new WaitForSeconds(sound.Delay);
+            yield return new WaitForSecondsRealtime(sound.Delay);
             PlaySoundInternal(sound);
             break;
         }
@@ -56,5 +51,10 @@ public abstract class InstrumentPlayer : MonoBehaviour
         {
             _audioSource.PlayOneShot(AudioClips[sound.Type], VolumeScale);
         }
+    }
+
+    private void Start()
+    {
+        OnStart();
     }
 }

@@ -2,7 +2,6 @@
 {
     public enum InstrumentType
     {
-        Any,
         Djembe,
         Kenkeni,
         Sangban,
