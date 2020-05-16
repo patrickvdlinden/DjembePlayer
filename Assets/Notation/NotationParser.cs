@@ -39,6 +39,7 @@ namespace Notation
             }
 
             var notation = CreateNotation(name, beatType, instrumentType);
+            notation.RawNotation = input;
 
             EnsureTokens(tokens);
             EnsureMeasureLines(tokens);

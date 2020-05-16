@@ -6,6 +6,8 @@ namespace Notation
     {
         string Name { get; set; }
 
+        string RawNotation { get; set; }
+
         IMeasure[] Measures { get; }
 
         bool Repeating { get; set; }

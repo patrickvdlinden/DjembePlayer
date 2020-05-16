@@ -15,6 +15,8 @@ namespace Notation
 
         public string Name { get; set; }
 
+        public string RawNotation { get; set; }
+
         public IMeasure[] Measures => _measures.ToArray();
 
         public bool Repeating { get; set; }

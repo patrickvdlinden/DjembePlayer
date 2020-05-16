@@ -45,30 +45,30 @@ public class NotationPlayer : MonoBehaviour
     IEnumerator WaitAndPlay()
     {
         //var notation = Notation.Notation.Parse("m>O1O1O .1Xr1. Or1O1O X1X1. <m");
-        var djembeCallNotation                  = Notation.Notation.Parse("Call",                   "miX1.1O1O .1O1.1O O1.1O1. O1.1.1 m",                                       InstrumentType.Djembe);
-        var sangbanStartNotation                = Notation.Notation.Parse("Start",                  "m.1.1.1. .1.1.1. .1.1.1. vO1.1v1.m",                                       InstrumentType.Sangban);
-        var dununbaStartNotation                = Notation.Notation.Parse("Start",                  "m.1.1.1. .1.1.1. .1.1.1. vO1.1vO1.m",                                      InstrumentType.Dununba);
+        var djembeCallNotation                  = Notation.Notation.Parse("Call",                   "miX1.1O1O .1O1.1O O1.1O1. O1.1.1 m",                   InstrumentType.Djembe);
+        var sangbanStartNotation                = Notation.Notation.Parse("Start",                  "m.1.1.1. .1.1.1. .1.1.1. vO1.1v1.m",                   InstrumentType.Sangban);
+        var dununbaStartNotation                = Notation.Notation.Parse("Start",                  "m.1.1.1. .1.1.1. .1.1vO1. vO1.1vO1.m",                 InstrumentType.Dununba);
 
-        var djembeNotation1                     = Notation.Notation.Parse("Beg. 2",                 "m>X1.1.1X X1.1O1O X1.1.1X X1.1O1O<m",                                      InstrumentType.Djembe);
-        var djembeNotation2                     = Notation.Notation.Parse("Beg. 1",                 "m>B1.1O1O .1.1X1. B1.1O1O .1B1X1.<m",                                      InstrumentType.Djembe);
-        var kenkeniNotation                     = Notation.Notation.Parse("Base",                   "m>vO1.1v1. vO1.1v1. vO1.1v1. vO1.1v1.<m",                                  InstrumentType.Kenkeni);
-        var sangbanNotation                     = Notation.Notation.Parse("Base",                   "m>vO1.1v1. v1.1vX1. vX1.1v1. vO1.1v1.<m",                                  InstrumentType.Sangban);
-        var dununbaNotation                     = Notation.Notation.Parse("Base",                   "m>vO1.1vO1vO .1v1v1. v1.1vO1. vO1.1vO1.<m",                                InstrumentType.Dununba);
+        var djembeNotation1                     = Notation.Notation.Parse("Beg. 2",                 "m>X1.1.1X X1.1O1O X1.1.1X X1.1O1O<m",                  InstrumentType.Djembe);
+        var djembeNotation2                     = Notation.Notation.Parse("Beg. 1",                 "m>B1.1O1O .1.1X1. B1.1O1O .1B1X1.<m",                  InstrumentType.Djembe);
+        var kenkeniNotation                     = Notation.Notation.Parse("Base",                   "m>vO1.1v1. vO1.1v1. vO1.1v1. vO1.1v1.<m",              InstrumentType.Kenkeni);
+        var sangbanNotation                     = Notation.Notation.Parse("Base",                   "m>vO1.1v1. v1.1vX1. vX1.1v1. vO1.1v1.<m",              InstrumentType.Sangban);
+        var dununbaNotation                     = Notation.Notation.Parse("Base",                   "m>vO1.1vO1vO .1v1v1. v1.1vO1. vO1.1vO1.<m",            InstrumentType.Dununba);
 
-        var djembeEchauffementNotation          = Notation.Notation.Parse("Echauffement",           "m>O1O1O1X X1X1X1X O1O1O1X X1X1X1X<m",                                      InstrumentType.Djembe);
-        var djembeEchauffementEndNotation       = Notation.Notation.Parse("Echauffement End",       "mO1O1O1X X1X1X1X O1O1O1. X1.1.1.m",                                        InstrumentType.Djembe);
+        var djembeEchauffementNotation          = Notation.Notation.Parse("Echauffement",           "m>O1O1O1X X1X1X1X O1O1O1X X1X1X1X<m",                  InstrumentType.Djembe);
+        var djembeEchauffementEndNotation       = Notation.Notation.Parse("Echauffement End",       "mO1O1O1X X1X1X1X O1O1O1. zX1.1.1.m",                   InstrumentType.Djembe);
 
-        var sangbanEchauffementNotation         = Notation.Notation.Parse("Echauffement",           "m>vO1.1v1vO .1v1vO1. v1vO1.1v vO1.1v1.<m",                                 InstrumentType.Sangban);
-        var sangbanEchauffementEndNotation      = Notation.Notation.Parse("Echauffement End",       "mv1.1vO1. vO1.1vO1. vO1vO1.1v vO1.1v1.m",                                  InstrumentType.Sangban);
+        var sangbanEchauffementNotation         = Notation.Notation.Parse("Echauffement",           "m>vO1.1v1vO .1v1vO1. v1vO1.1v vO1.1v1.<m",             InstrumentType.Sangban);
+        var sangbanEchauffementEndNotation      = Notation.Notation.Parse("Echauffement End",       "mv1.1vO1. vO1.1vO1. vO1vO1.1v vO1.1v1.m",              InstrumentType.Sangban);
 
-        var dununbaEchauffementStartNotation    = Notation.Notation.Parse("Echauffement Start",     "mvO1.1vO1vO .1vO1.1vO vO1.1vO1vO .1vO1vO1.m",                              InstrumentType.Dununba);
-        var dununbaEchauffementNotation         = Notation.Notation.Parse("Echauffement",           "m>vO1vO1.1vO .1vO1.1vO vO1.1vO1vO .1vO1vO1.<m",                            InstrumentType.Dununba);
-        var dununbaEchauffementEndNotation      = Notation.Notation.Parse("Echauffement End",       "mvO1vO1.1vO .1vO1.1vO vO1.1vO1. vO1.1vO1.m",                               InstrumentType.Dununba);
+        var dununbaEchauffementStartNotation    = Notation.Notation.Parse("Echauffement Start",     "mvO1.1vO1vO .1vO1.1vO vO1.1vO1vO .1vO1vO1.m",          InstrumentType.Dununba);
+        var dununbaEchauffementNotation         = Notation.Notation.Parse("Echauffement",           "m>vO1vO1.1vO .1vO1.1vO vO1.1vO1vO .1vO1vO1.<m",        InstrumentType.Dununba);
+        var dununbaEchauffementEndNotation      = Notation.Notation.Parse("Echauffement End",       "mvO1vO1.1vO .1vO1.1vO vO1.1vO1. vO1.1vO1.m",           InstrumentType.Dununba);
 
-        var djembeEndNotation                   = Notation.Notation.Parse("End",                    "miX1.1.1. .1.1.1. .1.1.1. .1.1.1.m",                                       InstrumentType.Djembe);
-        var kenkeniEndNotation                  = Notation.Notation.Parse("End",                    "mvO1.1.1. .1.1.1. .1.1.1. .1.1.1.m",                                       InstrumentType.Kenkeni);
-        var sangbanEndNotation                  = Notation.Notation.Parse("End",                    "mvO1.1.1. .1.1.1. .1.1.1. .1.1.1.m",                                       InstrumentType.Sangban);
-        var dununbaEndNotation                  = Notation.Notation.Parse("End",                    "mvO1.1.1. .1.1.1. .1.1.1. .1.1.1.m",                                       InstrumentType.Dununba);
+        var djembeEndNotation                   = Notation.Notation.Parse("End",                    "miX1.1.1. .1.1.1. .1.1.1. .1.1.1.m",                   InstrumentType.Djembe);
+        var kenkeniEndNotation                  = Notation.Notation.Parse("End",                    "mvO1.1.1. .1.1.1. .1.1.1. .1.1.1.m",                   InstrumentType.Kenkeni);
+        var sangbanEndNotation                  = Notation.Notation.Parse("End",                    "mvO1.1.1. .1.1.1. .1.1.1. .1.1.1.m",                   InstrumentType.Sangban);
+        var dununbaEndNotation                  = Notation.Notation.Parse("End",                    "mvO1.1.1. .1.1.1. .1.1.1. .1.1.1.m",                   InstrumentType.Dununba);
 
         // TODO: Rename Song to SongDefinition and add Song as a new class.
         // Each SongDefinition describes how a song is played for ONE instrument only. The Song contains all the definitions.
