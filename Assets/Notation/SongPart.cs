@@ -34,6 +34,8 @@ namespace Notation
 
         public INotation[] Notations => _notations.ToArray();
 
+        public int TotalNotes => _notations.Max(n => n.TotalNotes);
+
         public int RepeatCount { get; }
 
         public ISongPart AddNotation(INotation notation)

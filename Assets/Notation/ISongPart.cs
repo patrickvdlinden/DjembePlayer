@@ -6,6 +6,8 @@ namespace Notation
     {
         INotation[] Notations { get; }
 
+        int TotalNotes { get; }
+
         int RepeatCount { get; }
 
         ISongPart AddNotation(INotation notation);
