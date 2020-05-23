@@ -3,36 +3,7 @@ using UnityEngine;
 
 public class DjembePlayer : InstrumentPlayer
 {
-    private bool _playEchauffement;
-    private bool _playCall;
-
     public DjembeType Type;
-
-    public bool PlayEchauffement
-    {
-        get => _playEchauffement;
-        set
-        {
-            _playEchauffement = value;
-            if (value)
-            {
-                _playCall = false;
-            }
-        }
-    }
-
-    public bool PlayCall
-    {
-        get => _playCall;
-        set
-        {
-            _playCall = value;
-            if (value)
-            {
-                _playEchauffement = false;
-            }
-        }
-    }
 
     protected override void LoadAudioClips()
     {

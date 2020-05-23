@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace Notation
 {
@@ -7,6 +8,8 @@ namespace Notation
         private readonly List<ISongPart> _parts = new List<ISongPart>();
 
         public ISongPart[] Parts => _parts.ToArray();
+
+        public int NotesPerBeat => _parts.FirstOrDefault()?.NotesPerBeat ?? 0;
 
         public virtual ISong AddPart(params INotation[] notations)
         {

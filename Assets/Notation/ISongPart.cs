@@ -10,6 +10,8 @@ namespace Notation
 
         int RepeatCount { get; }
 
+        int NotesPerBeat { get; }
+
         ISongPart AddNotation(INotation notation);
     }
 }

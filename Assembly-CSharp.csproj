@@ -104,6 +104,8 @@
     <Compile Include="Assets\NotationTokenizer\TokenizeException.cs" />
     <Compile Include="Assets\NotationTokenizer\Tokenizer.cs" />
     <Compile Include="Assets\SangbanPlayer.cs" />
+    <Compile Include="Assets\Songs\Soli.cs" />
+    <Compile Include="Assets\Songs\Soro.cs" />
     <Reference Include="UnityEngine">
       <HintPath>C:/Program Files/Unity/Hub/Editor/2019.3.13f1/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>
     </Reference>

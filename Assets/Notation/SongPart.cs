@@ -36,6 +36,8 @@ namespace Notation
 
         public int TotalNotes => _notations.Max(n => n.TotalNotes);
 
+        public int NotesPerBeat => _notations.FirstOrDefault()?.NotesPerBeat ?? 0;
+
         public int RepeatCount { get; }
 
         public ISongPart AddNotation(INotation notation)

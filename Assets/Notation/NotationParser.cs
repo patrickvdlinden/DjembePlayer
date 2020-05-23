@@ -41,8 +41,8 @@ namespace Notation
             var notation = CreateNotation(name, beatType, instrumentType);
             notation.RawNotation = input;
 
-            EnsureTokens(tokens);
-            EnsureMeasureLines(tokens);
+            EnsureTokens(name, tokens);
+            EnsureMeasureLines(name, tokens);
 
             Parse(tokens, notation, beatType, instrumentType);
 
@@ -63,7 +63,7 @@ namespace Notation
         {
             var beatSeparatorIndexStart = tokens.FindIndex(t => t.TokenType == TokenType.NextBeat);
             var beatSeparatorIndexEnd = tokens.FindIndex(beatSeparatorIndexStart + 1, t => t.TokenType == TokenType.NextBeat);
-            var notesPerBeat = 0f;
+            var notesPerBeat = 1f;
             for (var i = beatSeparatorIndexStart; i < beatSeparatorIndexEnd; i++)
             {
                 var token = tokens[i].TokenType;
@@ -86,7 +86,7 @@ namespace Notation
                 return BeatType.Unknown;
             }
 
-            return (BeatType)((int)notesPerBeat + 1);
+            return (BeatType)(int)notesPerBeat;
         }
 
         protected virtual bool DetectRepeating(IList<IToken> tokens)
@@ -94,19 +94,19 @@ namespace Notation
             return tokens.Count >= 4 && tokens[1].TokenType == TokenType.RepeatStart && tokens[tokens.Count - 3].TokenType == TokenType.RepeatEnd;
         }
 
-        protected virtual void EnsureMeasureLines(IList<IToken> tokens)
+        protected virtual void EnsureMeasureLines(string notationName, IList<IToken> tokens)
         {
             if (tokens[0].TokenType != TokenType.MeasureLine || tokens[tokens.Count - 2].TokenType != TokenType.MeasureLine)
             {
-                throw new ParseException("Invalid syntax: Notation should always start and end with a measure line.");
+                throw new ParseException("Invalid syntax: Notation should always start and end with a measure line.", notationName);
             }
         }
 
-        protected virtual void EnsureMeasures(IMeasure[] measures, int tokenIndex, IToken token)
+        protected virtual void EnsureMeasures(string notationName, IMeasure[] measures, int tokenIndex, IToken token)
         {
             if (measures == null)
             {
-                throw new ParseException("Invalid syntax: Found note before measure line.", tokenIndex, token);
+                throw new ParseException("Invalid syntax: Found note before measure line.", notationName, tokenIndex, token);
             }
         }
 
@@ -118,11 +118,11 @@ namespace Notation
             }
         }
 
-        protected virtual void EnsureTokens(IList<IToken> tokens)
+        protected virtual void EnsureTokens(string notationName, IList<IToken> tokens)
         {
             if (tokens == null || !tokens.Any())
             {
-                throw new ParseException("Invalid syntax: No tokens were parsed.");
+                throw new ParseException("Invalid syntax: No tokens were parsed.", notationName);
             }
         }
 
@@ -200,7 +200,7 @@ namespace Notation
                     case TokenType.OpenBassFlam:
                     case TokenType.OpenToneFlam:
                     case TokenType.OpenSlapFlam:
-                        EnsureMeasures(measures, tokenIndex, token);
+                        EnsureMeasures(notation.Name, measures, tokenIndex, token);
                         flamStart = token.TokenType;
                         break;
 
@@ -210,7 +210,7 @@ namespace Notation
                     case TokenType.OpenToneSmall:
                     case TokenType.OpenSlap:
                     case TokenType.OpenSlapSmall:
-                        EnsureMeasures(measures, tokenIndex, token);
+                        EnsureMeasures(notation.Name, measures, tokenIndex, token);
                         if (flamStart != null)
                         {
                             measures[measureIndex].Beats[beatIndex].AddSound(noteIndex, TokenToSound(instrumentType, flamStart.Value));
