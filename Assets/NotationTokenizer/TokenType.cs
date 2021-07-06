@@ -88,7 +88,7 @@
         [Pattern("\\+")]
         NextBeatTwoThird,
 
-        [Pattern("\\r\\n")]
+        [Pattern("\\r\\n|\\n")]
         NextBeatNewLine,
 
         End
