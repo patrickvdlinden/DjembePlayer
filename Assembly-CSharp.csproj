@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <LangVersion>8.0</LangVersion>
@@ -101,6 +101,7 @@
     <Compile Include="Assets\Songs\Soli.cs" />
     <Compile Include="Assets\Notation\InstrumentType.cs" />
     <Compile Include="Assets\DjembePlayer.cs" />
+    <Compile Include="Assets\Songs\Djagbe.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

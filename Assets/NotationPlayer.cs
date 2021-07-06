@@ -24,6 +24,12 @@ public class NotationPlayer : MonoBehaviour
     SangbanPlayer _sangbanPlayer;
     DununbaPlayer _dununbaPlayer;
     MetronomePlayer _metronomePlayer;
+    bool _customNotationEnabled;
+    string _customNotation = @"mv1.1vO1vO .1v.1v.1. .v1.1vO1. v.1.1v.1. m
+mv1.1vO1vO .1v.1v.1. .v1.1vO1. v.1.1v.1. m
+mv1.1vO1vO .1v.1v.1. .v1.1vO1. v.1vO1.1v. mvO1.1v1vO .1v.1v.1. .v1.1vO1. v.1.1v.1. m";
+    int _customNotationRepeatCount = 999;
+    Font _slapToonToonSlapFont;
 
     int _bpm = DefaultBpm;
     string _bpmValue = DefaultBpm.ToString();
@@ -37,6 +43,8 @@ public class NotationPlayer : MonoBehaviour
         _sangbanPlayer = Sangban.GetComponent<SangbanPlayer>();
         _dununbaPlayer = Dununba.GetComponent<DununbaPlayer>();
         _metronomePlayer = Metronome.GetComponent<MetronomePlayer>();
+
+        _slapToonToonSlapFont = (Font)Resources.Load("Fonts/SlapToonToonSlap");
         Debug.Log("started");
     }
 
@@ -51,7 +59,31 @@ public class NotationPlayer : MonoBehaviour
         // Else, it is not possible to have different parts playing for the same instrument type. For example; There can be 
         // multiple djembe's, krins or even multiple douns of the same type playing different parts.
         //var song = Soro.LoadSong();
-        var song = _selectedSongIndex == 0 ? Soro.LoadSong() : Soli.LoadSong();
+        ISong song;
+
+        if (_customNotationEnabled)
+        {
+            var instrumentType = InstrumentType.Dununba;
+            var customNotation = Notation.Notation.Parse("Custom", _customNotation, BeatType.Unknown, instrumentType);
+            song = new Song();
+            song.AddPart(_customNotationRepeatCount > 0 ? _customNotationRepeatCount : 0, customNotation);
+        }
+        else
+        {
+            switch (_selectedSongIndex)
+            {
+                default:
+                case 0:
+                    song = Soro.LoadSong();
+                    break;
+                case 1:
+                    song = Soli.LoadSong();
+                    break;
+                case 2:
+                    song = Djagbe.LoadSong();
+                    break;
+            }
+        }
 
         var players = new Dictionary<InstrumentType, InstrumentPlayer[]>
         {
@@ -150,7 +182,7 @@ public class NotationPlayer : MonoBehaviour
 
         GUI.BeginGroup(new Rect(10, 50, 650, 40));
         GUI.color = Color.white;
-        _selectedSongIndex = GUI.SelectionGrid(new Rect(10, 0, 360, 30), _selectedSongIndex, new[] { "Soro (4/8)", "Soli (12/8)" }, 2);
+        _selectedSongIndex = GUI.SelectionGrid(new Rect(10, 0, 540, 30), _selectedSongIndex, new[] { "Soro (4/8)", "Soli (12/8)", "Djagbé (4/8)" }, 3);
 
         GUI.EndGroup();
 
@@ -190,6 +222,19 @@ public class NotationPlayer : MonoBehaviour
 
         _metronomePlayer.enabled = GUI.Toggle(new Rect(10, 160, 150, 30), _metronomePlayer.enabled, "Metronome");
         _metronomePlayer.PanStereo = GUI.HorizontalSlider(new Rect(160, 160, 150, 30), _metronomePlayer.PanStereo, -1f, 1f);
+        GUI.EndGroup();
+
+        GUI.BeginGroup(new Rect(10, 370, 650, 200));
+        _customNotationEnabled = GUI.Toggle(new Rect(10, 10, 150, 30), _customNotationEnabled, "Custom notation");
+
+        GUI.color = Color.black;
+        var customNotationGUIStyle = new GUIStyle(GUI.skin.textArea)
+        {
+            font = _slapToonToonSlapFont,
+            fontSize = 16,
+            padding = new RectOffset(15, 15, 10, 10),
+        };
+        _customNotation = GUI.TextArea(new Rect(10, 40, 630, 150), _customNotation, customNotationGUIStyle);
         GUI.EndGroup();
     }
 }
