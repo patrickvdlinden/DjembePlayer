@@ -6,14 +6,16 @@ namespace Songs
     {
         private static Notation.Notation _djembeCallNotation;
         private static Notation.Notation _djembeEndNotation;
+
         private static Notation.Notation _dununbaNotation;
         private static Notation.Notation _dununbaVariationNotation;
         private static Notation.Notation _dununbaEndNotation;
+
         private static Notation.Notation _sangbanStartNotation;
         private static Notation.Notation _sangbanNotation;
         private static Notation.Notation _sangbanEndNotation;
 
-        public static Notation.ISong LoadSong()
+        public static ISong LoadSong()
         {
             LoadNotations();
 

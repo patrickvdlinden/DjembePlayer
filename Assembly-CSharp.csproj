@@ -58,6 +58,7 @@
   <ItemGroup>
     <Compile Include="Assets\NotationTokenizer\IToken.cs" />
     <Compile Include="Assets\Notation\ISongPart.cs" />
+    <Compile Include="Assets\Songs\Djagbe.cs" />
     <Compile Include="Assets\NotationTokenizer\ITokenDefinition.cs" />
     <Compile Include="Assets\Notation\SongPart.cs" />
     <Compile Include="Assets\NotationPlayer.cs" />
@@ -101,7 +102,8 @@
     <Compile Include="Assets\Songs\Soli.cs" />
     <Compile Include="Assets\Notation\InstrumentType.cs" />
     <Compile Include="Assets\DjembePlayer.cs" />
-    <Compile Include="Assets\Songs\Djagbe.cs" />
+    <Compile Include="Assets\Songs\Kadan.cs" />
+    <Compile Include="Assets\SoundPlayer.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
