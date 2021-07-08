@@ -1,23 +1,10 @@
-﻿using UnityEngine;
+﻿using Notation;
+using UnityEngine;
 
-[RequireComponent(typeof(AudioSource))]
-public class MetronomePlayer : MonoBehaviour
+public class MetronomePlayer : SoundPlayer
 {
-    private AudioSource _audioSource;
-    private AudioClip _audioClip;
-
-    public float PanStereo = 0f;
-    public float VolumeScale = 0.5f;
-
-    private void Start()
+    protected override void OnLoad()
     {
-        _audioSource = GetComponent<AudioSource>();
-        _audioClip = Resources.Load<AudioClip>("Audio/1001 Metronome");
-    }
-
-    public void PlaySound()
-    {
-        _audioSource.panStereo = PanStereo;
-        _audioSource.PlayOneShot(_audioClip, VolumeScale);
+        AudioClip = Resources.Load<AudioClip>("Audio/1001 Metronome");
     }
 }

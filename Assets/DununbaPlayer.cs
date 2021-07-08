@@ -2,7 +2,7 @@
 
 public class DununbaPlayer : InstrumentPlayer
 {
-    protected override void LoadAudioClips()
+    protected override void OnLoad()
     {
         AudioClips[Notation.SoundType.DounBell] = Resources.Load<AudioClip>("Audio/0407 Dununba bel");
         AudioClips[Notation.SoundType.DounOpen] = Resources.Load<AudioClip>("Audio/Dununba");

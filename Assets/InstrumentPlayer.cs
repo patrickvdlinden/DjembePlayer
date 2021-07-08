@@ -1,16 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Notation;
 using UnityEngine;
 
-[RequireComponent(typeof(AudioSource))]
-public abstract class InstrumentPlayer : MonoBehaviour
+public abstract class InstrumentPlayer : SoundPlayer
 {
-    private AudioSource _audioSource;
-
-    public float PanStereo = 0f;
-    public float VolumeScale = 0.5f;
-
     protected Dictionary<SoundType, AudioClip> AudioClips = new Dictionary<SoundType, AudioClip>();
 
     public virtual void PlaySound(ISound sound)
@@ -25,14 +20,6 @@ public abstract class InstrumentPlayer : MonoBehaviour
         }
     }
 
-    protected virtual void OnStart()
-    {
-        _audioSource = GetComponent<AudioSource>();
-        LoadAudioClips();
-    }
-
-    protected abstract void LoadAudioClips();
-
     protected virtual IEnumerator PlaySoundDelayed(ISound sound)
     {
         while (true)
@@ -45,16 +32,17 @@ public abstract class InstrumentPlayer : MonoBehaviour
 
     protected virtual void PlaySoundInternal(ISound sound)
     {
-        _audioSource.panStereo = PanStereo;
+        if (!AudioClips.Any())
+        {
+            // When the scene is reloaded (i.e. script update), the AudioClips dictionary gets cleared by Unity while Start() is not being invoked again.
+            Debug.LogWarning($"Note: The AudioClips dictionary for {GetType().Name} was empty. Trying to reload clips.");
+            Load();
+        }
 
         if (AudioClips.ContainsKey(sound.Type))
         {
-            _audioSource.PlayOneShot(AudioClips[sound.Type], VolumeScale);
+            AudioClip = AudioClips[sound.Type];
+            base.PlaySound();
         }
-    }
-
-    private void Start()
-    {
-        OnStart();
     }
 }

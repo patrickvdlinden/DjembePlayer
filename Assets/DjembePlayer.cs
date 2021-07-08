@@ -5,7 +5,7 @@ public class DjembePlayer : InstrumentPlayer
 {
     public DjembeType Type;
 
-    protected override void LoadAudioClips()
+    protected override void OnLoad()
     {
         if (Type == DjembeType.Solo)
         {

@@ -2,7 +2,7 @@
 
 public class KenkeniPlayer : InstrumentPlayer
 {
-    protected override void LoadAudioClips()
+    protected override void OnLoad()
     {
         AudioClips[Notation.SoundType.DounBell] = Resources.Load<AudioClip>("Audio/0207 Kenkeni bel");
         AudioClips[Notation.SoundType.DounOpen] = Resources.Load<AudioClip>("Audio/Kenkeni");

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Notation;
@@ -35,6 +36,14 @@ mv1.1vO1vO .1v.1v.1. .v1.1vO1. v.1vO1.1v. mvO1.1v1vO .1v.1v.1. .v1.1vO1. v.1.1v.
     string _bpmValue = DefaultBpm.ToString();
     int _selectedSongIndex;
 
+    private readonly Dictionary<string, Func<ISong>> _songs = new Dictionary<string, Func<ISong>>
+    {
+        { "Soro (4/8)", () => Soro.LoadSong() },
+        { "Soli (12/8)", () => Soli.LoadSong() },
+        { "Djagbé (4/8)", () => Djagbe.LoadSong() },
+        { "Kadan (6/8)", () => Kadan.LoadSong() }
+    };
+
     void Start()
     {
         _djembePlayer1 = Djembe.GetComponent<DjembePlayer>();
@@ -70,19 +79,8 @@ mv1.1vO1vO .1v.1v.1. .v1.1vO1. v.1vO1.1v. mvO1.1v1vO .1v.1v.1. .v1.1vO1. v.1.1v.
         }
         else
         {
-            switch (_selectedSongIndex)
-            {
-                default:
-                case 0:
-                    song = Soro.LoadSong();
-                    break;
-                case 1:
-                    song = Soli.LoadSong();
-                    break;
-                case 2:
-                    song = Djagbe.LoadSong();
-                    break;
-            }
+            var songName = _songs.Keys.ToArray()[_selectedSongIndex];
+            song = _songs[songName]();
         }
 
         var players = new Dictionary<InstrumentType, InstrumentPlayer[]>
@@ -124,7 +122,7 @@ mv1.1vO1vO .1v.1v.1. .v1.1vO1. v.1vO1.1v. mvO1.1v1vO .1v.1v.1. .v1.1vO1. v.1.1v.
                 }
             }
 
-            if (noteIndex % 4 == 0 && _metronomePlayer.enabled)
+            if (noteIndex % song.NotesPerBeat == 0 && _metronomePlayer.enabled)
             {
                 _metronomePlayer.PlaySound();
             }
@@ -162,17 +160,32 @@ mv1.1vO1vO .1v.1v.1. .v1.1vO1. v.1vO1.1v. mvO1.1v1vO .1v.1v.1. .v1.1vO1. v.1.1v.
     }
     void OnGUI()
     {
-        GUI.BeginGroup(new Rect(10, 10, 200, 30));
+        GUI.BeginGroup(new Rect(10, 10, 600, 30));
         GUI.color = Color.black;
-        GUI.Label(new Rect(0, 0, 50, 30), "BPM:");
+        GUI.Label(new Rect(10, 0, 50, 30), "BPM:");
 
         GUI.color = Color.white;
-        _bpmValue = GUI.TextField(new Rect(50, 0, 50, 30), _bpmValue);
-        if (GUI.Button(new Rect(100, 0, 35, 30), "OK"))
+
+        if (GUI.Button(new Rect(50, 0, 35, 30), "-"))
+        {
+            _bpm = _bpm % 5 == 0 ? _bpm - 5 : _bpm - _bpm % 5;
+            _bpmValue = _bpm.ToString();
+        }
+
+        if (GUI.Button(new Rect(90, 0, 35, 30), "+"))
+        {
+            _bpm = _bpm % 5 == 0 ? _bpm + 5 : _bpm + 5 - _bpm % 5;
+            _bpmValue = _bpm.ToString();
+        }
+
+        _bpmValue = GUI.TextField(new Rect(130, 0, 50, 30), _bpmValue);
+
+        if (GUI.Button(new Rect(185, 0, 35, 30), "OK"))
         {
             int.TryParse(_bpmValue, out _bpm);
         }
-        if (GUI.Button(new Rect(135, 0, 60, 30), "Reset"))
+
+        if (GUI.Button(new Rect(225, 0, 60, 30), "Reset"))
         {
             _bpm = DefaultBpm;
             _bpmValue = DefaultBpm.ToString();
@@ -182,7 +195,7 @@ mv1.1vO1vO .1v.1v.1. .v1.1vO1. v.1vO1.1v. mvO1.1v1vO .1v.1v.1. .v1.1vO1. v.1.1v.
 
         GUI.BeginGroup(new Rect(10, 50, 650, 40));
         GUI.color = Color.white;
-        _selectedSongIndex = GUI.SelectionGrid(new Rect(10, 0, 540, 30), _selectedSongIndex, new[] { "Soro (4/8)", "Soli (12/8)", "Djagbé (4/8)" }, 3);
+        _selectedSongIndex = GUI.SelectionGrid(new Rect(10, 0, 620, 30), _selectedSongIndex, _songs.Keys.ToArray(), 4);
 
         GUI.EndGroup();
 
@@ -202,26 +215,36 @@ mv1.1vO1vO .1v.1v.1. .v1.1vO1. v.1vO1.1v. mvO1.1v1vO .1v.1v.1. .v1.1vO1. v.1.1v.
         GUI.EndGroup();
 
         GUI.BeginGroup(new Rect(10, 160, 650, 190));
-        GUI.color = Color.black;
-        _djembePlayer1.enabled = GUI.Toggle(new Rect(10, 10, 150, 30), _djembePlayer1.enabled, "Djembe 1");
-        _djembePlayer1.PanStereo = GUI.HorizontalSlider(new Rect(160, 10, 150, 30), _djembePlayer1.PanStereo, -1f, 1f);
+        var players = new Dictionary<string, SoundPlayer>
+        {
+            { "Djembe 1", _djembePlayer1 },
+            { "Djembe 2", _djembePlayer2 },
+            { "Kenkeni", _kenkeniPlayer },
+            { "Sangban", _sangbanPlayer },
+            { "Dununba", _dununbaPlayer },
+            { "Metronome", _metronomePlayer },
+        };
 
         GUI.color = Color.black;
-        _djembePlayer2.enabled = GUI.Toggle(new Rect(10, 40, 150, 30), _djembePlayer2.enabled, "Djembe 2");
-        _djembePlayer2.PanStereo = GUI.HorizontalSlider(new Rect(160, 40, 150, 30), _djembePlayer2.PanStereo, -1f, 1f);
+        var yOffset = 0;
+        foreach (var pair in players)
+        {
+            var label = pair.Key;
+            var player = pair.Value;
 
-        GUI.color = Color.black;
-        _kenkeniPlayer.enabled = GUI.Toggle(new Rect(10, 70, 150, 30), _kenkeniPlayer.enabled, "Kenkeni");
-        _kenkeniPlayer.PanStereo = GUI.HorizontalSlider(new Rect(160, 70, 150, 30), _kenkeniPlayer.PanStereo, -1f, 1f);
+            player.enabled = GUI.Toggle(new Rect(10, yOffset + 10, 150, 30), player.enabled, label);
 
-        _sangbanPlayer.enabled = GUI.Toggle(new Rect(10, 100, 150, 30), _sangbanPlayer.enabled, "Sangban");
-        _sangbanPlayer.PanStereo = GUI.HorizontalSlider(new Rect(160, 100, 150, 30), _sangbanPlayer.PanStereo, -1f, 1f);
+            GUI.Label(new Rect(145, yOffset + 5, 15, 30), "L");
+            player.PanStereo = GUI.HorizontalSlider(new Rect(160, yOffset + 10, 150, 30), player.PanStereo, -1f, 1f);
+            GUI.Label(new Rect(315, yOffset + 5, 15, 30), "R");
 
-        _dununbaPlayer.enabled = GUI.Toggle(new Rect(10, 130, 150, 30), _dununbaPlayer.enabled, "Dununba");
-        _dununbaPlayer.PanStereo = GUI.HorizontalSlider(new Rect(160, 130, 150, 30), _dununbaPlayer.PanStereo, -1f, 1f);
+            GUI.Label(new Rect(345, yOffset + 5, 35, 30), "Vol -");
+            player.VolumeScale = GUI.HorizontalSlider(new Rect(375, yOffset + 10, 150, 30), player.VolumeScale, 0f, 1f);
+            GUI.Label(new Rect(530, yOffset + 5, 35, 30), "Vol +");
 
-        _metronomePlayer.enabled = GUI.Toggle(new Rect(10, 160, 150, 30), _metronomePlayer.enabled, "Metronome");
-        _metronomePlayer.PanStereo = GUI.HorizontalSlider(new Rect(160, 160, 150, 30), _metronomePlayer.PanStereo, -1f, 1f);
+            yOffset += 30;
+        }
+
         GUI.EndGroup();
 
         GUI.BeginGroup(new Rect(10, 370, 650, 200));

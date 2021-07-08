@@ -2,7 +2,7 @@
 
 public class SangbanPlayer : InstrumentPlayer
 {
-    protected override void LoadAudioClips()
+    protected override void OnLoad()
     {
         AudioClips[Notation.SoundType.DounBell] = Resources.Load<AudioClip>("Audio/0307 Sangban bel");
         AudioClips[Notation.SoundType.DounOpen] = Resources.Load<AudioClip>("Audio/Sangban");
