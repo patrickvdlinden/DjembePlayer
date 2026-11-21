@@ -26,13 +26,20 @@ describe.each(songs)('$name complete arrangement', song => {
   // The app omits Soro/Soli's silent count-in; the C# reference stays unchanged.
   const omittedSections = song.id === 'soro' || song.id === 'soli' ? 1 : 0;
   const omittedTicks = omittedSections * 4 * TICKS_PER_BEAT;
+  const groupConsecutiveSections = ['soro', 'soli', 'kadan'].includes(song.id);
 
   it('preserves every musical section, pattern, track assignment, and repeat count', () => {
     const expected: Reference['sections'] = [];
-    for (const section of reference.sections.slice(omittedSections)) {
+    for (const source of reference.sections.slice(omittedSections)) {
+      const section = { ...source, parts: source.parts.map(part => ({
+        ...part,
+        // Soro's lead notation includes the closing beat space needed by the font.
+        raw: song.id === 'soro' && part.trackId === 'djembe-1'
+          ? part.raw.replace(/(\S)(<m)$/, '$1 $2') : part.raw,
+      })) };
       const previous = expected.at(-1);
-      // Only Soro groups adjacent entries, and every instrument part must match.
-      if (song.id === 'soro' && previous && isDeepStrictEqual(previous.parts, section.parts)) {
+      // Group adjacent entries only when every instrument part matches.
+      if (groupConsecutiveSections && previous && isDeepStrictEqual(previous.parts, section.parts)) {
         previous.times += section.times;
       } else {
         expected.push({ ...section });
