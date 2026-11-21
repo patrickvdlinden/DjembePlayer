@@ -1,0 +1,77 @@
+import { parseNotation } from '../core/parser';
+import type { Instrument, Song } from '../core/model';
+import { ensembleSection, ensembleTracks } from './ensemble';
+
+// Complete arrangement from Assets/Songs/Soli.cs.
+const pattern = (name: string, raw: string, instrument: Instrument) =>
+  parseNotation(raw, { name, instrument, subdivisions: 3 });
+
+const patterns = {
+  djembeCall: pattern("Call", "miO1.1O O1.1O O1.1O O1.1. m", 'djembe'),
+  djembeWait: pattern("Wait", "m.1.1. .1.1. .1.1. .1.1. m", 'djembe'),
+  djembeAccompany1: pattern("Accompany 1", "m>X1.1O X1.1B X1.1O X1.1. <m", 'djembe'),
+  djembePhrase1: pattern("Phrase 1", "m>O1O1X .1O1X B1.1X B1.1X <m", 'djembe'),
+  djembePhrase2: pattern("Phrase 2", "m>O1O1X .1B1X O1O1X .1B1X <m", 'djembe'),
+  djembePhrase3: pattern("Phrase 3", "m>O1O1X X1.1X X1.1X X1.1X mO1O1X X1.1X O1O1X O1O1X <m", 'djembe'),
+  djembePhrase3End: pattern("Phrase 3 End", "m>O1O1X X1.1X X1.1X X1.1X mO1O1X X1.1. .1.1. .1.1. <m", 'djembe'),
+  djembeSolo1: pattern("Solo 1", "mB1.1. X1O1O X1.1. B1X1X mX1O1O X1O1O X1.1. B1X1X m", 'djembe'),
+  djembeSolo1End: pattern("Solo 1 End", "mB1.1. X1O1O X1.1. B1X1X mX1O1O X1O1O X1.1. .1.1. m", 'djembe'),
+  djembeSolo2: pattern("Solo 2", "mB1.1. B1X1X O1X1O O1X1X mB1.1. B1X1X O1X1O O1X1X mB1.1. B1X1X O1X1O O1X1X mO1X1O O1X1X O1X1O O1X1X m", 'djembe'),
+  djembeSolo2End: pattern("Solo 2 End", "mB1.1. B1X1X O1X1O O1X1X mB1.1. B1X1X O1X1O O1X1X mB1.1. B1X1X O1X1O O1X1X mO1X1O O1X1X O1X1O O1.1. m", 'djembe'),
+  djembeSolo3Start: pattern("Solo 3 Start", "miO1.1O O1.1O O1.1O B1X1X m", 'djembe'),
+  djembeSolo3: pattern("Solo 3", "mB1X1X .1o2o-O O1O1X X1.1B m.1X1X .1.1X X1.1. B1X1X m", 'djembe'),
+  djembeSolo3End: pattern("Solo 3 End", "mB1X1X .1o2o-O O1O1X X1.1B m.1X1X .1.1X X1.1. .1.1. m", 'djembe'),
+  kenkeni: pattern("Kenkeni Base", "m>.1.1. .1O1O .1.1. .1O1O <m", 'kenkeni'),
+  sangbanStartFromBreak: pattern("Sangban Start from Break", "mvO1.1v vO1.1v vO1.1vO .1vO1. mvO1.1v v1.1v v1.1v vO1.1v m", 'sangban'),
+  sangban: pattern("Sangban Base", "m>vO1.1v .1vX1. vX1.1v vO1.1v <m", 'sangban'),
+  dununbaStartFromBreak: pattern("Dununba Start from Break", "mvO1.1v vO1.1v vO1.1vO .1vO1. mvO1.1v v1.1v v1.1vO vO1.1vO m", 'dununba'),
+  dununba: pattern("Dununba Base", "m>vO1.1vO .1v1. v1.1vO vO1.1vO <m", 'dununba'),
+  djembeEchauffementCall: pattern("Echauffement", "mO1O1O X1X1X .1.1. .1.1. m", 'djembe'),
+  djembeEchauffement: pattern("Echauffement", "m>O1O1O X1X1X O1O1O X1X1X <m", 'djembe'),
+  djembeEchauffementEnd: pattern("Echauffement", "mO1O1O X1X1X O1O1O X1.1. m", 'djembe'),
+  sangbanEchauffementStart: pattern("Echauffement Start", "mvO1.1v .1vO1. v1.1vO .1v1. m", 'sangban'),
+  sangbanEchauffement: pattern("Echauffement", "m>vX1.1v .1vO1. vO1.1vO .1vO1. <m", 'sangban'),
+  sangbanEchauffementEnd: pattern("Echauffement End", "mvX1.1v .1v1. v1.1v vO1.1v m", 'sangban'),
+  dununbaEchauffement: pattern("Echauffement", "m>vO1.1vO vO1.1vO vO1.1vO vO1.1vO <m", 'dununba'),
+  djembeBreak: pattern("Break", "m>B1X1X B1X1X B1.1O .1O1. mzX1.1. .1.1. .1.1. .1.1. <m", 'djembe'),
+  djembeBreakWithCall: pattern("Break with Call", "mB1X1X B1X1X B1.1O .1O1. mzX1.1O O1.1O O1.1O O1.1. m", 'djembe'),
+  djembeBreakEnd: pattern("Break End", "mB1X1X B1X1X B1.1O .1O1. mzX1.1. .1.1. .1.1. .1.1. m", 'djembe'),
+  kenkeniBreak: pattern("Break", "m>vO1.1v vO1.1v vO1.1vO .1vO1. mvO1.1v v1.1v v1.1v v1.1v <m", 'kenkeni'),
+  kenkeniBreakEnd: pattern("Break End", "mvO1.1v vO1.1v vO1.1vO .1vO1. mvO1.1. .1.1. .1.1. .1.1. m", 'kenkeni'),
+  sangbanBreak: pattern("Break", "m>vO1.1v vO1.1v vO1.1vO .1vO1. mvO1.1v v1.1v v1.1v v1.1v <m", 'sangban'),
+  sangbanBreakEnd: pattern("Break End", "mvO1.1v vO1.1v vO1.1vO .1vO1. mvO1.1. .1.1. .1.1. .1.1. m", 'sangban'),
+  dununbaBreak: pattern("Break", "m>vO1.1v vO1.1v vO1.1vO .1vO1. mvO1.1v v1.1v v1.1v v1.1v <m", 'dununba'),
+  dununbaBreakEnd: pattern("Break End", "mvO1.1v vO1.1v vO1.1vO .1vO1. mvO1.1. .1.1. .1.1. .1.1. m", 'dununba'),
+};
+
+export const soli: Song = {
+  id: 'soli', name: 'Soli', bpm: 100, beatsPerMeasure: 4,
+  description: "A ternary groove with three phrases, three solos, breaks, and échauffement.",
+  tracks: ensembleTracks(),
+  sections: [
+    ensembleSection('section-01', "Opening rest", 1, { lead: patterns.djembeWait }),
+    ensembleSection('section-02', "Call", 1, { lead: patterns.djembeCall }),
+    ensembleSection('section-03', "Break End", 3, { lead: patterns.djembeBreakEnd, accompaniment: patterns.djembeBreak, kenkeni: patterns.kenkeniBreak, sangban: patterns.sangbanBreak, dununba: patterns.dununbaBreak }),
+    ensembleSection('section-04', "Break with Call", 1, { lead: patterns.djembeBreakWithCall, accompaniment: patterns.djembeBreak, kenkeni: patterns.kenkeniBreak, sangban: patterns.sangbanStartFromBreak, dununba: patterns.dununbaStartFromBreak }),
+    ensembleSection('section-05', "Phrase 1", 4, { lead: patterns.djembePhrase1, accompaniment: patterns.djembeAccompany1, kenkeni: patterns.kenkeni, sangban: patterns.sangban, dununba: patterns.dununba }),
+    ensembleSection('section-06', "Phrase 2", 4, { lead: patterns.djembePhrase2, accompaniment: patterns.djembeAccompany1, kenkeni: patterns.kenkeni, sangban: patterns.sangban, dununba: patterns.dununba }),
+    ensembleSection('section-07', "Phrase 3", 3, { lead: patterns.djembePhrase3, accompaniment: patterns.djembeAccompany1, kenkeni: patterns.kenkeni, sangban: patterns.sangban, dununba: patterns.dununba }),
+    ensembleSection('section-08', "Phrase 3 End", 1, { lead: patterns.djembePhrase3End, accompaniment: patterns.djembeAccompany1, kenkeni: patterns.kenkeni, sangban: patterns.sangban, dununba: patterns.dununba }),
+    ensembleSection('section-09', "Call", 1, { lead: patterns.djembeCall, accompaniment: patterns.djembeAccompany1, kenkeni: patterns.kenkeni, sangban: patterns.sangban, dununba: patterns.dununba }),
+    ensembleSection('section-10', "Solo 1", 3, { lead: patterns.djembeSolo1, accompaniment: patterns.djembeAccompany1, kenkeni: patterns.kenkeni, sangban: patterns.sangban, dununba: patterns.dununba }),
+    ensembleSection('section-11', "Solo 1 End", 1, { lead: patterns.djembeSolo1End, accompaniment: patterns.djembeAccompany1, kenkeni: patterns.kenkeni, sangban: patterns.sangban, dununba: patterns.dununba }),
+    ensembleSection('section-12', "Call", 1, { lead: patterns.djembeCall, accompaniment: patterns.djembeAccompany1, kenkeni: patterns.kenkeni, sangban: patterns.sangban, dununba: patterns.dununba }),
+    ensembleSection('section-13', "Solo 2", 3, { lead: patterns.djembeSolo2, accompaniment: patterns.djembeAccompany1, kenkeni: patterns.kenkeni, sangban: patterns.sangban, dununba: patterns.dununba }),
+    ensembleSection('section-14', "Solo 2 End", 1, { lead: patterns.djembeSolo2End, accompaniment: patterns.djembeAccompany1, kenkeni: patterns.kenkeni, sangban: patterns.sangban, dununba: patterns.dununba }),
+    ensembleSection('section-15', "Solo 3 Start", 1, { lead: patterns.djembeSolo3Start, accompaniment: patterns.djembeAccompany1, kenkeni: patterns.kenkeni, sangban: patterns.sangban, dununba: patterns.dununba }),
+    ensembleSection('section-16', "Solo 3", 3, { lead: patterns.djembeSolo3, accompaniment: patterns.djembeAccompany1, kenkeni: patterns.kenkeni, sangban: patterns.sangban, dununba: patterns.dununba }),
+    ensembleSection('section-17', "Solo 3 End", 1, { lead: patterns.djembeSolo3End, accompaniment: patterns.djembeAccompany1, kenkeni: patterns.kenkeni, sangban: patterns.sangban, dununba: patterns.dununba }),
+    ensembleSection('section-18', "Call", 1, { lead: patterns.djembeCall, accompaniment: patterns.djembeAccompany1, kenkeni: patterns.kenkeni, sangban: patterns.sangban, dununba: patterns.dununba }),
+    ensembleSection('section-19', "Échauffement call", 1, { lead: patterns.djembeEchauffementCall, accompaniment: patterns.djembeAccompany1, kenkeni: patterns.kenkeni, sangban: patterns.sangban, dununba: patterns.dununba }),
+    ensembleSection('section-20', "Échauffement", 1, { lead: patterns.djembeEchauffement, accompaniment: patterns.djembeAccompany1, kenkeni: patterns.kenkeni, sangban: patterns.sangbanEchauffementStart, dununba: patterns.dununbaEchauffement }),
+    ensembleSection('section-21', "Échauffement", 6, { lead: patterns.djembeEchauffement, accompaniment: patterns.djembeAccompany1, kenkeni: patterns.kenkeni, sangban: patterns.sangbanEchauffement, dununba: patterns.dununbaEchauffement }),
+    ensembleSection('section-22', "Échauffement ending", 1, { lead: patterns.djembeEchauffementEnd, accompaniment: patterns.djembeAccompany1, kenkeni: patterns.kenkeni, sangban: patterns.sangbanEchauffement, dununba: patterns.dununbaEchauffement }),
+    ensembleSection('section-23', "Call", 1, { lead: patterns.djembeCall, accompaniment: patterns.djembeAccompany1, kenkeni: patterns.kenkeni, sangban: patterns.sangbanEchauffementEnd, dununba: patterns.dununbaEchauffement }),
+    ensembleSection('section-24', "Break End", 1, { lead: patterns.djembeBreakEnd, accompaniment: patterns.djembeBreakEnd, kenkeni: patterns.kenkeniBreakEnd, sangban: patterns.sangbanBreakEnd, dununba: patterns.dununbaBreakEnd }),
+  ],
+};

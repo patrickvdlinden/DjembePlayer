@@ -1,6 +1,6 @@
 # Djembe Player — React app
 
-The first Unity migration milestone: React, TypeScript, Vite, and Tone.js. Includes the **complete Djagbé arrangement** from `Assets/Songs/Djagbe.cs`, the original SlapToonToonSlap font, and the original recordings.
+A React, TypeScript, Vite, and Tone.js player with the **complete Djagbé, Soro, Soli, and Kadan arrangements** from `Assets/Songs/`, the original SlapToonToonSlap font, and the original recordings.
 
 ## Run
 
@@ -25,8 +25,9 @@ Vite copies the audio and font from `../Assets/Resources/` into the ignored `pub
 
 ## What works
 
-- Complete Djagbé: opening call, ten cycles of base/variation, closing call, ending. 43 measures / 172 beats; approximately 1:43 at 100 BPM.
-- Independent djembe, sangban, and dununba tracks; simultaneous bell/drum strikes and overlapping sample tails.
+- Song selector for Djagbé, Soro, Soli, and Kadan. Changing songs stops playback and resets the position, tempo, and track mixer for the selected song.
+- Complete calls, accompaniments, solos, breaks, échauffement, section order, and repeats from each original song definition.
+- Independent tracks, including two djembes with separate solo/accompaniment recordings, kenkeni, sangban, and dununba; simultaneous bell/drum strikes and overlapping sample tails.
 - Play, Stop, tempo changes (30–240 BPM), whole-song looping, and metronome.
 - Track mute, volume, and stereo panning.
 - Current section, repeat pass, labeled beat indicators, and progress.
@@ -34,10 +35,19 @@ Vite copies the audio and font from `../Assets/Resources/` into the ignored `pub
 - Notation display/editing in the original font, with a source-text toggle. Load custom patterns for djembe, kenkeni, sangban, dununba, or krin, using three or four pulses per beat; each custom pattern plays four times.
 - Responsive layout for desktop and phone-sized screens.
 
+| Song | Source sections | Measures including repeats | Beats | Sound events |
+| --- | ---: | ---: | ---: | ---: |
+| Djagbé | 23 | 43 | 172 | 1,153 |
+| Soro | 42 | 71 | 284 | 4,159 |
+| Soli | 24 | 74 | 296 | 3,157 |
+| Kadan | 18 | 70 | 280 | 3,425 |
+
+The pattern editor remains separate from the song library. Loading a custom pattern remembers which library song you were practicing, so its return button takes you back to that song.
+
 ## Structure
 
 - `src/core/`: framework-independent tokenizer, parser, model, and arrangement compiler. No React, Tone.js, DOM, or browser dependencies; suitable for sharing with a future Expo app.
-- `src/songs/djagbe.ts`: original patterns and complete arrangement expressed as data. Tracks have explicit identities, separate from instrument types.
+- `src/songs/`: original patterns and complete arrangements expressed as native TypeScript data. `catalog.ts` lists the library; `ensemble.ts` defines explicit lead/accompaniment/percussion track identities for the five-track songs.
 - `src/audio/`: sample mappings and a Tone.js engine with its own AudioContext, transport, and node lifecycle.
 - `src/App.tsx`: React controls and notation view.
 - `scripts/sync-assets.mjs`: copy original font and samples into Vite's public directory.
@@ -58,6 +68,8 @@ At a natural ending, playback callbacks are invalidated and removed **before** t
 
 `original-patterns.json` contains independent reference output exported from the unchanged C# parser for all **94 distinct patterns** used in Soro, Soli, Kadan, and Djagbé. The tests compare sound types, ticks, flam delays, durations, and repeat metadata. These reference fixtures are test data, not runtime adapters. Additional tests cover exact fractional spacing, malformed input, complete song counts, shorter-part cycling, distinct tracks of the same instrument, and audio cancellation/retry behavior.
 
+`src/songs/__tests__/original-arrangements.json` was independently exported by executing the C# song definitions. All four song imports are checked against its complete section/track/pattern/repeat sequences and a SHA-256 digest of every timed sound event, including short-part cycles and flam delays. The tests also verify that all referenced instrument recordings exist.
+
 For real Web Audio regressions, run `pnpm dev`, open `http://127.0.0.1:5173/tests/audio.html`, and click **Run audio regressions (silent)**. This development-only page measures hard-left/right separation, live panning of the original dununba recordings, the exact strike count at a natural ending, and silence after Stop. It uses the actual player, Tone transport, and audio nodes; synthetic sine buffers replace sample I/O only where deterministic input is needed. Speaker output is muted. These measurements occur before the device/preview's final output path, so they cannot verify downstream mono settings. The test page is not included in the production build.
 
-Only Djagbé's complete song arrangement has been migrated. The remaining songs, persistence, offline installation, and native mobile playback are future work. Tone.js runs in the browser; a future Expo app can share `core/` and song data but needs a validated native audio backend and adapted UI. Phone lock/background audio is subject to browser/OS interruptions.
+All four existing song arrangements are migrated. Persistence, offline installation, and native mobile playback are future work. Tone.js runs in the browser; a future Expo app can share `core/` and song data but needs a validated native audio backend and adapted UI. Phone lock/background audio is subject to browser/OS interruptions.

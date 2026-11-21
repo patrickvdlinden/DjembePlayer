@@ -1,0 +1,2827 @@
+[
+  {
+    "id": "soro",
+    "sectionCount": 42,
+    "occurrences": 48,
+    "durationTicks": 204480,
+    "soundEvents": 4159,
+    "timelineHash": "0d303e59e0b20a62dc412afe9e35c433417c347c9180c1cf10c94fe11aa815df",
+    "sections": [
+      {
+        "times": 1,
+        "parts": [
+          {
+            "trackId": "djembe-1",
+            "raw": "m.1.1.1. .1.1.1. .1.1.1. .1.1.1. m",
+            "subdivisions": 4
+          }
+        ]
+      },
+      {
+        "times": 1,
+        "parts": [
+          {
+            "trackId": "djembe-1",
+            "raw": "miX1.1X1X .1X1.1O O1.1X1. O1O1.1. m",
+            "subdivisions": 4
+          },
+          {
+            "trackId": "sangban-1",
+            "raw": "m.1.1.1. .1.1.1. .1.1.1. vO1.1v1. m",
+            "subdivisions": 4
+          },
+          {
+            "trackId": "dununba-1",
+            "raw": "m.1.1.1. .1.1.1. .1.1vO1. vO1.1vO1. m",
+            "subdivisions": 4
+          }
+        ]
+      },
+      {
+        "times": 1,
+        "parts": [
+          {
+            "trackId": "djembe-1",
+            "raw": "m>B1.1O1O .1.1X1. B1.1O1O .1B1X1. <m",
+            "subdivisions": 4
+          },
+          {
+            "trackId": "djembe-2",
+            "raw": "m>X1.1.1X X1.1O1O X1.1.1X X1.1O1O <m",
+            "subdivisions": 4
+          },
+          {
+            "trackId": "kenkeni-1",
+            "raw": "m>vO1.1v1. vO1.1v1. vO1.1v1. vO1.1v1. <m",
+            "subdivisions": 4
+          },
+          {
+            "trackId": "sangban-1",
+            "raw": "m>vO1.1v1. v1.1vX1. vX1.1v1. vO1.1v1. <m",
+            "subdivisions": 4
+          },
+          {
+            "trackId": "dununba-1",
+            "raw": "m>vO1.1vO1vO .1v1v1. v1.1vO1. vO1.1vO1. <m",
+            "subdivisions": 4
+          }
+        ]
+      },
+      {
+        "times": 1,
+        "parts": [
+          {
+            "trackId": "djembe-1",
+            "raw": "m>B1.1O1O .1.1X1. B1.1O1O .1B1X1. <m",
+            "subdivisions": 4
+          },
+          {
+            "trackId": "djembe-2",
+            "raw": "m>X1.1.1X X1.1O1O X1.1.1X X1.1O1O <m",
+            "subdivisions": 4
+          },
+          {
+            "trackId": "kenkeni-1",
+            "raw": "m>vO1.1v1. vO1.1v1. vO1.1v1. vO1.1v1. <m",
+            "subdivisions": 4
+          },
+          {
+            "trackId": "sangban-1",
+            "raw": "m>vO1.1v1. v1.1vX1. vX1.1v1. vO1.1v1. <m",
+            "subdivisions": 4
+          },
+          {
+            "trackId": "dununba-1",
+            "raw": "m>vO1.1vO1vO .1v1v1. v1.1vO1. vO1.1vO1. <m",
+            "subdivisions": 4
+          }
+        ]
+      },
+      {
+        "times": 1,
+        "parts": [
+          {
+            "trackId": "djembe-1",
+            "raw": "m>B1.1O1O .1.1X1. B1.1O1O .1B1X1. <m",
+            "subdivisions": 4
+          },
+          {
+            "trackId": "djembe-2",
+            "raw": "m>X1.1.1X X1.1O1O X1.1.1X X1.1O1O <m",
+            "subdivisions": 4
+          },
+          {
+            "trackId": "kenkeni-1",
+            "raw": "m>vO1.1v1. vO1.1v1. vO1.1v1. vO1.1v1. <m",
+            "subdivisions": 4
+          },
+          {
+            "trackId": "sangban-1",
+            "raw": "m>vO1.1v1. v1.1vX1. vX1.1v1. vO1.1v1. <m",
+            "subdivisions": 4
+          },
+          {
+            "trackId": "dununba-1",
+            "raw": "m>vO1.1vO1vO .1v1v1. v1.1vO1. vO1.1vO1. <m",
+            "subdivisions": 4
+          }
+        ]
+      },
+      {
+        "times": 1,
+        "parts": [
+          {
+            "trackId": "djembe-1",
+            "raw": "m>B1.1O1O .1.1X1. B1.1O1O .1.1.1. <m",
+            "subdivisions": 4
+          },
+          {
+            "trackId": "djembe-2",
+            "raw": "m>X1.1.1X X1.1O1O X1.1.1X X1.1O1O <m",
+            "subdivisions": 4
+          },
+          {
+            "trackId": "kenkeni-1",
+            "raw": "m>vO1.1v1. vO1.1v1. vO1.1v1. vO1.1v1. <m",
+            "subdivisions": 4
+          },
+          {
+            "trackId": "sangban-1",
+            "raw": "m>vO1.1v1. v1.1vX1. vX1.1v1. vO1.1v1. <m",
+            "subdivisions": 4
+          },
+          {
+            "trackId": "dununba-1",
+            "raw": "m>vO1.1vO1vO .1v1v1. v1.1vO1. vO1.1vO1. <m",
+            "subdivisions": 4
+          }
+        ]
+      },
+      {
+        "times": 1,
+        "parts": [
+          {
+            "trackId": "djembe-1",
+            "raw": "miX1.1X1X .1X1.1O O1.1X1. O1O1.1. m",
+            "subdivisions": 4
+          },
+          {
+            "trackId": "djembe-2",
+            "raw": "m>X1.1.1X X1.1O1O X1.1.1X X1.1O1O <m",
+            "subdivisions": 4
+          },
+          {
+            "trackId": "kenkeni-1",
+            "raw": "m>vO1.1v1. vO1.1v1. vO1.1v1. vO1.1v1. <m",
+            "subdivisions": 4
+          },
+          {
+            "trackId": "sangban-1",
+            "raw": "m>vO1.1v1. v1.1vX1. vX1.1v1. vO1.1v1. <m",
+            "subdivisions": 4
+          },
+          {
+            "trackId": "dununba-1",
+            "raw": "m>vO1.1vO1vO .1v1v1. v1.1vO1. vO1.1vO1. <m",
+            "subdivisions": 4
+          }
+        ]
+      },
+      {
+        "times": 1,
+        "parts": [
+          {
+            "trackId": "djembe-1",
+            "raw": "m>O1O1O1X X1X1X1X O1O1O1X X1X1X1X <m",
+            "subdivisions": 4
+          },
+          {
+            "trackId": "djembe-2",
+            "raw": "m>X1.1.1X X1.1O1O X1.1.1X X1.1O1O <m",
+            "subdivisions": 4
+          },
+          {
+            "trackId": "kenkeni-1",
+            "raw": "m>vO1.1v1. vO1.1v1. vO1.1v1. vO1.1v1. <m",
+            "subdivisions": 4
+          },
+          {
+            "trackId": "sangban-1",
+            "raw": "m>vO1.1v1. v1.1vX1. vX1.1v1. vO1.1v1. <m",
+            "subdivisions": 4
+          },
+          {
+            "trackId": "dununba-1",
+            "raw": "m>vO1.1vO1vO .1v1v1. v1.1vO1. vO1.1vO1. <m",
+            "subdivisions": 4
+          }
+        ]
+      },
+      {
+        "times": 2,
+        "parts": [
+          {
+            "trackId": "djembe-1",
+            "raw": "m>O1O1O1X X1X1X1X O1O1O1X X1X1X1X <m",
+            "subdivisions": 4
+          },
+          {
+            "trackId": "djembe-2",
+            "raw": "m>X1.1.1X X1.1O1O X1.1.1X X1.1O1O <m",
+            "subdivisions": 4
+          },
+          {
+            "trackId": "kenkeni-1",
+            "raw": "m>vO1.1v1. vO1.1v1. vO1.1v1. vO1.1v1. <m",
+            "subdivisions": 4
+          },
+          {
+            "trackId": "sangban-1",
+            "raw": "m>vO1.1v1vO .1v1vO1. v1vO1.1v vO1.1v1. <m",
+            "subdivisions": 4
+          },
+          {
+            "trackId": "dununba-1",
+            "raw": "m>vO1vO1.1vO .1vO1.1vO vO1.1vO1vO .1vO1vO1. <m",
+            "subdivisions": 4
+          }
+        ]
+      },
+      {
+        "times": 1,
+        "parts": [
+          {
+            "trackId": "djembe-1",
+            "raw": "mO1O1O1X X1X1X1X O1O1O1. zX1.1.1. m",
+            "subdivisions": 4
+          },
+          {
+            "trackId": "djembe-2",
+            "raw": "m>X1.1.1X X1.1O1O X1.1.1X X1.1O1O <m",
+            "subdivisions": 4
+          },
+          {
+            "trackId": "kenkeni-1",
+            "raw": "m>vO1.1v1. vO1.1v1. vO1.1v1. vO1.1v1. <m",
+            "subdivisions": 4
+          },
+          {
+            "trackId": "sangban-1",
+            "raw": "m>vO1.1v1vO .1v1vO1. v1vO1.1v vO1.1v1. <m",
+            "subdivisions": 4
+          },
+          {
+            "trackId": "dununba-1",
+            "raw": "m>vO1vO1.1vO .1vO1.1vO vO1.1vO1vO .1vO1vO1. <m",
+            "subdivisions": 4
+          }
+        ]
+      },
+      {
+        "times": 1,
+        "parts": [
+          {
+            "trackId": "djembe-1",
+            "raw": "miX1.1X1X .1X1.1O O1.1X1. O1O1.1. m",
+            "subdivisions": 4
+          },
+          {
+            "trackId": "djembe-2",
+            "raw": "m>X1.1.1X X1.1O1O X1.1.1X X1.1O1O <m",
+            "subdivisions": 4
+          },
+          {
+            "trackId": "kenkeni-1",
+            "raw": "m>vO1.1v1. vO1.1v1. vO1.1v1. vO1.1v1. <m",
+            "subdivisions": 4
+          },
+          {
+            "trackId": "sangban-1",
+            "raw": "mv1vO1.1vO .1vO1.1vO vO1.1v1. vO1.1v1. m",
+            "subdivisions": 4
+          },
+          {
+            "trackId": "dununba-1",
+            "raw": "mvO1vO1.1vO .1vO1.1vO vO1.1vO1. vO1.1vO1. m",
+            "subdivisions": 4
+          }
+        ]
+      },
+      {
+        "times": 1,
+        "parts": [
+          {
+            "trackId": "djembe-1",
+            "raw": "m.1.1.1. .1.1.1. .1.1.1. .1.1.1. m",
+            "subdivisions": 4
+          },
+          {
+            "trackId": "djembe-2",
+            "raw": "m>X1.1.1X X1.1O1O X1.1.1X X1.1O1O <m",
+            "subdivisions": 4
+          },
+          {
+            "trackId": "kenkeni-1",
+            "raw": "m>vO1.1v1. vO1.1v1. vO1.1v1. vO1.1v1. <m",
+            "subdivisions": 4
+          },
+          {
+            "trackId": "sangban-1",
+            "raw": "m>vO1.1v1. v1.1vX1. vX1.1v1. vO1.1v1. <m",
+            "subdivisions": 4
+          },
+          {
+            "trackId": "dununba-1",
+            "raw": "m>vO1.1vO1vO .1v1v1. v1.1vO1. vO1.1vO1. <m",
+            "subdivisions": 4
+          }
+        ]
+      },
+      {
+        "times": 1,
+        "parts": [
+          {
+            "trackId": "djembe-1",
+            "raw": "m.1.1.1. .1.1.1. .1.1.1. .1.1.1. m",
+            "subdivisions": 4
+          },
+          {
+            "trackId": "djembe-2",
+            "raw": "m>X1.1.1X X1.1O1O X1.1.1X X1.1O1O <m",
+            "subdivisions": 4
+          },
+          {
+            "trackId": "kenkeni-1",
+            "raw": "m>vO1.1v1. vO1.1v1. vO1.1v1. vO1.1v1. <m",
+            "subdivisions": 4
+          },
+          {
+            "trackId": "sangban-1",
+            "raw": "m>vO1.1v1. v1.1vX1. vX1.1v1. vO1.1v1. <m",
+            "subdivisions": 4
+          },
+          {
+            "trackId": "dununba-1",
+            "raw": "m>vO1.1vO1vO .1v1v1. v1.1vO1. vO1.1vO1. <m",
+            "subdivisions": 4
+          }
+        ]
+      },
+      {
+        "times": 1,
+        "parts": [
+          {
+            "trackId": "djembe-1",
+            "raw": "m>X1O1O1X O1O1X1. .1.1X1. X1.1.1.<m",
+            "subdivisions": 4
+          },
+          {
+            "trackId": "djembe-2",
+            "raw": "m>X1.1.1X X1.1O1O X1.1.1X X1.1O1O <m",
+            "subdivisions": 4
+          },
+          {
+            "trackId": "kenkeni-1",
+            "raw": "m>vO1.1v1. vO1.1v1. vO1.1v1. vO1.1v1. <m",
+            "subdivisions": 4
+          },
+          {
+            "trackId": "sangban-1",
+            "raw": "m>vO1.1v1. v1.1vX1. vX1.1v1. vO1.1v1. <m",
+            "subdivisions": 4
+          },
+          {
+            "trackId": "dununba-1",
+            "raw": "m>vO1.1vO1vO .1v1v1. v1.1vO1. vO1.1vO1. <m",
+            "subdivisions": 4
+          }
+        ]
+      },
+      {
+        "times": 1,
+        "parts": [
+          {
+            "trackId": "djembe-1",
+            "raw": "m>X1O1O1X O1O1X1. .1.1X1. X1.1.1.<m",
+            "subdivisions": 4
+          },
+          {
+            "trackId": "djembe-2",
+            "raw": "m>X1.1.1X X1.1O1O X1.1.1X X1.1O1O <m",
+            "subdivisions": 4
+          },
+          {
+            "trackId": "kenkeni-1",
+            "raw": "m>vO1.1v1. vO1.1v1. vO1.1v1. vO1.1v1. <m",
+            "subdivisions": 4
+          },
+          {
+            "trackId": "sangban-1",
+            "raw": "m>vO1.1v1. v1.1vX1. vX1.1v1. vO1.1v1. <m",
+            "subdivisions": 4
+          },
+          {
+            "trackId": "dununba-1",
+            "raw": "m>vO1.1vO1vO .1v1v1. v1.1vO1. vO1.1vO1. <m",
+            "subdivisions": 4
+          }
+        ]
+      },
+      {
+        "times": 1,
+        "parts": [
+          {
+            "trackId": "djembe-1",
+            "raw": "m>X1O1O1X O1O1X1. .1.1X1. X1.1.1.<m",
+            "subdivisions": 4
+          },
+          {
+            "trackId": "djembe-2",
+            "raw": "m>X1.1.1X X1.1O1O X1.1.1X X1.1O1O <m",
+            "subdivisions": 4
+          },
+          {
+            "trackId": "kenkeni-1",
+            "raw": "m>vO1.1v1. vO1.1v1. vO1.1v1. vO1.1v1. <m",
+            "subdivisions": 4
+          },
+          {
+            "trackId": "sangban-1",
+            "raw": "m>vO1.1v1. v1.1vX1. vX1.1v1. vO1.1v1. <m",
+            "subdivisions": 4
+          },
+          {
+            "trackId": "dununba-1",
+            "raw": "m>vO1.1vO1vO .1v1v1. v1.1vO1. vO1.1vO1. <m",
+            "subdivisions": 4
+          }
+        ]
+      },
+      {
+        "times": 1,
+        "parts": [
+          {
+            "trackId": "djembe-1",
+            "raw": "m>X1O1O1X O1O1X1. .1.1X1. X1.1.1.<m",
+            "subdivisions": 4
+          },
+          {
+            "trackId": "djembe-2",
+            "raw": "m>X1.1.1X X1.1O1O X1.1.1X X1.1O1O <m",
+            "subdivisions": 4
+          },
+          {
+            "trackId": "kenkeni-1",
+            "raw": "m>vO1.1v1. vO1.1v1. vO1.1v1. vO1.1v1. <m",
+            "subdivisions": 4
+          },
+          {
+            "trackId": "sangban-1",
+            "raw": "m>vO1.1v1. v1.1vX1. vX1.1v1. vO1.1v1. <m",
+            "subdivisions": 4
+          },
+          {
+            "trackId": "dununba-1",
+            "raw": "m>vO1.1vO1vO .1v1v1. v1.1vO1. vO1.1vO1. <m",
+            "subdivisions": 4
+          }
+        ]
+      },
+      {
+        "times": 1,
+        "parts": [
+          {
+            "trackId": "djembe-1",
+            "raw": "miX1.1X1X .1X1.1O O1.1X1. O1O1.1. m",
+            "subdivisions": 4
+          },
+          {
+            "trackId": "djembe-2",
+            "raw": "m>X1.1.1X X1.1O1O X1.1.1X X1.1O1O <m",
+            "subdivisions": 4
+          },
+          {
+            "trackId": "kenkeni-1",
+            "raw": "m>vO1.1v1. vO1.1v1. vO1.1v1. vO1.1v1. <m",
+            "subdivisions": 4
+          },
+          {
+            "trackId": "sangban-1",
+            "raw": "m>vO1.1v1. v1.1vX1. vX1.1v1. vO1.1v1. <m",
+            "subdivisions": 4
+          },
+          {
+            "trackId": "dununba-1",
+            "raw": "m>vO1.1vO1vO .1v1v1. v1.1vO1. vO1.1vO1. <m",
+            "subdivisions": 4
+          }
+        ]
+      },
+      {
+        "times": 1,
+        "parts": [
+          {
+            "trackId": "djembe-1",
+            "raw": "m>.1.1iX1. x2x-x2x-X1X X1O1.1. .1.1.1.<m",
+            "subdivisions": 4
+          },
+          {
+            "trackId": "djembe-2",
+            "raw": "m>X1.1.1X X1.1O1O X1.1.1X X1.1O1O <m",
+            "subdivisions": 4
+          },
+          {
+            "trackId": "kenkeni-1",
+            "raw": "m>vO1.1v1. vO1.1v1. vO1.1v1. vO1.1v1. <m",
+            "subdivisions": 4
+          },
+          {
+            "trackId": "sangban-1",
+            "raw": "m>vO1.1v1. v1.1vX1. vX1.1v1. vO1.1v1. <m",
+            "subdivisions": 4
+          },
+          {
+            "trackId": "dununba-1",
+            "raw": "m>vO1.1vO1vO .1v1v1. v1.1vO1. vO1.1vO1. <m",
+            "subdivisions": 4
+          }
+        ]
+      },
+      {
+        "times": 1,
+        "parts": [
+          {
+            "trackId": "djembe-1",
+            "raw": "m>.1.1iX1. x2x-x2x-X1X X1O1.1. .1.1.1.<m",
+            "subdivisions": 4
+          },
+          {
+            "trackId": "djembe-2",
+            "raw": "m>X1.1.1X X1.1O1O X1.1.1X X1.1O1O <m",
+            "subdivisions": 4
+          },
+          {
+            "trackId": "kenkeni-1",
+            "raw": "m>vO1.1v1. vO1.1v1. vO1.1v1. vO1.1v1. <m",
+            "subdivisions": 4
+          },
+          {
+            "trackId": "sangban-1",
+            "raw": "m>vO1.1v1. v1.1vX1. vX1.1v1. vO1.1v1. <m",
+            "subdivisions": 4
+          },
+          {
+            "trackId": "dununba-1",
+            "raw": "m>vO1.1vO1vO .1v1v1. v1.1vO1. vO1.1vO1. <m",
+            "subdivisions": 4
+          }
+        ]
+      },
+      {
+        "times": 1,
+        "parts": [
+          {
+            "trackId": "djembe-1",
+            "raw": "m>.1.1iX1. x2x-x2x-X1X X1O1.1. .1.1.1.<m",
+            "subdivisions": 4
+          },
+          {
+            "trackId": "djembe-2",
+            "raw": "m>X1.1.1X X1.1O1O X1.1.1X X1.1O1O <m",
+            "subdivisions": 4
+          },
+          {
+            "trackId": "kenkeni-1",
+            "raw": "m>vO1.1v1. vO1.1v1. vO1.1v1. vO1.1v1. <m",
+            "subdivisions": 4
+          },
+          {
+            "trackId": "sangban-1",
+            "raw": "m>vO1.1v1. v1.1vX1. vX1.1v1. vO1.1v1. <m",
+            "subdivisions": 4
+          },
+          {
+            "trackId": "dununba-1",
+            "raw": "m>vO1.1vO1vO .1v1v1. v1.1vO1. vO1.1vO1. <m",
+            "subdivisions": 4
+          }
+        ]
+      },
+      {
+        "times": 1,
+        "parts": [
+          {
+            "trackId": "djembe-1",
+            "raw": "m>.1.1iX1. x2x-x2x-X1X X1O1.1. .1.1.1.<m",
+            "subdivisions": 4
+          },
+          {
+            "trackId": "djembe-2",
+            "raw": "m>X1.1.1X X1.1O1O X1.1.1X X1.1O1O <m",
+            "subdivisions": 4
+          },
+          {
+            "trackId": "kenkeni-1",
+            "raw": "m>vO1.1v1. vO1.1v1. vO1.1v1. vO1.1v1. <m",
+            "subdivisions": 4
+          },
+          {
+            "trackId": "sangban-1",
+            "raw": "m>vO1.1v1. v1.1vX1. vX1.1v1. vO1.1v1. <m",
+            "subdivisions": 4
+          },
+          {
+            "trackId": "dununba-1",
+            "raw": "m>vO1.1vO1vO .1v1v1. v1.1vO1. vO1.1vO1. <m",
+            "subdivisions": 4
+          }
+        ]
+      },
+      {
+        "times": 1,
+        "parts": [
+          {
+            "trackId": "djembe-1",
+            "raw": "miX1.1X1X .1O1O1X O1O1X1. x2o-o2o-O1O mX1X1.1. .1.1.1. .1.1.1. .1.1.1. m",
+            "subdivisions": 4
+          },
+          {
+            "trackId": "djembe-2",
+            "raw": "m>X1.1.1X X1.1O1O X1.1.1X X1.1O1O <m",
+            "subdivisions": 4
+          },
+          {
+            "trackId": "kenkeni-1",
+            "raw": "m>vO1.1v1. vO1.1v1. vO1.1v1. vO1.1v1. <m",
+            "subdivisions": 4
+          },
+          {
+            "trackId": "sangban-1",
+            "raw": "m>vO1.1v1. v1.1vX1. vX1.1v1. vO1.1v1. <m",
+            "subdivisions": 4
+          },
+          {
+            "trackId": "dununba-1",
+            "raw": "m>vO1.1vO1vO .1v1v1. v1.1vO1. vO1.1vO1. <m",
+            "subdivisions": 4
+          }
+        ]
+      },
+      {
+        "times": 1,
+        "parts": [
+          {
+            "trackId": "djembe-1",
+            "raw": "miX1.1X1X .1X1.1O O1.1X1. O1O1.1O m",
+            "subdivisions": 4
+          },
+          {
+            "trackId": "djembe-2",
+            "raw": "m>X1.1.1X X1.1O1O X1.1.1X X1.1O1O <m",
+            "subdivisions": 4
+          },
+          {
+            "trackId": "kenkeni-1",
+            "raw": "m>vO1.1v1. vO1.1v1. vO1.1v1. vO1.1v1. <m",
+            "subdivisions": 4
+          },
+          {
+            "trackId": "sangban-1",
+            "raw": "m>vO1.1v1. v1.1vX1. vX1.1v1. vO1.1v1. <m",
+            "subdivisions": 4
+          },
+          {
+            "trackId": "dununba-1",
+            "raw": "m>vO1.1vO1vO .1v1v1. v1.1vO1. vO1.1vO1. <m",
+            "subdivisions": 4
+          }
+        ]
+      },
+      {
+        "times": 1,
+        "parts": [
+          {
+            "trackId": "djembe-1",
+            "raw": "m>O1.1X1X X1.1.1O O1.1X1X X1.1.1O mO1.1X1X X1.1.1O O1.1X1X X1.1.1. mO1O1.1O O1.1O1O .1O1O1. O1O1.1O mO1.1.1x2x=X1X1O1O X1X1X1. .1.1.1O <m",
+            "subdivisions": 4
+          },
+          {
+            "trackId": "djembe-2",
+            "raw": "m>X1.1.1X X1.1O1O X1.1.1X X1.1O1O <m",
+            "subdivisions": 4
+          },
+          {
+            "trackId": "kenkeni-1",
+            "raw": "m>vO1.1v1. vO1.1v1. vO1.1v1. vO1.1v1. <m",
+            "subdivisions": 4
+          },
+          {
+            "trackId": "sangban-1",
+            "raw": "m>vO1.1v1. v1.1vX1. vX1.1v1. vO1.1v1. <m",
+            "subdivisions": 4
+          },
+          {
+            "trackId": "dununba-1",
+            "raw": "m>vO1.1vO1vO .1v1v1. v1.1vO1. vO1.1vO1. <m",
+            "subdivisions": 4
+          }
+        ]
+      },
+      {
+        "times": 1,
+        "parts": [
+          {
+            "trackId": "djembe-1",
+            "raw": "mO1.1X1X X1.1.1O O1.1X1X X1.1.1O mO1.1X1X X1.1.1O O1.1X1X X1.1.1. mO1O1.1O O1.1O1O .1O1O1. O1O1.1O mO1.1.1x2x=X1X1O1O X1X1X1. .1.1.1. m",
+            "subdivisions": 4
+          },
+          {
+            "trackId": "djembe-2",
+            "raw": "m>X1.1.1X X1.1O1O X1.1.1X X1.1O1O <m",
+            "subdivisions": 4
+          },
+          {
+            "trackId": "kenkeni-1",
+            "raw": "m>vO1.1v1. vO1.1v1. vO1.1v1. vO1.1v1. <m",
+            "subdivisions": 4
+          },
+          {
+            "trackId": "sangban-1",
+            "raw": "m>vO1.1v1. v1.1vX1. vX1.1v1. vO1.1v1. <m",
+            "subdivisions": 4
+          },
+          {
+            "trackId": "dununba-1",
+            "raw": "m>vO1.1vO1vO .1v1v1. v1.1vO1. vO1.1vO1. <m",
+            "subdivisions": 4
+          }
+        ]
+      },
+      {
+        "times": 1,
+        "parts": [
+          {
+            "trackId": "djembe-1",
+            "raw": "mzX1.1X1X .1X1O1. X1O1.1X O1.1X1. m",
+            "subdivisions": 4
+          },
+          {
+            "trackId": "djembe-2",
+            "raw": "m>X1.1.1X X1.1O1O X1.1.1X X1.1O1O <m",
+            "subdivisions": 4
+          },
+          {
+            "trackId": "kenkeni-1",
+            "raw": "m>vO1.1v1. vO1.1v1. vO1.1v1. vO1.1v1. <m",
+            "subdivisions": 4
+          },
+          {
+            "trackId": "sangban-1",
+            "raw": "m>vO1.1v1. v1.1vX1. vX1.1v1. vO1.1v1. <m",
+            "subdivisions": 4
+          },
+          {
+            "trackId": "dununba-1",
+            "raw": "m>vO1.1vO1vO .1v1v1. v1.1vO1. vO1.1vO1. <m",
+            "subdivisions": 4
+          }
+        ]
+      },
+      {
+        "times": 1,
+        "parts": [
+          {
+            "trackId": "djembe-1",
+            "raw": "m.1.1.1. .1.1.1. .1.1.1. .1.1.1. m",
+            "subdivisions": 4
+          },
+          {
+            "trackId": "djembe-2",
+            "raw": "m>X1.1.1X X1.1O1O X1.1.1X X1.1O1O <m",
+            "subdivisions": 4
+          },
+          {
+            "trackId": "kenkeni-1",
+            "raw": "m>vO1.1v1. vO1.1v1. vO1.1v1. vO1.1v1. <m",
+            "subdivisions": 4
+          },
+          {
+            "trackId": "sangban-1",
+            "raw": "m>vO1.1v1. v1.1vX1. vX1.1v1. vO1.1v1. <m",
+            "subdivisions": 4
+          },
+          {
+            "trackId": "dununba-1",
+            "raw": "m>vO1.1vO1vO .1v1v1. v1.1vO1. vO1.1vO1. <m",
+            "subdivisions": 4
+          }
+        ]
+      },
+      {
+        "times": 1,
+        "parts": [
+          {
+            "trackId": "djembe-1",
+            "raw": "mO1O1X1X .1.1X1X O1O1X1X .1X1.1X mO1O1X1X .1.1X1X O1O1X1X .1X1.1X mO1O1X1X .1.1X1X O1O1X1X .1.1X1X mO1O1X1X .1X1iX1. X1X1.1X iX1.1X1X m.1X1X1X .1O1O1X O1O1X1. x2o-o2o-O1O mX1X1.1. .1.1.1. .1.1.1. .1.1.1. m",
+            "subdivisions": 4
+          },
+          {
+            "trackId": "djembe-2",
+            "raw": "m>X1.1.1X X1.1O1O X1.1.1X X1.1O1O <m",
+            "subdivisions": 4
+          },
+          {
+            "trackId": "kenkeni-1",
+            "raw": "m>vO1.1v1. vO1.1v1. vO1.1v1. vO1.1v1. <m",
+            "subdivisions": 4
+          },
+          {
+            "trackId": "sangban-1",
+            "raw": "m>vO1.1v1. v1.1vX1. vX1.1v1. vO1.1v1. <m",
+            "subdivisions": 4
+          },
+          {
+            "trackId": "dununba-1",
+            "raw": "m>vO1.1vO1vO .1v1v1. v1.1vO1. vO1.1vO1. <m",
+            "subdivisions": 4
+          }
+        ]
+      },
+      {
+        "times": 1,
+        "parts": [
+          {
+            "trackId": "djembe-1",
+            "raw": "mO1O1X1X .1.1X1X O1O1X1X .1X1.1X mO1O1X1X .1.1X1X O1O1X1X .1X1.1X mO1O1X1X .1.1X1X O1O1X1X .1.1X1X mO1O1X1X .1X1iX1. X1X1.1X iX1.1X1X m.1X1X1X .1O1O1X O1O1X1. x2o-o2o-O1O mX1X1.1. .1.1.1. .1.1.1. .1.1.1. m",
+            "subdivisions": 4
+          },
+          {
+            "trackId": "djembe-2",
+            "raw": "m>X1.1.1X X1.1O1O X1.1.1X X1.1O1O <m",
+            "subdivisions": 4
+          },
+          {
+            "trackId": "kenkeni-1",
+            "raw": "m>vO1.1v1. vO1.1v1. vO1.1v1. vO1.1v1. <m",
+            "subdivisions": 4
+          },
+          {
+            "trackId": "sangban-1",
+            "raw": "m>vO1.1v1. v1.1vX1. vX1.1v1. vO1.1v1. <m",
+            "subdivisions": 4
+          },
+          {
+            "trackId": "dununba-1",
+            "raw": "m>vO1.1vO1vO .1v1v1. v1.1vO1. vO1.1vO1. <m",
+            "subdivisions": 4
+          }
+        ]
+      },
+      {
+        "times": 1,
+        "parts": [
+          {
+            "trackId": "djembe-1",
+            "raw": "m.1.1.1. .1.1.1. .1.1.1. .1.1.1. m",
+            "subdivisions": 4
+          },
+          {
+            "trackId": "djembe-2",
+            "raw": "m>X1.1.1X X1.1O1O X1.1.1X X1.1O1O <m",
+            "subdivisions": 4
+          },
+          {
+            "trackId": "kenkeni-1",
+            "raw": "m>vO1.1v1. vO1.1v1. vO1.1v1. vO1.1v1. <m",
+            "subdivisions": 4
+          },
+          {
+            "trackId": "sangban-1",
+            "raw": "m>vO1.1v1. v1.1vX1. vX1.1v1. vO1.1v1. <m",
+            "subdivisions": 4
+          },
+          {
+            "trackId": "dununba-1",
+            "raw": "m>vO1.1vO1vO .1v1v1. v1.1vO1. vO1.1vO1. <m",
+            "subdivisions": 4
+          }
+        ]
+      },
+      {
+        "times": 1,
+        "parts": [
+          {
+            "trackId": "djembe-1",
+            "raw": "mO1X1.1x2x=X1X1O1O X1.1.1. .1.1.1. mO1X1.1x2x=X1X1O1O X1.1.1. .1.1.1. mO1X1.1x2x=X1X1O1O X1.1.1x2x=X1X1O1O mX1.1.1x2x=X1X1O1O .1X1X1X .1X1iX1. m",
+            "subdivisions": 4
+          },
+          {
+            "trackId": "djembe-2",
+            "raw": "m>X1.1.1X X1.1O1O X1.1.1X X1.1O1O <m",
+            "subdivisions": 4
+          },
+          {
+            "trackId": "kenkeni-1",
+            "raw": "m>vO1.1v1. vO1.1v1. vO1.1v1. vO1.1v1. <m",
+            "subdivisions": 4
+          },
+          {
+            "trackId": "sangban-1",
+            "raw": "m>vO1.1v1. v1.1vX1. vX1.1v1. vO1.1v1. <m",
+            "subdivisions": 4
+          },
+          {
+            "trackId": "dununba-1",
+            "raw": "m>vO1.1vO1vO .1v1v1. v1.1vO1. vO1.1vO1. <m",
+            "subdivisions": 4
+          }
+        ]
+      },
+      {
+        "times": 1,
+        "parts": [
+          {
+            "trackId": "djembe-1",
+            "raw": "m.1.1.1. .1.1.1. .1.1.1. .1.1.1. m",
+            "subdivisions": 4
+          },
+          {
+            "trackId": "djembe-2",
+            "raw": "m>X1.1.1X X1.1O1O X1.1.1X X1.1O1O <m",
+            "subdivisions": 4
+          },
+          {
+            "trackId": "kenkeni-1",
+            "raw": "m>vO1.1v1. vO1.1v1. vO1.1v1. vO1.1v1. <m",
+            "subdivisions": 4
+          },
+          {
+            "trackId": "sangban-1",
+            "raw": "m>vO1.1v1. v1.1vX1. vX1.1v1. vO1.1v1. <m",
+            "subdivisions": 4
+          },
+          {
+            "trackId": "dununba-1",
+            "raw": "m>vO1.1vO1vO .1v1v1. v1.1vO1. vO1.1vO1. <m",
+            "subdivisions": 4
+          }
+        ]
+      },
+      {
+        "times": 1,
+        "parts": [
+          {
+            "trackId": "djembe-1",
+            "raw": "mO1X1.1x2x=X1X1O1O X1.1.1. .1.1.1. mO1X1.1x2x=X1X1O1O X1.1.1. .1.1.1. mO1X1.1x2x=X1X1O1O X1.1.1x2x=X1X1O1O mX1.1.1x2x=X1X1O1O .1X1X1X .1X1iX1. m",
+            "subdivisions": 4
+          },
+          {
+            "trackId": "djembe-2",
+            "raw": "m>X1.1.1X X1.1O1O X1.1.1X X1.1O1O <m",
+            "subdivisions": 4
+          },
+          {
+            "trackId": "kenkeni-1",
+            "raw": "m>vO1.1v1. vO1.1v1. vO1.1v1. vO1.1v1. <m",
+            "subdivisions": 4
+          },
+          {
+            "trackId": "sangban-1",
+            "raw": "m>vO1.1v1. v1.1vX1. vX1.1v1. vO1.1v1. <m",
+            "subdivisions": 4
+          },
+          {
+            "trackId": "dununba-1",
+            "raw": "m>vO1.1vO1vO .1v1v1. v1.1vO1. vO1.1vO1. <m",
+            "subdivisions": 4
+          }
+        ]
+      },
+      {
+        "times": 1,
+        "parts": [
+          {
+            "trackId": "djembe-1",
+            "raw": "m.1.1X1zX .1X1zX1. X1zX1.1X zX1.1X1. m",
+            "subdivisions": 4
+          },
+          {
+            "trackId": "djembe-2",
+            "raw": "m>X1.1.1X X1.1O1O X1.1.1X X1.1O1O <m",
+            "subdivisions": 4
+          },
+          {
+            "trackId": "kenkeni-1",
+            "raw": "m>vO1.1v1. vO1.1v1. vO1.1v1. vO1.1v1. <m",
+            "subdivisions": 4
+          },
+          {
+            "trackId": "sangban-1",
+            "raw": "m>vO1.1v1. v1.1vX1. vX1.1v1. vO1.1v1. <m",
+            "subdivisions": 4
+          },
+          {
+            "trackId": "dununba-1",
+            "raw": "m>vO1.1vO1vO .1v1v1. v1.1vO1. vO1.1vO1. <m",
+            "subdivisions": 4
+          }
+        ]
+      },
+      {
+        "times": 1,
+        "parts": [
+          {
+            "trackId": "djembe-1",
+            "raw": "m.1.1.1. .1.1.1. .1.1.1. .1.1.1. m",
+            "subdivisions": 4
+          },
+          {
+            "trackId": "djembe-2",
+            "raw": "m>X1.1.1X X1.1O1O X1.1.1X X1.1O1O <m",
+            "subdivisions": 4
+          },
+          {
+            "trackId": "kenkeni-1",
+            "raw": "m>vO1.1v1. vO1.1v1. vO1.1v1. vO1.1v1. <m",
+            "subdivisions": 4
+          },
+          {
+            "trackId": "sangban-1",
+            "raw": "m>vO1.1v1. v1.1vX1. vX1.1v1. vO1.1v1. <m",
+            "subdivisions": 4
+          },
+          {
+            "trackId": "dununba-1",
+            "raw": "m>vO1.1vO1vO .1v1v1. v1.1vO1. vO1.1vO1. <m",
+            "subdivisions": 4
+          }
+        ]
+      },
+      {
+        "times": 1,
+        "parts": [
+          {
+            "trackId": "djembe-1",
+            "raw": "miX1.1X1X .1X1.1O O1.1X1. O1O1.1. m",
+            "subdivisions": 4
+          },
+          {
+            "trackId": "djembe-2",
+            "raw": "m>X1.1.1X X1.1O1O X1.1.1X X1.1O1O <m",
+            "subdivisions": 4
+          },
+          {
+            "trackId": "kenkeni-1",
+            "raw": "m>vO1.1v1. vO1.1v1. vO1.1v1. vO1.1v1. <m",
+            "subdivisions": 4
+          },
+          {
+            "trackId": "sangban-1",
+            "raw": "m>vO1.1v1. v1.1vX1. vX1.1v1. vO1.1v1. <m",
+            "subdivisions": 4
+          },
+          {
+            "trackId": "dununba-1",
+            "raw": "m>vO1.1vO1vO .1v1v1. v1.1vO1. vO1.1vO1. <m",
+            "subdivisions": 4
+          }
+        ]
+      },
+      {
+        "times": 1,
+        "parts": [
+          {
+            "trackId": "djembe-1",
+            "raw": "m>O1O1O1X X1X1X1X O1O1O1X X1X1X1X <m",
+            "subdivisions": 4
+          },
+          {
+            "trackId": "djembe-2",
+            "raw": "m>X1.1.1X X1.1O1O X1.1.1X X1.1O1O <m",
+            "subdivisions": 4
+          },
+          {
+            "trackId": "kenkeni-1",
+            "raw": "m>vO1.1v1. vO1.1v1. vO1.1v1. vO1.1v1. <m",
+            "subdivisions": 4
+          },
+          {
+            "trackId": "sangban-1",
+            "raw": "m>vO1.1v1. v1.1vX1. vX1.1v1. vO1.1v1. <m",
+            "subdivisions": 4
+          },
+          {
+            "trackId": "dununba-1",
+            "raw": "m>vO1.1vO1vO .1v1v1. v1.1vO1. vO1.1vO1. <m",
+            "subdivisions": 4
+          }
+        ]
+      },
+      {
+        "times": 6,
+        "parts": [
+          {
+            "trackId": "djembe-1",
+            "raw": "m>O1O1O1X X1X1X1X O1O1O1X X1X1X1X <m",
+            "subdivisions": 4
+          },
+          {
+            "trackId": "djembe-2",
+            "raw": "m>X1.1.1X X1.1O1O X1.1.1X X1.1O1O <m",
+            "subdivisions": 4
+          },
+          {
+            "trackId": "kenkeni-1",
+            "raw": "m>vO1.1v1. vO1.1v1. vO1.1v1. vO1.1v1. <m",
+            "subdivisions": 4
+          },
+          {
+            "trackId": "sangban-1",
+            "raw": "m>vO1.1v1vO .1v1vO1. v1vO1.1v vO1.1v1. <m",
+            "subdivisions": 4
+          },
+          {
+            "trackId": "dununba-1",
+            "raw": "m>vO1vO1.1vO .1vO1.1vO vO1.1vO1vO .1vO1vO1. <m",
+            "subdivisions": 4
+          }
+        ]
+      },
+      {
+        "times": 1,
+        "parts": [
+          {
+            "trackId": "djembe-1",
+            "raw": "mO1O1O1X X1X1X1X O1O1O1. zX1.1.1. m",
+            "subdivisions": 4
+          },
+          {
+            "trackId": "djembe-2",
+            "raw": "m>X1.1.1X X1.1O1O X1.1.1X X1.1O1O <m",
+            "subdivisions": 4
+          },
+          {
+            "trackId": "kenkeni-1",
+            "raw": "m>vO1.1v1. vO1.1v1. vO1.1v1. vO1.1v1. <m",
+            "subdivisions": 4
+          },
+          {
+            "trackId": "sangban-1",
+            "raw": "m>vO1.1v1vO .1v1vO1. v1vO1.1v vO1.1v1. <m",
+            "subdivisions": 4
+          },
+          {
+            "trackId": "dununba-1",
+            "raw": "m>vO1vO1.1vO .1vO1.1vO vO1.1vO1vO .1vO1vO1. <m",
+            "subdivisions": 4
+          }
+        ]
+      },
+      {
+        "times": 1,
+        "parts": [
+          {
+            "trackId": "djembe-1",
+            "raw": "miX1.1X1X .1X1.1O O1.1X1. O1O1.1. m",
+            "subdivisions": 4
+          },
+          {
+            "trackId": "djembe-2",
+            "raw": "m>X1.1.1X X1.1O1O X1.1.1X X1.1O1O <m",
+            "subdivisions": 4
+          },
+          {
+            "trackId": "kenkeni-1",
+            "raw": "m>vO1.1v1. vO1.1v1. vO1.1v1. vO1.1v1. <m",
+            "subdivisions": 4
+          },
+          {
+            "trackId": "sangban-1",
+            "raw": "mv1vO1.1vO .1vO1.1vO vO1.1v1. vO1.1v1. m",
+            "subdivisions": 4
+          },
+          {
+            "trackId": "dununba-1",
+            "raw": "mvO1vO1.1vO .1vO1.1vO vO1.1vO1. vO1.1vO1. m",
+            "subdivisions": 4
+          }
+        ]
+      },
+      {
+        "times": 1,
+        "parts": [
+          {
+            "trackId": "djembe-1",
+            "raw": "miX1.1.1. .1.1.1. .1.1.1. .1.1.1. m",
+            "subdivisions": 4
+          },
+          {
+            "trackId": "djembe-2",
+            "raw": "miX1.1.1. .1.1.1. .1.1.1. .1.1.1. m",
+            "subdivisions": 4
+          },
+          {
+            "trackId": "kenkeni-1",
+            "raw": "mvO1.1.1. .1.1.1. .1.1.1. .1.1.1. m",
+            "subdivisions": 4
+          },
+          {
+            "trackId": "sangban-1",
+            "raw": "mvO1.1.1. .1.1.1. .1.1.1. .1.1.1. m",
+            "subdivisions": 4
+          },
+          {
+            "trackId": "dununba-1",
+            "raw": "mvO1.1.1. .1.1.1. .1.1.1. .1.1.1. m",
+            "subdivisions": 4
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "soli",
+    "sectionCount": 24,
+    "occurrences": 45,
+    "durationTicks": 213120,
+    "soundEvents": 3157,
+    "timelineHash": "b9cd0658d107d973e6d0e4290d0ed714e060068b00933c16b36c7df5e36835d2",
+    "sections": [
+      {
+        "times": 1,
+        "parts": [
+          {
+            "trackId": "djembe-1",
+            "raw": "m.1.1. .1.1. .1.1. .1.1. m",
+            "subdivisions": 3
+          }
+        ]
+      },
+      {
+        "times": 1,
+        "parts": [
+          {
+            "trackId": "djembe-1",
+            "raw": "miO1.1O O1.1O O1.1O O1.1. m",
+            "subdivisions": 3
+          }
+        ]
+      },
+      {
+        "times": 3,
+        "parts": [
+          {
+            "trackId": "djembe-1",
+            "raw": "mB1X1X B1X1X B1.1O .1O1. mzX1.1. .1.1. .1.1. .1.1. m",
+            "subdivisions": 3
+          },
+          {
+            "trackId": "djembe-2",
+            "raw": "m>B1X1X B1X1X B1.1O .1O1. mzX1.1. .1.1. .1.1. .1.1. <m",
+            "subdivisions": 3
+          },
+          {
+            "trackId": "kenkeni-1",
+            "raw": "m>vO1.1v vO1.1v vO1.1vO .1vO1. mvO1.1v v1.1v v1.1v v1.1v <m",
+            "subdivisions": 3
+          },
+          {
+            "trackId": "sangban-1",
+            "raw": "m>vO1.1v vO1.1v vO1.1vO .1vO1. mvO1.1v v1.1v v1.1v v1.1v <m",
+            "subdivisions": 3
+          },
+          {
+            "trackId": "dununba-1",
+            "raw": "m>vO1.1v vO1.1v vO1.1vO .1vO1. mvO1.1v v1.1v v1.1v v1.1v <m",
+            "subdivisions": 3
+          }
+        ]
+      },
+      {
+        "times": 1,
+        "parts": [
+          {
+            "trackId": "djembe-1",
+            "raw": "mB1X1X B1X1X B1.1O .1O1. mzX1.1O O1.1O O1.1O O1.1. m",
+            "subdivisions": 3
+          },
+          {
+            "trackId": "djembe-2",
+            "raw": "m>B1X1X B1X1X B1.1O .1O1. mzX1.1. .1.1. .1.1. .1.1. <m",
+            "subdivisions": 3
+          },
+          {
+            "trackId": "kenkeni-1",
+            "raw": "m>vO1.1v vO1.1v vO1.1vO .1vO1. mvO1.1v v1.1v v1.1v v1.1v <m",
+            "subdivisions": 3
+          },
+          {
+            "trackId": "sangban-1",
+            "raw": "mvO1.1v vO1.1v vO1.1vO .1vO1. mvO1.1v v1.1v v1.1v vO1.1v m",
+            "subdivisions": 3
+          },
+          {
+            "trackId": "dununba-1",
+            "raw": "mvO1.1v vO1.1v vO1.1vO .1vO1. mvO1.1v v1.1v v1.1vO vO1.1vO m",
+            "subdivisions": 3
+          }
+        ]
+      },
+      {
+        "times": 4,
+        "parts": [
+          {
+            "trackId": "djembe-1",
+            "raw": "m>O1O1X .1O1X B1.1X B1.1X <m",
+            "subdivisions": 3
+          },
+          {
+            "trackId": "djembe-2",
+            "raw": "m>X1.1O X1.1B X1.1O X1.1. <m",
+            "subdivisions": 3
+          },
+          {
+            "trackId": "kenkeni-1",
+            "raw": "m>.1.1. .1O1O .1.1. .1O1O <m",
+            "subdivisions": 3
+          },
+          {
+            "trackId": "sangban-1",
+            "raw": "m>vO1.1v .1vX1. vX1.1v vO1.1v <m",
+            "subdivisions": 3
+          },
+          {
+            "trackId": "dununba-1",
+            "raw": "m>vO1.1vO .1v1. v1.1vO vO1.1vO <m",
+            "subdivisions": 3
+          }
+        ]
+      },
+      {
+        "times": 4,
+        "parts": [
+          {
+            "trackId": "djembe-1",
+            "raw": "m>O1O1X .1B1X O1O1X .1B1X <m",
+            "subdivisions": 3
+          },
+          {
+            "trackId": "djembe-2",
+            "raw": "m>X1.1O X1.1B X1.1O X1.1. <m",
+            "subdivisions": 3
+          },
+          {
+            "trackId": "kenkeni-1",
+            "raw": "m>.1.1. .1O1O .1.1. .1O1O <m",
+            "subdivisions": 3
+          },
+          {
+            "trackId": "sangban-1",
+            "raw": "m>vO1.1v .1vX1. vX1.1v vO1.1v <m",
+            "subdivisions": 3
+          },
+          {
+            "trackId": "dununba-1",
+            "raw": "m>vO1.1vO .1v1. v1.1vO vO1.1vO <m",
+            "subdivisions": 3
+          }
+        ]
+      },
+      {
+        "times": 3,
+        "parts": [
+          {
+            "trackId": "djembe-1",
+            "raw": "m>O1O1X X1.1X X1.1X X1.1X mO1O1X X1.1X O1O1X O1O1X <m",
+            "subdivisions": 3
+          },
+          {
+            "trackId": "djembe-2",
+            "raw": "m>X1.1O X1.1B X1.1O X1.1. <m",
+            "subdivisions": 3
+          },
+          {
+            "trackId": "kenkeni-1",
+            "raw": "m>.1.1. .1O1O .1.1. .1O1O <m",
+            "subdivisions": 3
+          },
+          {
+            "trackId": "sangban-1",
+            "raw": "m>vO1.1v .1vX1. vX1.1v vO1.1v <m",
+            "subdivisions": 3
+          },
+          {
+            "trackId": "dununba-1",
+            "raw": "m>vO1.1vO .1v1. v1.1vO vO1.1vO <m",
+            "subdivisions": 3
+          }
+        ]
+      },
+      {
+        "times": 1,
+        "parts": [
+          {
+            "trackId": "djembe-1",
+            "raw": "m>O1O1X X1.1X X1.1X X1.1X mO1O1X X1.1. .1.1. .1.1. <m",
+            "subdivisions": 3
+          },
+          {
+            "trackId": "djembe-2",
+            "raw": "m>X1.1O X1.1B X1.1O X1.1. <m",
+            "subdivisions": 3
+          },
+          {
+            "trackId": "kenkeni-1",
+            "raw": "m>.1.1. .1O1O .1.1. .1O1O <m",
+            "subdivisions": 3
+          },
+          {
+            "trackId": "sangban-1",
+            "raw": "m>vO1.1v .1vX1. vX1.1v vO1.1v <m",
+            "subdivisions": 3
+          },
+          {
+            "trackId": "dununba-1",
+            "raw": "m>vO1.1vO .1v1. v1.1vO vO1.1vO <m",
+            "subdivisions": 3
+          }
+        ]
+      },
+      {
+        "times": 1,
+        "parts": [
+          {
+            "trackId": "djembe-1",
+            "raw": "miO1.1O O1.1O O1.1O O1.1. m",
+            "subdivisions": 3
+          },
+          {
+            "trackId": "djembe-2",
+            "raw": "m>X1.1O X1.1B X1.1O X1.1. <m",
+            "subdivisions": 3
+          },
+          {
+            "trackId": "kenkeni-1",
+            "raw": "m>.1.1. .1O1O .1.1. .1O1O <m",
+            "subdivisions": 3
+          },
+          {
+            "trackId": "sangban-1",
+            "raw": "m>vO1.1v .1vX1. vX1.1v vO1.1v <m",
+            "subdivisions": 3
+          },
+          {
+            "trackId": "dununba-1",
+            "raw": "m>vO1.1vO .1v1. v1.1vO vO1.1vO <m",
+            "subdivisions": 3
+          }
+        ]
+      },
+      {
+        "times": 3,
+        "parts": [
+          {
+            "trackId": "djembe-1",
+            "raw": "mB1.1. X1O1O X1.1. B1X1X mX1O1O X1O1O X1.1. B1X1X m",
+            "subdivisions": 3
+          },
+          {
+            "trackId": "djembe-2",
+            "raw": "m>X1.1O X1.1B X1.1O X1.1. <m",
+            "subdivisions": 3
+          },
+          {
+            "trackId": "kenkeni-1",
+            "raw": "m>.1.1. .1O1O .1.1. .1O1O <m",
+            "subdivisions": 3
+          },
+          {
+            "trackId": "sangban-1",
+            "raw": "m>vO1.1v .1vX1. vX1.1v vO1.1v <m",
+            "subdivisions": 3
+          },
+          {
+            "trackId": "dununba-1",
+            "raw": "m>vO1.1vO .1v1. v1.1vO vO1.1vO <m",
+            "subdivisions": 3
+          }
+        ]
+      },
+      {
+        "times": 1,
+        "parts": [
+          {
+            "trackId": "djembe-1",
+            "raw": "mB1.1. X1O1O X1.1. B1X1X mX1O1O X1O1O X1.1. .1.1. m",
+            "subdivisions": 3
+          },
+          {
+            "trackId": "djembe-2",
+            "raw": "m>X1.1O X1.1B X1.1O X1.1. <m",
+            "subdivisions": 3
+          },
+          {
+            "trackId": "kenkeni-1",
+            "raw": "m>.1.1. .1O1O .1.1. .1O1O <m",
+            "subdivisions": 3
+          },
+          {
+            "trackId": "sangban-1",
+            "raw": "m>vO1.1v .1vX1. vX1.1v vO1.1v <m",
+            "subdivisions": 3
+          },
+          {
+            "trackId": "dununba-1",
+            "raw": "m>vO1.1vO .1v1. v1.1vO vO1.1vO <m",
+            "subdivisions": 3
+          }
+        ]
+      },
+      {
+        "times": 1,
+        "parts": [
+          {
+            "trackId": "djembe-1",
+            "raw": "miO1.1O O1.1O O1.1O O1.1. m",
+            "subdivisions": 3
+          },
+          {
+            "trackId": "djembe-2",
+            "raw": "m>X1.1O X1.1B X1.1O X1.1. <m",
+            "subdivisions": 3
+          },
+          {
+            "trackId": "kenkeni-1",
+            "raw": "m>.1.1. .1O1O .1.1. .1O1O <m",
+            "subdivisions": 3
+          },
+          {
+            "trackId": "sangban-1",
+            "raw": "m>vO1.1v .1vX1. vX1.1v vO1.1v <m",
+            "subdivisions": 3
+          },
+          {
+            "trackId": "dununba-1",
+            "raw": "m>vO1.1vO .1v1. v1.1vO vO1.1vO <m",
+            "subdivisions": 3
+          }
+        ]
+      },
+      {
+        "times": 3,
+        "parts": [
+          {
+            "trackId": "djembe-1",
+            "raw": "mB1.1. B1X1X O1X1O O1X1X mB1.1. B1X1X O1X1O O1X1X mB1.1. B1X1X O1X1O O1X1X mO1X1O O1X1X O1X1O O1X1X m",
+            "subdivisions": 3
+          },
+          {
+            "trackId": "djembe-2",
+            "raw": "m>X1.1O X1.1B X1.1O X1.1. <m",
+            "subdivisions": 3
+          },
+          {
+            "trackId": "kenkeni-1",
+            "raw": "m>.1.1. .1O1O .1.1. .1O1O <m",
+            "subdivisions": 3
+          },
+          {
+            "trackId": "sangban-1",
+            "raw": "m>vO1.1v .1vX1. vX1.1v vO1.1v <m",
+            "subdivisions": 3
+          },
+          {
+            "trackId": "dununba-1",
+            "raw": "m>vO1.1vO .1v1. v1.1vO vO1.1vO <m",
+            "subdivisions": 3
+          }
+        ]
+      },
+      {
+        "times": 1,
+        "parts": [
+          {
+            "trackId": "djembe-1",
+            "raw": "mB1.1. B1X1X O1X1O O1X1X mB1.1. B1X1X O1X1O O1X1X mB1.1. B1X1X O1X1O O1X1X mO1X1O O1X1X O1X1O O1.1. m",
+            "subdivisions": 3
+          },
+          {
+            "trackId": "djembe-2",
+            "raw": "m>X1.1O X1.1B X1.1O X1.1. <m",
+            "subdivisions": 3
+          },
+          {
+            "trackId": "kenkeni-1",
+            "raw": "m>.1.1. .1O1O .1.1. .1O1O <m",
+            "subdivisions": 3
+          },
+          {
+            "trackId": "sangban-1",
+            "raw": "m>vO1.1v .1vX1. vX1.1v vO1.1v <m",
+            "subdivisions": 3
+          },
+          {
+            "trackId": "dununba-1",
+            "raw": "m>vO1.1vO .1v1. v1.1vO vO1.1vO <m",
+            "subdivisions": 3
+          }
+        ]
+      },
+      {
+        "times": 1,
+        "parts": [
+          {
+            "trackId": "djembe-1",
+            "raw": "miO1.1O O1.1O O1.1O B1X1X m",
+            "subdivisions": 3
+          },
+          {
+            "trackId": "djembe-2",
+            "raw": "m>X1.1O X1.1B X1.1O X1.1. <m",
+            "subdivisions": 3
+          },
+          {
+            "trackId": "kenkeni-1",
+            "raw": "m>.1.1. .1O1O .1.1. .1O1O <m",
+            "subdivisions": 3
+          },
+          {
+            "trackId": "sangban-1",
+            "raw": "m>vO1.1v .1vX1. vX1.1v vO1.1v <m",
+            "subdivisions": 3
+          },
+          {
+            "trackId": "dununba-1",
+            "raw": "m>vO1.1vO .1v1. v1.1vO vO1.1vO <m",
+            "subdivisions": 3
+          }
+        ]
+      },
+      {
+        "times": 3,
+        "parts": [
+          {
+            "trackId": "djembe-1",
+            "raw": "mB1X1X .1o2o-O O1O1X X1.1B m.1X1X .1.1X X1.1. B1X1X m",
+            "subdivisions": 3
+          },
+          {
+            "trackId": "djembe-2",
+            "raw": "m>X1.1O X1.1B X1.1O X1.1. <m",
+            "subdivisions": 3
+          },
+          {
+            "trackId": "kenkeni-1",
+            "raw": "m>.1.1. .1O1O .1.1. .1O1O <m",
+            "subdivisions": 3
+          },
+          {
+            "trackId": "sangban-1",
+            "raw": "m>vO1.1v .1vX1. vX1.1v vO1.1v <m",
+            "subdivisions": 3
+          },
+          {
+            "trackId": "dununba-1",
+            "raw": "m>vO1.1vO .1v1. v1.1vO vO1.1vO <m",
+            "subdivisions": 3
+          }
+        ]
+      },
+      {
+        "times": 1,
+        "parts": [
+          {
+            "trackId": "djembe-1",
+            "raw": "mB1X1X .1o2o-O O1O1X X1.1B m.1X1X .1.1X X1.1. .1.1. m",
+            "subdivisions": 3
+          },
+          {
+            "trackId": "djembe-2",
+            "raw": "m>X1.1O X1.1B X1.1O X1.1. <m",
+            "subdivisions": 3
+          },
+          {
+            "trackId": "kenkeni-1",
+            "raw": "m>.1.1. .1O1O .1.1. .1O1O <m",
+            "subdivisions": 3
+          },
+          {
+            "trackId": "sangban-1",
+            "raw": "m>vO1.1v .1vX1. vX1.1v vO1.1v <m",
+            "subdivisions": 3
+          },
+          {
+            "trackId": "dununba-1",
+            "raw": "m>vO1.1vO .1v1. v1.1vO vO1.1vO <m",
+            "subdivisions": 3
+          }
+        ]
+      },
+      {
+        "times": 1,
+        "parts": [
+          {
+            "trackId": "djembe-1",
+            "raw": "miO1.1O O1.1O O1.1O O1.1. m",
+            "subdivisions": 3
+          },
+          {
+            "trackId": "djembe-2",
+            "raw": "m>X1.1O X1.1B X1.1O X1.1. <m",
+            "subdivisions": 3
+          },
+          {
+            "trackId": "kenkeni-1",
+            "raw": "m>.1.1. .1O1O .1.1. .1O1O <m",
+            "subdivisions": 3
+          },
+          {
+            "trackId": "sangban-1",
+            "raw": "m>vO1.1v .1vX1. vX1.1v vO1.1v <m",
+            "subdivisions": 3
+          },
+          {
+            "trackId": "dununba-1",
+            "raw": "m>vO1.1vO .1v1. v1.1vO vO1.1vO <m",
+            "subdivisions": 3
+          }
+        ]
+      },
+      {
+        "times": 1,
+        "parts": [
+          {
+            "trackId": "djembe-1",
+            "raw": "mO1O1O X1X1X .1.1. .1.1. m",
+            "subdivisions": 3
+          },
+          {
+            "trackId": "djembe-2",
+            "raw": "m>X1.1O X1.1B X1.1O X1.1. <m",
+            "subdivisions": 3
+          },
+          {
+            "trackId": "kenkeni-1",
+            "raw": "m>.1.1. .1O1O .1.1. .1O1O <m",
+            "subdivisions": 3
+          },
+          {
+            "trackId": "sangban-1",
+            "raw": "m>vO1.1v .1vX1. vX1.1v vO1.1v <m",
+            "subdivisions": 3
+          },
+          {
+            "trackId": "dununba-1",
+            "raw": "m>vO1.1vO .1v1. v1.1vO vO1.1vO <m",
+            "subdivisions": 3
+          }
+        ]
+      },
+      {
+        "times": 1,
+        "parts": [
+          {
+            "trackId": "djembe-1",
+            "raw": "m>O1O1O X1X1X O1O1O X1X1X <m",
+            "subdivisions": 3
+          },
+          {
+            "trackId": "djembe-2",
+            "raw": "m>X1.1O X1.1B X1.1O X1.1. <m",
+            "subdivisions": 3
+          },
+          {
+            "trackId": "kenkeni-1",
+            "raw": "m>.1.1. .1O1O .1.1. .1O1O <m",
+            "subdivisions": 3
+          },
+          {
+            "trackId": "sangban-1",
+            "raw": "mvO1.1v .1vO1. v1.1vO .1v1. m",
+            "subdivisions": 3
+          },
+          {
+            "trackId": "dununba-1",
+            "raw": "m>vO1.1vO vO1.1vO vO1.1vO vO1.1vO <m",
+            "subdivisions": 3
+          }
+        ]
+      },
+      {
+        "times": 6,
+        "parts": [
+          {
+            "trackId": "djembe-1",
+            "raw": "m>O1O1O X1X1X O1O1O X1X1X <m",
+            "subdivisions": 3
+          },
+          {
+            "trackId": "djembe-2",
+            "raw": "m>X1.1O X1.1B X1.1O X1.1. <m",
+            "subdivisions": 3
+          },
+          {
+            "trackId": "kenkeni-1",
+            "raw": "m>.1.1. .1O1O .1.1. .1O1O <m",
+            "subdivisions": 3
+          },
+          {
+            "trackId": "sangban-1",
+            "raw": "m>vX1.1v .1vO1. vO1.1vO .1vO1. <m",
+            "subdivisions": 3
+          },
+          {
+            "trackId": "dununba-1",
+            "raw": "m>vO1.1vO vO1.1vO vO1.1vO vO1.1vO <m",
+            "subdivisions": 3
+          }
+        ]
+      },
+      {
+        "times": 1,
+        "parts": [
+          {
+            "trackId": "djembe-1",
+            "raw": "mO1O1O X1X1X O1O1O X1.1. m",
+            "subdivisions": 3
+          },
+          {
+            "trackId": "djembe-2",
+            "raw": "m>X1.1O X1.1B X1.1O X1.1. <m",
+            "subdivisions": 3
+          },
+          {
+            "trackId": "kenkeni-1",
+            "raw": "m>.1.1. .1O1O .1.1. .1O1O <m",
+            "subdivisions": 3
+          },
+          {
+            "trackId": "sangban-1",
+            "raw": "m>vX1.1v .1vO1. vO1.1vO .1vO1. <m",
+            "subdivisions": 3
+          },
+          {
+            "trackId": "dununba-1",
+            "raw": "m>vO1.1vO vO1.1vO vO1.1vO vO1.1vO <m",
+            "subdivisions": 3
+          }
+        ]
+      },
+      {
+        "times": 1,
+        "parts": [
+          {
+            "trackId": "djembe-1",
+            "raw": "miO1.1O O1.1O O1.1O O1.1. m",
+            "subdivisions": 3
+          },
+          {
+            "trackId": "djembe-2",
+            "raw": "m>X1.1O X1.1B X1.1O X1.1. <m",
+            "subdivisions": 3
+          },
+          {
+            "trackId": "kenkeni-1",
+            "raw": "m>.1.1. .1O1O .1.1. .1O1O <m",
+            "subdivisions": 3
+          },
+          {
+            "trackId": "sangban-1",
+            "raw": "mvX1.1v .1v1. v1.1v vO1.1v m",
+            "subdivisions": 3
+          },
+          {
+            "trackId": "dununba-1",
+            "raw": "m>vO1.1vO vO1.1vO vO1.1vO vO1.1vO <m",
+            "subdivisions": 3
+          }
+        ]
+      },
+      {
+        "times": 1,
+        "parts": [
+          {
+            "trackId": "djembe-1",
+            "raw": "mB1X1X B1X1X B1.1O .1O1. mzX1.1. .1.1. .1.1. .1.1. m",
+            "subdivisions": 3
+          },
+          {
+            "trackId": "djembe-2",
+            "raw": "mB1X1X B1X1X B1.1O .1O1. mzX1.1. .1.1. .1.1. .1.1. m",
+            "subdivisions": 3
+          },
+          {
+            "trackId": "kenkeni-1",
+            "raw": "mvO1.1v vO1.1v vO1.1vO .1vO1. mvO1.1. .1.1. .1.1. .1.1. m",
+            "subdivisions": 3
+          },
+          {
+            "trackId": "sangban-1",
+            "raw": "mvO1.1v vO1.1v vO1.1vO .1vO1. mvO1.1. .1.1. .1.1. .1.1. m",
+            "subdivisions": 3
+          },
+          {
+            "trackId": "dununba-1",
+            "raw": "mvO1.1v vO1.1v vO1.1vO .1vO1. mvO1.1. .1.1. .1.1. .1.1. m",
+            "subdivisions": 3
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "kadan",
+    "sectionCount": 18,
+    "occurrences": 33,
+    "durationTicks": 201600,
+    "soundEvents": 3425,
+    "timelineHash": "2fe5549d7d133dd19b02c0125fe59a061d422510b1d1cbd0ec9043c3c55d7550",
+    "sections": [
+      {
+        "times": 1,
+        "parts": [
+          {
+            "trackId": "djembe-1",
+            "raw": "m.o2o2O.1O O1.1O O1.1O O1.1. m",
+            "subdivisions": 3
+          }
+        ]
+      },
+      {
+        "times": 1,
+        "parts": [
+          {
+            "trackId": "djembe-1",
+            "raw": "mX1X1X X1.1. X1X1X X1.1. mO1.1. O1.1. O1.1. O1.1. m\r\nmX1X1X X1.1. X1X1X X1.1. mO1.1. O1.1. O1.1. .1.1. m",
+            "subdivisions": 3
+          },
+          {
+            "trackId": "djembe-2",
+            "raw": "mX1X1X X1.1. X1X1X X1.1. mO1.1. O1.1. O1.1. O1.1. m\r\nmX1X1X X1.1. X1X1X X1.1. mO1.1. O1.1. O1.1. .1.1. m",
+            "subdivisions": 3
+          },
+          {
+            "trackId": "kenkeni-1",
+            "raw": "mvO1vO1vO vO1.1. vO1vO1vO vO1.1. m.1.1vO .1.1vO .1.1vO .1.1vO m\r\nmvO1vO1vO vO1.1. vO1vO1vO vO1.1.m.1.1vO .1.1. .1.1. .1.1.m",
+            "subdivisions": 3
+          },
+          {
+            "trackId": "sangban-1",
+            "raw": "mvO1vO1vO vO1.1. vO1vO1vO vO1.1. m.1.1vO .1.1vO .1.1vO .1.1vO m\r\nmvO1vO1vO vO1.1. vO1vO1vO vO1.1. m.1.1vO .1.1. .1.1. .1.1.m",
+            "subdivisions": 3
+          },
+          {
+            "trackId": "dununba-1",
+            "raw": "mvO1vO1vO vO1.1. vO1vO1vO vO1.1. mvO1.1. vO1.1. vO1.1. vO1.1. m\r\nmvO1vO1vO vO1.1. vO1vO1vO vO1.1. mvO1.1. vO1.1vO vO1.1vO vO1.1. m",
+            "subdivisions": 3
+          }
+        ]
+      },
+      {
+        "times": 4,
+        "parts": [
+          {
+            "trackId": "djembe-1",
+            "raw": "m>X1.1. X1O1O X1.1B X1O1O <m",
+            "subdivisions": 3
+          },
+          {
+            "trackId": "djembe-2",
+            "raw": "m>X1.1O X1.1. X1.1O X1.1B <m",
+            "subdivisions": 3
+          },
+          {
+            "trackId": "kenkeni-1",
+            "raw": "m>.1v.1vO .1vO1vO .1v.1vO .1vO1vO <m",
+            "subdivisions": 3
+          },
+          {
+            "trackId": "sangban-1",
+            "raw": "m>vO1.1v. vX1.1v. vO1.1v. vX1.1v. <m",
+            "subdivisions": 3
+          },
+          {
+            "trackId": "dununba-1",
+            "raw": "m>v.1.1v v1.1vO vO1.1vO vO1.1v. <m",
+            "subdivisions": 3
+          }
+        ]
+      },
+      {
+        "times": 1,
+        "parts": [
+          {
+            "trackId": "djembe-1",
+            "raw": "m>X1.1. X1O1O X1.1B X1.1. <m",
+            "subdivisions": 3
+          },
+          {
+            "trackId": "djembe-2",
+            "raw": "m>X1.1O X1.1. X1.1O X1.1B <m",
+            "subdivisions": 3
+          },
+          {
+            "trackId": "kenkeni-1",
+            "raw": "m>.1v.1vO .1vO1vO .1v.1vO .1vO1vO <m",
+            "subdivisions": 3
+          },
+          {
+            "trackId": "sangban-1",
+            "raw": "m>vO1.1v. vX1.1v. vO1.1v. vX1.1v. <m",
+            "subdivisions": 3
+          },
+          {
+            "trackId": "dununba-1",
+            "raw": "m>v.1.1v v1.1vO vO1.1vO vO1.1v. <m",
+            "subdivisions": 3
+          }
+        ]
+      },
+      {
+        "times": 1,
+        "parts": [
+          {
+            "trackId": "djembe-1",
+            "raw": "m.o2o2O.1O O1.1O O1.1O O1.1. m",
+            "subdivisions": 3
+          },
+          {
+            "trackId": "djembe-2",
+            "raw": "m>X1.1O X1.1. X1.1O X1.1B <m",
+            "subdivisions": 3
+          },
+          {
+            "trackId": "kenkeni-1",
+            "raw": "m>.1v.1vO .1vO1vO .1v.1vO .1vO1vO <m",
+            "subdivisions": 3
+          },
+          {
+            "trackId": "sangban-1",
+            "raw": "m>vO1.1v. vX1.1v. vO1.1v. vX1.1v. <m",
+            "subdivisions": 3
+          },
+          {
+            "trackId": "dununba-1",
+            "raw": "m>v.1.1v v1.1vO vO1.1vO vO1.1v. <m",
+            "subdivisions": 3
+          }
+        ]
+      },
+      {
+        "times": 4,
+        "parts": [
+          {
+            "trackId": "djembe-1",
+            "raw": "mO1O1O X1X1X O1O1O X1X1X m",
+            "subdivisions": 3
+          },
+          {
+            "trackId": "djembe-2",
+            "raw": "m>X1.1O X1.1. X1.1O X1.1B <m",
+            "subdivisions": 3
+          },
+          {
+            "trackId": "kenkeni-1",
+            "raw": "m>.1v.1vO .1vO1vO .1v.1vO .1vO1vO <m",
+            "subdivisions": 3
+          },
+          {
+            "trackId": "sangban-1",
+            "raw": "m>vO1.1v. vX1.1v. vO1.1v. vX1.1v. <m",
+            "subdivisions": 3
+          },
+          {
+            "trackId": "dununba-1",
+            "raw": "m>v.1.1v v1.1vO vO1.1vO vO1.1v. <m",
+            "subdivisions": 3
+          }
+        ]
+      },
+      {
+        "times": 1,
+        "parts": [
+          {
+            "trackId": "djembe-1",
+            "raw": "mO1O1O X1X1X O1O1O X1.1. m",
+            "subdivisions": 3
+          },
+          {
+            "trackId": "djembe-2",
+            "raw": "m>X1.1O X1.1. X1.1O X1.1B <m",
+            "subdivisions": 3
+          },
+          {
+            "trackId": "kenkeni-1",
+            "raw": "m>.1v.1vO .1vO1vO .1v.1vO .1vO1vO <m",
+            "subdivisions": 3
+          },
+          {
+            "trackId": "sangban-1",
+            "raw": "m>vO1.1v. vX1.1v. vO1.1v. vX1.1v. <m",
+            "subdivisions": 3
+          },
+          {
+            "trackId": "dununba-1",
+            "raw": "m>v.1.1v v1.1vO vO1.1vO vO1.1v. <m",
+            "subdivisions": 3
+          }
+        ]
+      },
+      {
+        "times": 1,
+        "parts": [
+          {
+            "trackId": "djembe-1",
+            "raw": "m.o2o2O.1O O1.1O O1.1O O1.1. m",
+            "subdivisions": 3
+          },
+          {
+            "trackId": "djembe-2",
+            "raw": "m>X1.1O X1.1. X1.1O X1.1B <m",
+            "subdivisions": 3
+          },
+          {
+            "trackId": "kenkeni-1",
+            "raw": "m>.1v.1vO .1vO1vO .1v.1vO .1vO1vO <m",
+            "subdivisions": 3
+          },
+          {
+            "trackId": "sangban-1",
+            "raw": "m>vO1.1v. vX1.1v. vO1.1v. vX1.1v. <m",
+            "subdivisions": 3
+          },
+          {
+            "trackId": "dununba-1",
+            "raw": "m>v.1.1v v1.1vO vO1.1vO vO1.1v. <m",
+            "subdivisions": 3
+          }
+        ]
+      },
+      {
+        "times": 1,
+        "parts": [
+          {
+            "trackId": "djembe-1",
+            "raw": "mX1X1X X1.1. X1X1X X1.1. mO1.1. O1.1. O1.1. O1.1. m\r\nmX1X1X X1.1. X1X1X X1.1. mO1.1. O1.1. O1.1. O1.1. m\r\nmX1X1X X1.1O .1O1. X1X1X mX1.1O .1O1. X1X1X X1.1O m\r\nm.1X1. O1.1X .1O1. X1X1X mX1.1O .1O1. .iXR1.1. .1.1. m",
+            "subdivisions": 3
+          },
+          {
+            "trackId": "djembe-2",
+            "raw": "mX1X1X X1.1. X1X1X X1.1. mO1.1. O1.1. O1.1. O1.1. m\r\nmX1X1X X1.1. X1X1X X1.1. mO1.1. O1.1. O1.1. O1.1. m\r\nmX1X1X X1.1O .1O1. X1X1X mX1.1O .1O1. X1X1X X1.1O m\r\nm.1X1. O1.1X .1O1. X1X1X mX1.1O .1O1. .iXR1.1. .1.1. m",
+            "subdivisions": 3
+          },
+          {
+            "trackId": "kenkeni-1",
+            "raw": "mvO1vO1vO vO1.1. vO1vO1vO vO1.1. m.1.1vO .1.1vO .1.1vO .1.1vO m\r\nmvO1vO1vO vO1.1. vO1vO1vO vO1.1. m.1.1vO .1.1vO .1.1vO .1.1vO m\r\nmvO1vO1vO vO1.1. .1.1. vO1vO1vO mvO1.1. .1.1. vO1vO1vO vO1.1. m\r\nm.1vO1. .1.1vO .1.1. vO1vO1vO mvO1.1 .1.1. vO1.1. .1.1. m",
+            "subdivisions": 3
+          },
+          {
+            "trackId": "sangban-1",
+            "raw": "mvO1vO1vO vO1.1. vO1vO1vO vO1.1. m.1.1vO .1.1vO .1.1vO .1.1vO m\r\nmvO1vO1vO vO1.1. vO1vO1vO vO1.1. m.1.1vO .1.1vO .1.1vO .1.1vO m\r\nmvO1vO1vO vO1.1. .1.1. vO1vO1vO mvO1.1. .1.1. vO1vO1vO vO1.1. m\r\nm.1vO1. .1.1vO .1.1. vO1vO1vO mvO1.1 .1.1. vO1.1. .1.1. m",
+            "subdivisions": 3
+          },
+          {
+            "trackId": "dununba-1",
+            "raw": "mvO1vO1vO vO1.1. vO1vO1vO vO1.1. mvO1.1. vO1.1. vO1.1. vO1.1. m\r\nmvO1vO1vO vO1.1. vO1vO1vO vO1.1. mvO1.1. vO1.1. vO1.1. vO1.1. m\r\nm.1.1. .1.1vO .1vO1. .1.1. m.1.1vO .1vO1. .1.1. .1.1vO m\r\nm.1.1. vO1.1. .1vO1. .1.1. m.1.1vO .1vO1. vO1.1. .1.1. m",
+            "subdivisions": 3
+          }
+        ]
+      },
+      {
+        "times": 1,
+        "parts": [
+          {
+            "trackId": "djembe-1",
+            "raw": "m.1.1. .1.1. .1.1. .1.1. m",
+            "subdivisions": 3
+          },
+          {
+            "trackId": "djembe-2",
+            "raw": "m.1.1. .1.1. .1.1. .1.1. m",
+            "subdivisions": 3
+          },
+          {
+            "trackId": "kenkeni-1",
+            "raw": "m>.1v.1vO .1vO1vO .1v.1vO .1vO1vO <m",
+            "subdivisions": 3
+          },
+          {
+            "trackId": "sangban-1",
+            "raw": "m.1.1. .1.1. .1.1. .1.1.m",
+            "subdivisions": 3
+          },
+          {
+            "trackId": "dununba-1",
+            "raw": "m.1.1. .1.1. .1.1. .1.1.m",
+            "subdivisions": 3
+          }
+        ]
+      },
+      {
+        "times": 2,
+        "parts": [
+          {
+            "trackId": "djembe-1",
+            "raw": "m.1.1. .1.1. .1.1. .1Or1Ol mxr2xl2Xr1Xl Xr1.1. .1.1. .1Or1Ol m\r\nmxr2xl2Xr1Xl Xr1.1. .1.1. .1Or1Ol mxr2xl2Xr1Xl xr2xl2Xr1Xl xr2xl2Xr1Xl .1Or1Ol m\r\nmxr2xl2Xr1Xl Xr1.1. .1.1. .1.1.m",
+            "subdivisions": 3
+          },
+          {
+            "trackId": "djembe-2",
+            "raw": "m>X1.1O X1.1. X1.1O X1.1B <m",
+            "subdivisions": 3
+          },
+          {
+            "trackId": "kenkeni-1",
+            "raw": "m>.1v.1vO .1vO1vO .1v.1vO .1vO1vO <m",
+            "subdivisions": 3
+          },
+          {
+            "trackId": "sangban-1",
+            "raw": "m>vO1.1v. vX1.1v. vO1.1v. vX1.1v. <m",
+            "subdivisions": 3
+          },
+          {
+            "trackId": "dununba-1",
+            "raw": "m>v.1.1v v1.1vO vO1.1vO vO1.1v. <m",
+            "subdivisions": 3
+          }
+        ]
+      },
+      {
+        "times": 2,
+        "parts": [
+          {
+            "trackId": "djembe-1",
+            "raw": "m.1.1. .1.1. .1.1. .1.1Xl mor2ol2Or1Ol Or1Xl1. .1.1. .1.1Xl m\r\nmor2ol2Or1Ol Or1Xl1. .1.1. .1.1.m",
+            "subdivisions": 3
+          },
+          {
+            "trackId": "djembe-2",
+            "raw": "m>X1.1O X1.1. X1.1O X1.1B <m",
+            "subdivisions": 3
+          },
+          {
+            "trackId": "kenkeni-1",
+            "raw": "m>.1v.1vO .1vO1vO .1v.1vO .1vO1vO <m",
+            "subdivisions": 3
+          },
+          {
+            "trackId": "sangban-1",
+            "raw": "m>vO1.1v. vX1.1v. vO1.1v. vX1.1v. <m",
+            "subdivisions": 3
+          },
+          {
+            "trackId": "dununba-1",
+            "raw": "m>v.1.1v v1.1vO vO1.1vO vO1.1v. <m",
+            "subdivisions": 3
+          }
+        ]
+      },
+      {
+        "times": 4,
+        "parts": [
+          {
+            "trackId": "djembe-1",
+            "raw": "mor2ol2Or1Xl or2ol2Or1X Xr1Xl1. Xl1Xr1Xl m.1.1. .1.1. .1.1. .1.1. m",
+            "subdivisions": 3
+          },
+          {
+            "trackId": "djembe-2",
+            "raw": "m>X1.1O X1.1. X1.1O X1.1B <m",
+            "subdivisions": 3
+          },
+          {
+            "trackId": "kenkeni-1",
+            "raw": "m>.1v.1vO .1vO1vO .1v.1vO .1vO1vO <m",
+            "subdivisions": 3
+          },
+          {
+            "trackId": "sangban-1",
+            "raw": "m>vO1.1v. vX1.1v. vO1.1v. vX1.1v. <m",
+            "subdivisions": 3
+          },
+          {
+            "trackId": "dununba-1",
+            "raw": "m>v.1.1v v1.1vO vO1.1vO vO1.1v. <m",
+            "subdivisions": 3
+          }
+        ]
+      },
+      {
+        "times": 2,
+        "parts": [
+          {
+            "trackId": "djembe-1",
+            "raw": "m.1.1. .1.1. .1.1. .1Xr1Xl mOr1Ol1. .1Xr1Xl Or1Ol1. .1Xr1Xl m\r\nmOr1Ol1. .1Xr1Xl Or1Ol1. .1.1.m",
+            "subdivisions": 3
+          },
+          {
+            "trackId": "djembe-2",
+            "raw": "m>X1.1O X1.1. X1.1O X1.1B <m",
+            "subdivisions": 3
+          },
+          {
+            "trackId": "kenkeni-1",
+            "raw": "m>.1v.1vO .1vO1vO .1v.1vO .1vO1vO <m",
+            "subdivisions": 3
+          },
+          {
+            "trackId": "sangban-1",
+            "raw": "m>vO1.1v. vX1.1v. vO1.1v. vX1.1v. <m",
+            "subdivisions": 3
+          },
+          {
+            "trackId": "dununba-1",
+            "raw": "m>v.1.1v v1.1vO vO1.1vO vO1.1v. <m",
+            "subdivisions": 3
+          }
+        ]
+      },
+      {
+        "times": 4,
+        "parts": [
+          {
+            "trackId": "djembe-1",
+            "raw": "mO1O1O X1X1X O1O1O X1X1X m",
+            "subdivisions": 3
+          },
+          {
+            "trackId": "djembe-2",
+            "raw": "m>X1.1O X1.1. X1.1O X1.1B <m",
+            "subdivisions": 3
+          },
+          {
+            "trackId": "kenkeni-1",
+            "raw": "m>.1v.1vO .1vO1vO .1v.1vO .1vO1vO <m",
+            "subdivisions": 3
+          },
+          {
+            "trackId": "sangban-1",
+            "raw": "m>vO1.1v. vX1.1v. vO1.1v. vX1.1v. <m",
+            "subdivisions": 3
+          },
+          {
+            "trackId": "dununba-1",
+            "raw": "m>v.1.1v v1.1vO vO1.1vO vO1.1v. <m",
+            "subdivisions": 3
+          }
+        ]
+      },
+      {
+        "times": 1,
+        "parts": [
+          {
+            "trackId": "djembe-1",
+            "raw": "mO1O1O X1X1X O1O1O X1.1. m",
+            "subdivisions": 3
+          },
+          {
+            "trackId": "djembe-2",
+            "raw": "m>X1.1O X1.1. X1.1O X1.1B <m",
+            "subdivisions": 3
+          },
+          {
+            "trackId": "kenkeni-1",
+            "raw": "m>.1v.1vO .1vO1vO .1v.1vO .1vO1vO <m",
+            "subdivisions": 3
+          },
+          {
+            "trackId": "sangban-1",
+            "raw": "m>vO1.1v. vX1.1v. vO1.1v. vX1.1v. <m",
+            "subdivisions": 3
+          },
+          {
+            "trackId": "dununba-1",
+            "raw": "m>v.1.1v v1.1vO vO1.1vO vO1.1v. <m",
+            "subdivisions": 3
+          }
+        ]
+      },
+      {
+        "times": 1,
+        "parts": [
+          {
+            "trackId": "djembe-1",
+            "raw": "m.o2o2O.1O O1.1O O1.1O O1.1. m",
+            "subdivisions": 3
+          },
+          {
+            "trackId": "djembe-2",
+            "raw": "m>X1.1O X1.1. X1.1O X1.1B <m",
+            "subdivisions": 3
+          },
+          {
+            "trackId": "kenkeni-1",
+            "raw": "m>.1v.1vO .1vO1vO .1v.1vO .1vO1vO <m",
+            "subdivisions": 3
+          },
+          {
+            "trackId": "sangban-1",
+            "raw": "m>vO1.1v. vX1.1v. vO1.1v. vX1.1v. <m",
+            "subdivisions": 3
+          },
+          {
+            "trackId": "dununba-1",
+            "raw": "m>v.1.1v v1.1vO vO1.1vO vO1.1v. <m",
+            "subdivisions": 3
+          }
+        ]
+      },
+      {
+        "times": 1,
+        "parts": [
+          {
+            "trackId": "djembe-1",
+            "raw": "mX1X1X X1.1. X1X1X X1.1. mO1.1. O1.1. O1.1. O1.1. m\r\nmX1X1X X1.1. X1X1X X1.1. mO1.1. O1.1. O1.1. O1.1. m\r\nmX1X1X X1.1O .1O1. X1X1X mX1.1O .1O1. X1X1X X1.1O m\r\nm.1X1. O1.1X .1O1. X1X1X mX1.1O .1O1. .iXR1.1. .1.1. m",
+            "subdivisions": 3
+          },
+          {
+            "trackId": "djembe-2",
+            "raw": "mX1X1X X1.1. X1X1X X1.1. mO1.1. O1.1. O1.1. O1.1. m\r\nmX1X1X X1.1. X1X1X X1.1. mO1.1. O1.1. O1.1. O1.1. m\r\nmX1X1X X1.1O .1O1. X1X1X mX1.1O .1O1. X1X1X X1.1O m\r\nm.1X1. O1.1X .1O1. X1X1X mX1.1O .1O1. .iXR1.1. .1.1. m",
+            "subdivisions": 3
+          },
+          {
+            "trackId": "kenkeni-1",
+            "raw": "mvO1vO1vO vO1.1. vO1vO1vO vO1.1. m.1.1vO .1.1vO .1.1vO .1.1vO m\r\nmvO1vO1vO vO1.1. vO1vO1vO vO1.1. m.1.1vO .1.1vO .1.1vO .1.1vO m\r\nmvO1vO1vO vO1.1. .1.1. vO1vO1vO mvO1.1. .1.1. vO1vO1vO vO1.1. m\r\nm.1vO1. .1.1vO .1.1. vO1vO1vO mvO1.1 .1.1. vO1.1. .1.1. m",
+            "subdivisions": 3
+          },
+          {
+            "trackId": "sangban-1",
+            "raw": "mvO1vO1vO vO1.1. vO1vO1vO vO1.1. m.1.1vO .1.1vO .1.1vO .1.1vO m\r\nmvO1vO1vO vO1.1. vO1vO1vO vO1.1. m.1.1vO .1.1vO .1.1vO .1.1vO m\r\nmvO1vO1vO vO1.1. .1.1. vO1vO1vO mvO1.1. .1.1. vO1vO1vO vO1.1. m\r\nm.1vO1. .1.1vO .1.1. vO1vO1vO mvO1.1 .1.1. vO1.1. .1.1. m",
+            "subdivisions": 3
+          },
+          {
+            "trackId": "dununba-1",
+            "raw": "mvO1vO1vO vO1.1. vO1vO1vO vO1.1. mvO1.1. vO1.1. vO1.1. vO1.1. m\r\nmvO1vO1vO vO1.1. vO1vO1vO vO1.1. mvO1.1. vO1.1. vO1.1. vO1.1. m\r\nm.1.1. .1.1vO .1vO1. .1.1. m.1.1vO .1vO1. .1.1. .1.1vO m\r\nm.1.1. vO1.1. .1vO1. .1.1. m.1.1vO .1vO1. vO1.1. .1.1. m",
+            "subdivisions": 3
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "djagbe",
+    "sectionCount": 23,
+    "occurrences": 33,
+    "durationTicks": 123840,
+    "soundEvents": 1153,
+    "timelineHash": "a416d16208bcb1b674c517e4760af0781587f58853435202bf7fa7ff529f53b3",
+    "sections": [
+      {
+        "times": 1,
+        "parts": [
+          {
+            "trackId": "djembe-1",
+            "raw": "miO1.1O1O .1O1.1O O1.1O1. O1.1.1. m",
+            "subdivisions": 4
+          },
+          {
+            "trackId": "sangban-1",
+            "raw": "m.1.1.1. .1.1.1. .1.1.1. .1.1vX1. m",
+            "subdivisions": 4
+          }
+        ]
+      },
+      {
+        "times": 2,
+        "parts": [
+          {
+            "trackId": "dununba-1",
+            "raw": "m>v1.1vO1vO .1v.1v.1. .v1.1vO1. v.1.1v.1. <m",
+            "subdivisions": 4
+          },
+          {
+            "trackId": "sangban-1",
+            "raw": "m>vX1.1v.1vO .1vO1.1v. vO1.1vO1. v.1.1vX1. <m",
+            "subdivisions": 4
+          }
+        ]
+      },
+      {
+        "times": 1,
+        "parts": [
+          {
+            "trackId": "dununba-1",
+            "raw": "mv1.1vO1vO .1v.1v.1. .v1.1vO1. v.1vO1.1v. mvO1.1v1vO .1v.1v.1. .v1.1vO1. v.1.1v.1. m",
+            "subdivisions": 4
+          },
+          {
+            "trackId": "sangban-1",
+            "raw": "m>vX1.1v.1vO .1vO1.1v. vO1.1vO1. v.1.1vX1. <m",
+            "subdivisions": 4
+          }
+        ]
+      },
+      {
+        "times": 2,
+        "parts": [
+          {
+            "trackId": "dununba-1",
+            "raw": "m>v1.1vO1vO .1v.1v.1. .v1.1vO1. v.1.1v.1. <m",
+            "subdivisions": 4
+          },
+          {
+            "trackId": "sangban-1",
+            "raw": "m>vX1.1v.1vO .1vO1.1v. vO1.1vO1. v.1.1vX1. <m",
+            "subdivisions": 4
+          }
+        ]
+      },
+      {
+        "times": 1,
+        "parts": [
+          {
+            "trackId": "dununba-1",
+            "raw": "mv1.1vO1vO .1v.1v.1. .v1.1vO1. v.1vO1.1v. mvO1.1v1vO .1v.1v.1. .v1.1vO1. v.1.1v.1. m",
+            "subdivisions": 4
+          },
+          {
+            "trackId": "sangban-1",
+            "raw": "m>vX1.1v.1vO .1vO1.1v. vO1.1vO1. v.1.1vX1. <m",
+            "subdivisions": 4
+          }
+        ]
+      },
+      {
+        "times": 2,
+        "parts": [
+          {
+            "trackId": "dununba-1",
+            "raw": "m>v1.1vO1vO .1v.1v.1. .v1.1vO1. v.1.1v.1. <m",
+            "subdivisions": 4
+          },
+          {
+            "trackId": "sangban-1",
+            "raw": "m>vX1.1v.1vO .1vO1.1v. vO1.1vO1. v.1.1vX1. <m",
+            "subdivisions": 4
+          }
+        ]
+      },
+      {
+        "times": 1,
+        "parts": [
+          {
+            "trackId": "dununba-1",
+            "raw": "mv1.1vO1vO .1v.1v.1. .v1.1vO1. v.1vO1.1v. mvO1.1v1vO .1v.1v.1. .v1.1vO1. v.1.1v.1. m",
+            "subdivisions": 4
+          },
+          {
+            "trackId": "sangban-1",
+            "raw": "m>vX1.1v.1vO .1vO1.1v. vO1.1vO1. v.1.1vX1. <m",
+            "subdivisions": 4
+          }
+        ]
+      },
+      {
+        "times": 2,
+        "parts": [
+          {
+            "trackId": "dununba-1",
+            "raw": "m>v1.1vO1vO .1v.1v.1. .v1.1vO1. v.1.1v.1. <m",
+            "subdivisions": 4
+          },
+          {
+            "trackId": "sangban-1",
+            "raw": "m>vX1.1v.1vO .1vO1.1v. vO1.1vO1. v.1.1vX1. <m",
+            "subdivisions": 4
+          }
+        ]
+      },
+      {
+        "times": 1,
+        "parts": [
+          {
+            "trackId": "dununba-1",
+            "raw": "mv1.1vO1vO .1v.1v.1. .v1.1vO1. v.1vO1.1v. mvO1.1v1vO .1v.1v.1. .v1.1vO1. v.1.1v.1. m",
+            "subdivisions": 4
+          },
+          {
+            "trackId": "sangban-1",
+            "raw": "m>vX1.1v.1vO .1vO1.1v. vO1.1vO1. v.1.1vX1. <m",
+            "subdivisions": 4
+          }
+        ]
+      },
+      {
+        "times": 2,
+        "parts": [
+          {
+            "trackId": "dununba-1",
+            "raw": "m>v1.1vO1vO .1v.1v.1. .v1.1vO1. v.1.1v.1. <m",
+            "subdivisions": 4
+          },
+          {
+            "trackId": "sangban-1",
+            "raw": "m>vX1.1v.1vO .1vO1.1v. vO1.1vO1. v.1.1vX1. <m",
+            "subdivisions": 4
+          }
+        ]
+      },
+      {
+        "times": 1,
+        "parts": [
+          {
+            "trackId": "dununba-1",
+            "raw": "mv1.1vO1vO .1v.1v.1. .v1.1vO1. v.1vO1.1v. mvO1.1v1vO .1v.1v.1. .v1.1vO1. v.1.1v.1. m",
+            "subdivisions": 4
+          },
+          {
+            "trackId": "sangban-1",
+            "raw": "m>vX1.1v.1vO .1vO1.1v. vO1.1vO1. v.1.1vX1. <m",
+            "subdivisions": 4
+          }
+        ]
+      },
+      {
+        "times": 2,
+        "parts": [
+          {
+            "trackId": "dununba-1",
+            "raw": "m>v1.1vO1vO .1v.1v.1. .v1.1vO1. v.1.1v.1. <m",
+            "subdivisions": 4
+          },
+          {
+            "trackId": "sangban-1",
+            "raw": "m>vX1.1v.1vO .1vO1.1v. vO1.1vO1. v.1.1vX1. <m",
+            "subdivisions": 4
+          }
+        ]
+      },
+      {
+        "times": 1,
+        "parts": [
+          {
+            "trackId": "dununba-1",
+            "raw": "mv1.1vO1vO .1v.1v.1. .v1.1vO1. v.1vO1.1v. mvO1.1v1vO .1v.1v.1. .v1.1vO1. v.1.1v.1. m",
+            "subdivisions": 4
+          },
+          {
+            "trackId": "sangban-1",
+            "raw": "m>vX1.1v.1vO .1vO1.1v. vO1.1vO1. v.1.1vX1. <m",
+            "subdivisions": 4
+          }
+        ]
+      },
+      {
+        "times": 2,
+        "parts": [
+          {
+            "trackId": "dununba-1",
+            "raw": "m>v1.1vO1vO .1v.1v.1. .v1.1vO1. v.1.1v.1. <m",
+            "subdivisions": 4
+          },
+          {
+            "trackId": "sangban-1",
+            "raw": "m>vX1.1v.1vO .1vO1.1v. vO1.1vO1. v.1.1vX1. <m",
+            "subdivisions": 4
+          }
+        ]
+      },
+      {
+        "times": 1,
+        "parts": [
+          {
+            "trackId": "dununba-1",
+            "raw": "mv1.1vO1vO .1v.1v.1. .v1.1vO1. v.1vO1.1v. mvO1.1v1vO .1v.1v.1. .v1.1vO1. v.1.1v.1. m",
+            "subdivisions": 4
+          },
+          {
+            "trackId": "sangban-1",
+            "raw": "m>vX1.1v.1vO .1vO1.1v. vO1.1vO1. v.1.1vX1. <m",
+            "subdivisions": 4
+          }
+        ]
+      },
+      {
+        "times": 2,
+        "parts": [
+          {
+            "trackId": "dununba-1",
+            "raw": "m>v1.1vO1vO .1v.1v.1. .v1.1vO1. v.1.1v.1. <m",
+            "subdivisions": 4
+          },
+          {
+            "trackId": "sangban-1",
+            "raw": "m>vX1.1v.1vO .1vO1.1v. vO1.1vO1. v.1.1vX1. <m",
+            "subdivisions": 4
+          }
+        ]
+      },
+      {
+        "times": 1,
+        "parts": [
+          {
+            "trackId": "dununba-1",
+            "raw": "mv1.1vO1vO .1v.1v.1. .v1.1vO1. v.1vO1.1v. mvO1.1v1vO .1v.1v.1. .v1.1vO1. v.1.1v.1. m",
+            "subdivisions": 4
+          },
+          {
+            "trackId": "sangban-1",
+            "raw": "m>vX1.1v.1vO .1vO1.1v. vO1.1vO1. v.1.1vX1. <m",
+            "subdivisions": 4
+          }
+        ]
+      },
+      {
+        "times": 2,
+        "parts": [
+          {
+            "trackId": "dununba-1",
+            "raw": "m>v1.1vO1vO .1v.1v.1. .v1.1vO1. v.1.1v.1. <m",
+            "subdivisions": 4
+          },
+          {
+            "trackId": "sangban-1",
+            "raw": "m>vX1.1v.1vO .1vO1.1v. vO1.1vO1. v.1.1vX1. <m",
+            "subdivisions": 4
+          }
+        ]
+      },
+      {
+        "times": 1,
+        "parts": [
+          {
+            "trackId": "dununba-1",
+            "raw": "mv1.1vO1vO .1v.1v.1. .v1.1vO1. v.1vO1.1v. mvO1.1v1vO .1v.1v.1. .v1.1vO1. v.1.1v.1. m",
+            "subdivisions": 4
+          },
+          {
+            "trackId": "sangban-1",
+            "raw": "m>vX1.1v.1vO .1vO1.1v. vO1.1vO1. v.1.1vX1. <m",
+            "subdivisions": 4
+          }
+        ]
+      },
+      {
+        "times": 2,
+        "parts": [
+          {
+            "trackId": "dununba-1",
+            "raw": "m>v1.1vO1vO .1v.1v.1. .v1.1vO1. v.1.1v.1. <m",
+            "subdivisions": 4
+          },
+          {
+            "trackId": "sangban-1",
+            "raw": "m>vX1.1v.1vO .1vO1.1v. vO1.1vO1. v.1.1vX1. <m",
+            "subdivisions": 4
+          }
+        ]
+      },
+      {
+        "times": 1,
+        "parts": [
+          {
+            "trackId": "dununba-1",
+            "raw": "mv1.1vO1vO .1v.1v.1. .v1.1vO1. v.1vO1.1v. mvO1.1v1vO .1v.1v.1. .v1.1vO1. v.1.1v.1. m",
+            "subdivisions": 4
+          },
+          {
+            "trackId": "sangban-1",
+            "raw": "m>vX1.1v.1vO .1vO1.1v. vO1.1vO1. v.1.1vX1. <m",
+            "subdivisions": 4
+          }
+        ]
+      },
+      {
+        "times": 1,
+        "parts": [
+          {
+            "trackId": "djembe-1",
+            "raw": "miO1.1O1O .1O1.1O O1.1O1. O1.1.1. m",
+            "subdivisions": 4
+          },
+          {
+            "trackId": "dununba-1",
+            "raw": "m>v1.1vO1vO .1v.1v.1. .v1.1vO1. v.1.1v.1. <m",
+            "subdivisions": 4
+          },
+          {
+            "trackId": "sangban-1",
+            "raw": "m>vX1.1v.1vO .1vO1.1v. vO1.1vO1. v.1.1vX1. <m",
+            "subdivisions": 4
+          }
+        ]
+      },
+      {
+        "times": 1,
+        "parts": [
+          {
+            "trackId": "djembe-1",
+            "raw": "miO1.1.1. .1.1.1. .1.1.1. .1.1.1. m",
+            "subdivisions": 4
+          },
+          {
+            "trackId": "dununba-1",
+            "raw": "mvO1.1.1. .1.1.1. .1.1.1. .1.1.1. m",
+            "subdivisions": 4
+          },
+          {
+            "trackId": "sangban-1",
+            "raw": "mvO1.1.1. .1.1.1. .1.1.1. .1.1.1. m",
+            "subdivisions": 4
+          }
+        ]
+      }
+    ]
+  }
+]

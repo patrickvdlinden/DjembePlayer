@@ -6,6 +6,7 @@ import { TICKS_PER_BEAT } from './core/model';
 import type { Instrument, Song } from './core/model';
 import { parseNotation } from './core/parser';
 import { djagbe } from './songs/djagbe';
+import { songs } from './songs/catalog';
 import { NotationScore } from './notation/NotationScore';
 
 const formatTime = (seconds: number) =>
@@ -15,6 +16,7 @@ const instruments: Instrument[] = ['djembe', 'kenkeni', 'sangban', 'dununba', 'k
 
 export function App() {
   const [song, setSong] = useState(djagbe);
+  const [librarySong, setLibrarySong] = useState(djagbe);
   const [bpm, setBpm] = useState(djagbe.bpm);
   const [loop, setLoop] = useState(false);
   const [metronome, setMetronome] = useState(false);
@@ -79,6 +81,17 @@ export function App() {
     engineRef.current?.setMix(id, change);
   }
 
+  function selectSong(id: string) {
+    const selected = songs.find(item => item.id === id);
+    if (!selected) return;
+    engineRef.current?.stop();
+    setLibrarySong(selected);
+    setSong(selected);
+    setBpm(selected.bpm);
+    setTick(0);
+    setPatternError('');
+  }
+
   function loadPattern() {
     try {
       const notation = parseNotation(raw, { instrument, subdivisions, name: 'Your pattern' });
@@ -111,9 +124,17 @@ export function App() {
       </header>
 
       <main>
+        <div className="song-library">
+          <p className="eyebrow">THE PRACTICE ROOM</p>
+          <label className="song-selector" htmlFor="song-selector">Song
+            <select id="song-selector" value={song.id} onChange={event => selectSong(event.target.value)}>
+              {songs.map(item => <option key={item.id} value={item.id}>{item.name}</option>)}
+              {song.id === 'custom' && <option value="custom" disabled>Your pattern</option>}
+            </select>
+          </label>
+        </div>
         <div className="song-heading">
           <div>
-            <p className="eyebrow">THE PRACTICE ROOM</p>
             <h1>{song.name}<span className="title-dot">.</span></h1>
             <p className="description">{song.description}</p>
           </div>
@@ -271,7 +292,7 @@ export function App() {
             </select></label>
             <button className="secondary-button" onClick={loadPattern}>Load pattern</button>
             {song.id === 'custom' && <button className="text-button"
-              onClick={() => { engineRef.current?.stop(); setSong(djagbe); }}>Return to Djagbé</button>}
+              onClick={() => selectSong(librarySong.id)}>Return to {librarySong.name}</button>}
           </div>
           {patternError && <p className="error" role="alert">{patternError}</p>}
           <p className="notation-hint"><code>m</code> measure · <code>B O X</code> bass, tone, slap ·

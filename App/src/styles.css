@@ -34,6 +34,10 @@ input[type='range'] { width: 100%; accent-color: var(--accent); height: 24px; ma
 .brand-light { font-weight: 350; color: var(--muted); margin-left: 4px; }
 .header-note { font-size: .875rem; color: var(--muted); }
 main { padding-top: 46px; }
+.song-library { display: flex; align-items: center; justify-content: space-between; gap: 20px; margin-bottom: 20px; }
+.song-library .eyebrow { margin: 0; }
+.song-selector { display: flex; align-items: center; gap: 12px; font-size: .875rem; color: var(--muted); }
+.song-selector select { min-width: 170px; }
 .song-heading { display: flex; align-items: flex-end; justify-content: space-between; gap: 30px; margin-bottom: 32px; }
 .eyebrow { color: var(--muted); font-size: .75rem; font-weight: 600; letter-spacing: .15em; margin: 0 0 12px; }
 h1 { font-family: Georgia, 'Times New Roman', serif; font-size: clamp(3rem, 5vw, 4.5rem); font-weight: 400; line-height: 1.05; letter-spacing: -.04em; margin: 0 0 18px; }
@@ -137,6 +141,7 @@ footer { display: flex; justify-content: space-between; gap: 20px; color: #a4b0a
   .site-header { min-height: 80px; }
   .header-note { display: none; }
   main { padding-top: 30px; }
+  .song-library { flex-wrap: wrap; gap: 14px; }
   .song-heading { flex-direction: column; align-items: flex-start; gap: 24px; margin-bottom: 25px; }
   .song-facts { gap: 35px; }
   .song-facts strong { font-size: 1.3rem; }
