@@ -8,6 +8,7 @@ import { parseNotation } from './core/parser';
 import { djagbe } from './songs/djagbe';
 import { songs } from './songs/catalog';
 import { NotationScore } from './notation/NotationScore';
+import { notationWidthReference } from './notation/wrapNotation';
 
 const formatTime = (seconds: number) =>
   `${Math.floor(seconds / 60)}:${Math.floor(seconds % 60).toString().padStart(2, '0')}`;
@@ -207,6 +208,9 @@ export function App() {
 
         <div className="workspace-grid">
           <section className="panel notation-panel" aria-labelledby="notation-heading">
+            <pre className="notation notation-width-reference" aria-hidden="true">
+              {notationWidthReference(section.parts[0]!.notation)}
+            </pre>
             <div className="panel-heading">
               <div><p className="eyebrow">THE NOTATION</p><h2 id="notation-heading">{section.name}</h2></div>
               <span className="tag">{current && current.times > 1

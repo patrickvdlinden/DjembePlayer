@@ -31,12 +31,13 @@ describe.each(songs)('$name complete arrangement', song => {
   it('preserves every musical section, pattern, track assignment, and repeat count', () => {
     const expected: Reference['sections'] = [];
     for (const source of reference.sections.slice(omittedSections)) {
-      const section = { ...source, parts: source.parts.map(part => ({
-        ...part,
-        // Soro's lead notation includes the closing beat space needed by the font.
-        raw: song.id === 'soro' && part.trackId === 'djembe-1'
-          ? part.raw.replace(/(\S)(<m)$/, '$1 $2') : part.raw,
-      })) };
+      const section = { ...source, parts: source.parts.map(part => {
+        // The App corrects font spacing; the independent C# reference is unchanged.
+        let raw = part.raw;
+        if (song.id === 'soro' && part.trackId === 'djembe-1') raw = raw.replace(/(\S)(<m)$/, '$1 $2');
+        if (song.id === 'kadan') raw = raw.replace(/\.m/g, '. m');
+        return { ...part, raw };
+      }) };
       const previous = expected.at(-1);
       // Group adjacent entries only when every instrument part matches.
       if (groupConsecutiveSections && previous && isDeepStrictEqual(previous.parts, section.parts)) {

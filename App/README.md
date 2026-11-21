@@ -34,7 +34,8 @@ Vite copies the audio and font from `../Assets/Resources/` into the ignored `pub
 - Jump to any section using the playback dropdown or a row in the full arrangement. While stopped, Play begins at the selected section; during playback, a jump continues from that section's first pass. Stop returns to the beginning. Tempo, mixer settings, and whole-song looping are preserved when jumping.
 - Track mute, volume, and stereo panning.
 - Current section, repeat pass, labeled beat indicators, and progress.
-- Smooth red playheads follow the audio clock across notes, rests, pattern repeats, and multiline measures. Long notation scrolls to keep the playhead visible.
+- Smooth red playheads follow the audio clock across notes, rests, pattern repeats, and multiline measures, remaining aligned when the score resizes.
+- Scores wrap after every two measures (eight beats) at a fixed 25px font size. A complete two-measure reference in the same font reserves the notation panel's width, keeping it stable for shorter parts; notation backgrounds fill that width. The mixer moves below when it cannot fit beside the score. Narrow screens can scroll the notation horizontally, following the playhead. Existing line breaks are reflowed for display; source notation and playback timing stay unchanged.
 - Notation display/editing in the original font, with a source-text toggle. Load custom patterns for djembe, kenkeni, sangban, dununba, or krin, using three or four pulses per beat; each custom pattern plays four times.
 - Responsive layout for desktop and phone-sized screens.
 

@@ -27,7 +27,7 @@ button, input, select, textarea, summary, a { outline-offset: 5px; }
 button { transition: background .15s, opacity .15s; }
 input[type='checkbox'] { accent-color: var(--accent); width: 17px; height: 17px; margin: 0; }
 input[type='range'] { width: 100%; accent-color: var(--accent); height: 24px; margin: 4px 0; cursor: pointer; }
-.app-shell { max-width: 1320px; padding: 0 56px; margin: 0 auto; }
+.app-shell { max-width: 1320px; padding: 0 24px; margin: 0 auto; }
 .site-header { min-height: 104px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--line); gap: 24px; }
 .brand { display: flex; align-items: center; gap: 13px; font-size: 1.35rem; font-weight: 650; color: inherit; text-decoration: none; letter-spacing: -.04em; }
 .brand svg { width: 40px; height: 40px; fill: none; stroke: var(--accent); stroke-width: 1.6; }
@@ -74,7 +74,9 @@ h1 { font-family: Georgia, 'Times New Roman', serif; font-size: clamp(3rem, 5vw,
 .time span { color: var(--muted); }
 .progress { height: 4px; background: #354239; }
 .progress > span { display: block; height: 100%; background: var(--accent); transition: width 75ms linear; }
-.workspace-grid { display: grid; grid-template-columns: minmax(0, 1.75fr) minmax(280px, 1fr); gap: 26px; align-items: start; }
+.workspace-grid { display: flex; flex-wrap: wrap; gap: 26px; align-items: flex-start; }
+.notation-panel { flex: 0 1 auto; width: max-content; max-width: 100%; min-width: 0; }
+.mixer { flex: 0 0 300px; max-width: 100%; }
 .panel-heading { display: flex; justify-content: space-between; align-items: center; gap: 14px; }
 .panel-heading .eyebrow { margin-bottom: 8px; }
 h2 { font-size: 1.3rem; font-weight: 500; margin: 0; letter-spacing: -.02em; }
@@ -86,10 +88,11 @@ h3 { font-size: .9375rem; font-weight: 550; margin: 0; }
 .track-label { display: flex; align-items: center; gap: 8px; margin-bottom: 12px; }
 .track-swatch { display: inline-block; width: 4px; height: 15px; border-radius: 2px; flex-shrink: 0; }
 .track-label > span:last-child { font-size: .8rem; color: var(--muted); margin-left: auto; }
-.score-scroll { overflow: auto; border-radius: 7px; background: #e7ecdf; color: #17231b; }
+.score-viewport { overflow: auto; width: 100%; max-width: 100%; border-radius: 7px; background: #e7ecdf; color: #17231b; }
 .score-content { position: relative; width: max-content; min-width: 100%; }
 .notation-playhead { position: absolute; left: 0; top: 0; width: 2px; background: #df2435; pointer-events: none; z-index: 1; will-change: transform; }
 .notation { font-family: SlapToonToonSlap, monospace; font-size: 25px; line-height: 2.1; font-variant-ligatures: none; white-space: pre; margin: 0; padding: 12px 17px; min-height: 80px; }
+.notation-width-reference { width: max-content; max-width: 100%; height: 0; min-height: 0; padding-block: 0; overflow: hidden; visibility: hidden; }
 .rest { height: 80px; display: flex; align-items: center; padding: 15px 17px; color: var(--muted); font-size: .875rem; background: #18201b; border: 1px dashed #3c4940; border-radius: 7px; }
 .arrangement { margin-top: 30px; border-top: 1px solid var(--line); padding-top: 20px; font-size: .875rem; }
 .arrangement summary { cursor: pointer; color: #c7d1c8; line-height: 1.7; }
@@ -139,7 +142,7 @@ footer { display: flex; justify-content: space-between; gap: 20px; color: #a4b0a
   .app-shell { padding: 0 30px; }
   .song-facts { gap: 18px; }
   .transport-options { width: 100%; padding-top: 5px; }
-  .workspace-grid { grid-template-columns: minmax(0, 1.45fr) minmax(260px, 1fr); gap: 20px; }
+  .workspace-grid { gap: 20px; }
   .notation-panel, .mixer, .pattern-lab { padding: 22px; }
   .tag { display: none; }
 }
@@ -153,7 +156,7 @@ footer { display: flex; justify-content: space-between; gap: 20px; color: #a4b0a
   .song-facts { gap: 35px; }
   .song-facts strong { font-size: 1.3rem; }
   .song-facts span { gap: 5px; font-size: .8rem; }
-  .workspace-grid { grid-template-columns: minmax(0, 1fr); }
+  .mixer { flex-basis: 100%; }
   .transport-top { padding: 20px; gap: 17px; }
   .section-navigation { flex-wrap: wrap; gap: 8px; padding: 0 20px 12px; }
   .section-navigation select { width: 100%; }
