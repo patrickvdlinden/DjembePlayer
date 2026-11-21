@@ -6,12 +6,14 @@ import { sampleUrl, samplesFor } from './samples';
 
 export type PlayerState = 'stopped' | 'loading' | 'playing' | 'finished' | 'error';
 export interface TrackMix { volume: number; pan: number; muted: boolean }
+const STOP_FADE_SECONDS = 0.005;
 
 /** Owns its AudioContext and transport; React never triggers individual hits. */
 export class PlayerEngine {
   readonly arrangement: Arrangement;
   private context?: Tone.Context;
   private master?: Tone.Limiter;
+  private output?: Tone.Gain;
   private channels = new Map<string, Tone.Channel>();
   private buffers = new Map<string, Promise<AudioBuffer>>();
   private samples = new Map<string, AudioBuffer>();
@@ -44,7 +46,10 @@ export class PlayerEngine {
       this.context = new Tone.Context({ latencyHint: 'playback', lookAhead: 0.12 });
       this.context.transport.PPQ = TICKS_PER_BEAT;
       this.context.transport.timeSignature = this.song.beatsPerMeasure;
-      this.master = new Tone.Limiter({ context: this.context, threshold: -1 }).connect(this.context.destination);
+      this.output = new Tone.Gain({ context: this.context, gain: 0 }).connect(this.context.destination);
+      this.output.channelCount = 2;
+      this.output.channelCountMode = 'explicit';
+      this.master = new Tone.Limiter({ context: this.context, threshold: -1 }).connect(this.output);
       this.song.tracks.forEach(track => this.createChannel(track));
       this.channels.set('metronome', new Tone.Channel({ context: this.context, volume: -16 }).connect(this.master));
     }
@@ -89,8 +94,8 @@ export class PlayerEngine {
       await Promise.all([resume, ...loading]);
       if (generation !== this.generation || this.disposed) return;
       const transport = context.transport;
-      transport.stop();
       transport.cancel(0);
+      transport.stop(context.immediate());
       transport.bpm.value = this.bpm;
       transport.loop = this.looping;
       transport.loopEnd = `${this.arrangement.durationTicks}i`;
@@ -106,15 +111,22 @@ export class PlayerEngine {
       }, `${TICKS_PER_BEAT}i`, 0);
       transport.schedule(time => {
         if (transport.loop || generation !== this.generation) return;
+        // Resetting ticks inside a scheduler batch can make its remaining ticks
+        // revisit tick zero. Invalidate callbacks BEFORE resetting the clock.
+        const finishedGeneration = ++this.generation;
+        transport.cancel(0);
         transport.stop(time);
         context.draw.schedule(() => {
-          if (generation !== this.generation) return;
+          if (finishedGeneration !== this.generation) return;
           this.state = 'finished';
           this.onChange();
         }, time);
       }, `${this.arrangement.durationTicks}i`);
+      this.silenceAndRetireSources();
+      const startTime = context.now() + 0.05;
+      this.output!.gain.setValueAtTime(1, startTime);
       this.state = 'playing';
-      transport.start(context.now() + 0.05, 0);
+      transport.start(startTime, 0);
       this.onChange();
     } catch (error) {
       if (generation !== this.generation || this.disposed) return;
@@ -157,14 +169,32 @@ export class PlayerEngine {
   stop() {
     this.generation++;
     if (this.context) {
-      this.context.transport.stop(this.context.immediate());
       this.context.transport.cancel(0);
+      this.context.transport.stop(this.context.immediate());
       this.context.draw.cancel(0);
     }
-    this.sources.forEach(source => source.dispose());
-    this.sources.clear();
+    this.silenceAndRetireSources();
     this.state = 'stopped';
     this.onChange();
+  }
+
+  private silenceAndRetireSources() {
+    const context = this.context;
+    const output = this.output;
+    if (context && output) {
+      const now = context.immediate();
+      // Fade the whole output, including strikes already queued by look-ahead.
+      // Keep sources connected until the fade has reached the audio device.
+      output.gain.cancelAndHoldAtTime(now);
+      output.gain.linearRampToValueAtTime(0, now + STOP_FADE_SECONDS);
+    }
+    const retiring = [...this.sources];
+    const release = () => retiring.forEach(source => {
+      if (this.sources.delete(source)) source.dispose();
+    });
+    if (context && output && !this.disposed && retiring.length) {
+      context.setTimeout(release, STOP_FADE_SECONDS + output.blockTime);
+    } else release();
   }
 
   dispose() {
@@ -174,6 +204,7 @@ export class PlayerEngine {
     this.channels.forEach(channel => channel.dispose());
     this.channels.clear();
     this.master?.dispose();
+    this.output?.dispose();
     this.context?.dispose();
   }
 }

@@ -8,10 +8,14 @@ const audio = vi.hoisted(() => ({
   transportStarts: 0,
   disposals: 0,
   mixes: [] as { volume: { value: number }; pan: { value: number }; mute: boolean }[],
+  onTransportStop: undefined as (() => void) | undefined,
+  gainRamps: [] as { value: number; time: number }[],
+  cleanups: [] as { callback: () => void; delay: number }[],
 }));
 
 vi.mock('tone', () => {
   class Node {
+    blockTime = 128 / 44100;
     volume = { value: 0 };
     pan = { value: 0 };
     mute = false;
@@ -27,7 +31,7 @@ vi.mock('tone', () => {
         schedule: (callback: (time: number) => void, at: string) => { audio.events.push({ at, callback }); },
         scheduleRepeat: vi.fn(),
         start: () => { audio.transportStarts++; },
-        stop: vi.fn(),
+        stop: () => { audio.onTransportStop?.(); },
         cancel: () => { audio.events = []; },
       };
       draw = { schedule: (callback: () => void) => callback(), cancel: vi.fn() };
@@ -35,6 +39,7 @@ vi.mock('tone', () => {
       decodeAudioData = async () => ({} as AudioBuffer);
       now = () => 10;
       immediate = () => 10;
+      setTimeout = (callback: () => void, delay: number) => { audio.cleanups.push({ callback, delay }); return 0; };
       dispose = vi.fn();
       close = async () => {};
     },
@@ -48,6 +53,13 @@ vi.mock('tone', () => {
       }
     },
     Limiter: Node,
+    Gain: class extends Node {
+      gain = {
+        cancelAndHoldAtTime: vi.fn(),
+        linearRampToValueAtTime: (value: number, time: number) => { audio.gainRamps.push({ value, time }); },
+        setValueAtTime: vi.fn(),
+      };
+    },
     ToneBufferSource: class extends Node {
       start(time: number) { audio.starts.push(time); }
     },
@@ -63,6 +75,9 @@ describe('audio scheduling lifecycle', () => {
     audio.transportStarts = 0;
     audio.disposals = 0;
     audio.mixes = [];
+    audio.onTransportStop = undefined;
+    audio.gainRamps = [];
+    audio.cleanups = [];
     vi.stubGlobal('fetch', vi.fn(async () => ({ ok: true, arrayBuffer: async () => new ArrayBuffer(4) })));
     engine = new PlayerEngine(djagbe, vi.fn());
   });
@@ -95,6 +110,7 @@ describe('audio scheduling lifecycle', () => {
     scheduled.callback(42);
     expect(audio.starts).toHaveLength(1);
     engine.stop();
+    audio.cleanups.forEach(cleanup => cleanup.callback());
     expect(audio.disposals).toBeGreaterThan(0);
     scheduled.callback(43);
     expect(audio.starts).toHaveLength(1);
@@ -118,6 +134,30 @@ describe('audio scheduling lifecycle', () => {
     await engine.play();
     expect(engine.state).toBe('playing');
     expect(audio.transportStarts).toBe(2);
+  });
+
+  it('invalidates opening callbacks before resetting the transport at the ending', async () => {
+    await engine.play();
+    const opening = audio.events.filter(event => event.at === '0i');
+    const ending = audio.events.at(-1)!;
+    // Real Tone.js may revisit tick zero within the current scheduler batch
+    // when Stop resets its tick counter. This is the reported final burst.
+    audio.onTransportStop = () => opening.forEach(event => event.callback(100));
+    ending.callback(100);
+    expect(audio.starts).toEqual([]);
+    expect(engine.state).toBe('finished');
+    expect(audio.events).toEqual([]);
+  });
+
+  it('fades queued and active voices before disposing them on Stop', async () => {
+    await engine.play();
+    audio.events[0]!.callback(10.04);
+    engine.stop();
+    expect(audio.gainRamps.at(-1)).toEqual({ value: 0, time: 10.005 });
+    expect(audio.disposals).toBe(0);
+    expect(audio.cleanups[0]?.delay).toBeCloseTo(0.005 + 128 / 44100);
+    audio.cleanups.forEach(cleanup => cleanup.callback());
+    expect(audio.disposals).toBeGreaterThan(0);
   });
 
   it('retains volume when pan is changed immediately afterwards', async () => {

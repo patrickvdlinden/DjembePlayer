@@ -49,10 +49,14 @@ Spacing uses exact integer units: `1` is one pulse, `-`/`2` half a pulse, and `_
 
 The arrangement compiler cycles shorter patterns through longer sections, matching the original song playback. `times` counts total performances: the Unity `AddPart(1, ...)` base section becomes `times: 2`.
 
-Tone schedules each strike on its audio clock. React's animation loop only displays progress; it does not trigger sound. Each hit creates a separate buffer source so tails and flams overlap. Stop cancels transport events, pending flams, and any start still awaiting sample downloads. Audio assets are fetched and decoded once per player instance, with failed loads retryable.
+Tone schedules each strike on its audio clock. React's animation loop only displays progress; it does not trigger sound. Each hit creates a separate buffer source so tails and flams overlap. Stop cancels transport events, pending flams, and any start still awaiting sample downloads. A 5 ms master fade silences active and already-queued voices before their nodes are disconnected, avoiding an abrupt cutoff. The output bus explicitly preserves two channels. Audio assets are fetched and decoded once per player instance, with failed loads retryable.
+
+At a natural ending, playback callbacks are invalidated and removed **before** the transport's tick counter is reset. Otherwise, Tone's current scheduling batch can revisit tick zero and replay the opening strikes repeatedly. The final recorded tails are allowed to finish naturally.
 
 ## Validation and scope
 
 `original-patterns.json` contains independent reference output exported from the unchanged C# parser for all **94 distinct patterns** used in Soro, Soli, Kadan, and Djagbé. The tests compare sound types, ticks, flam delays, durations, and repeat metadata. These reference fixtures are test data, not runtime adapters. Additional tests cover exact fractional spacing, malformed input, complete song counts, shorter-part cycling, distinct tracks of the same instrument, and audio cancellation/retry behavior.
+
+For real Web Audio regressions, run `pnpm dev`, open `http://127.0.0.1:5173/tests/audio.html`, and click **Run audio regressions (silent)**. This development-only page measures hard-left/right separation, live panning of the original dununba recordings, the exact strike count at a natural ending, and silence after Stop. It uses the actual player, Tone transport, and audio nodes; synthetic sine buffers replace sample I/O only where deterministic input is needed. Speaker output is muted. These measurements occur before the device/preview's final output path, so they cannot verify downstream mono settings. The test page is not included in the production build.
 
 Only Djagbé's complete song arrangement has been migrated. The remaining songs, persistence, offline installation, and native mobile playback are future work. Tone.js runs in the browser; a future Expo app can share `core/` and song data but needs a validated native audio backend and adapted UI. Phone lock/background audio is subject to browser/OS interruptions.
