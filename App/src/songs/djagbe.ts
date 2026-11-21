@@ -7,9 +7,9 @@ const pattern = (name: string, raw: string, instrument: Instrument) =>
 
 const call = pattern('Call', 'miO1.1O1O .1O1.1O O1.1O1. O1.1.1. m', 'djembe');
 const djembeEnd = pattern('Ending', 'miO1.1.1. .1.1.1. .1.1.1. .1.1.1. m', 'djembe');
-const sangbanStart = pattern('Sangban entry', 'm.1.1.1. .1.1.1. .1.1.1. .1.1vX1.m', 'sangban');
-const sangban = pattern('Sangban base', 'm>vX1.1v.1vO .1vO1.1v. vO1.1vO1. v.1.1vX1.<m', 'sangban');
-const sangbanEnd = pattern('Sangban ending', 'mvO1.1.1. .1.1.1. .1.1.1. .1.1.1.m', 'sangban');
+const sangbanStart = pattern('Sangban entry', 'm.1.1.1. .1.1.1. .1.1.1. .1.1vX1. m', 'sangban');
+const sangban = pattern('Sangban base', 'm>vX1.1v.1vO .1vO1.1v. vO1.1vO1. v.1.1vX1. <m', 'sangban');
+const sangbanEnd = pattern('Sangban ending', 'mvO1.1.1. .1.1.1. .1.1.1. .1.1.1. m', 'sangban');
 const dununba = pattern('Dununba base', 'm>v1.1vO1vO .1v.1v.1. .v1.1vO1. v.1.1v.1. <m', 'dununba');
 const variation = pattern('Dununba variation', 'mv1.1vO1vO .1v.1v.1. .v1.1vO1. v.1vO1.1v. mvO1.1v1vO .1v.1v.1. .v1.1vO1. v.1.1v.1. m', 'dununba');
 const dununbaEnd = pattern('Dununba ending', 'mvO1.1.1. .1.1.1. .1.1.1. .1.1.1. m', 'dununba');

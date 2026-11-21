@@ -55,6 +55,7 @@ function detectSubdivisions(tokens: Token[]): 3 | 4 {
 export function parseNotation(input: string, options: ParseOptions = {}): Notation {
   if (!input.trim()) throw new NotationError('Enter some notation first.');
   const tokens = tokenize(input.trim());
+  const leadingOffset = input.length - input.trimStart().length;
   if (tokens[0]?.type !== 'measure' || tokens.at(-1)?.type !== 'measure') {
     throw new NotationError('Notation must start and end with a measure line (m).');
   }
@@ -69,13 +70,14 @@ export function parseNotation(input: string, options: ParseOptions = {}): Notati
     name: options.name ?? 'Custom pattern', raw: input, instrument, subdivisions, beatsPerMeasure,
     measureCount: 0, durationTicks: 0,
     repeating: tokens[1]?.type === 'repeat-start' && tokens.at(-2)?.type === 'repeat-end',
-    sounds: [],
+    sounds: [], positions: [],
   };
   let measure = -1;
   let beat = 0;
   let pulseUnits = 0;
   let flam: 'bass' | 'tone' | 'slap' | undefined;
   let flamPosition: number | undefined;
+  let closedMeasure = -1;
 
   const addSound = (family: 'bass' | 'tone' | 'slap' | 'bell', token: Token, delaySeconds = 0) => {
     if (measure < 0 || beat >= beatsPerMeasure || pulseUnits >= beatUnits) {
@@ -89,14 +91,27 @@ export function parseNotation(input: string, options: ParseOptions = {}): Notati
   };
 
   for (const [index, token] of tokens.entries()) {
+    if (measure >= 0 && (token.type === 'pulse' || token.type === 'bell' || noteFamily[token.type])) {
+      notation.positions.push({
+        tick: measure * measureTicks + beat * TICKS_PER_BEAT + pulseUnits * ticksPerUnit,
+        offset: leadingOffset + token.position, measureIndex: measure, kind: 'pulse',
+      });
+    }
     if (token.type === 'measure') {
       if (flam) throw new NotationError('A flam must be followed by a note.', flamPosition);
+      if (measure > closedMeasure) {
+        notation.positions.push({ tick: (measure + 1) * measureTicks,
+          offset: leadingOffset + token.position, measureIndex: measure, kind: 'barline' });
+        closedMeasure = measure;
+      }
       beat = 0;
       pulseUnits = 0;
       const next = tokens[index + 1];
       if (next && next.type !== 'newline' && next.type !== 'measure') {
         measure++;
         notation.measureCount++;
+        notation.positions.push({ tick: measure * measureTicks,
+          offset: leadingOffset + token.position, measureIndex: measure, kind: 'barline' });
       }
     } else if (token.type === 'next-beat' || token.type === 'newline') {
       if (flam) throw new NotationError('A flam must be followed by a note.', flamPosition);

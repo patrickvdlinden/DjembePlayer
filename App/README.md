@@ -29,7 +29,8 @@ Vite copies the audio and font from `../Assets/Resources/` into the ignored `pub
 - Independent djembe, sangban, and dununba tracks; simultaneous bell/drum strikes and overlapping sample tails.
 - Play, Stop, tempo changes (30–240 BPM), whole-song looping, and metronome.
 - Track mute, volume, and stereo panning.
-- Current section, repeat pass, beat indicators, and progress.
+- Current section, repeat pass, labeled beat indicators, and progress.
+- Smooth red playheads follow the audio clock across notes, rests, pattern repeats, and multiline measures. Long notation scrolls to keep the playhead visible.
 - Notation display/editing in the original font, with a source-text toggle. Load custom patterns for djembe, kenkeni, sangban, dununba, or krin, using three or four pulses per beat; each custom pattern plays four times.
 - Responsive layout for desktop and phone-sized screens.
 

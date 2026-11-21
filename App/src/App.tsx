@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { PlayerEngine } from './audio/PlayerEngine';
 import type { TrackMix } from './audio/PlayerEngine';
 import { compileArrangement } from './core/arrangement';
@@ -6,6 +6,7 @@ import { TICKS_PER_BEAT } from './core/model';
 import type { Instrument, Song } from './core/model';
 import { parseNotation } from './core/parser';
 import { djagbe } from './songs/djagbe';
+import { NotationScore } from './notation/NotationScore';
 
 const formatTime = (seconds: number) =>
   `${Math.floor(seconds / 60)}:${Math.floor(seconds % 60).toString().padStart(2, '0')}`;
@@ -27,10 +28,13 @@ export function App() {
   const [plainText, setPlainText] = useState(false);
   const engineRef = useRef<PlayerEngine | null>(null);
   const arrangement = useMemo(() => compileArrangement(song), [song]);
+  const readTick = useCallback(() => engineRef.current?.tick ?? 0, []);
 
   useEffect(() => {
     let mounted = true;
-    const engine = new PlayerEngine(song, () => { if (mounted) refresh(value => value + 1); });
+    const engine = new PlayerEngine(song, () => {
+      if (mounted) { setTick(engine.tick); refresh(value => value + 1); }
+    });
     engineRef.current = engine;
     setTick(0);
     setMixes(Object.fromEntries(song.tracks.map(track =>
@@ -41,13 +45,18 @@ export function App() {
   useEffect(() => {
     let frame = 0;
     let lastUpdate = 0;
+    let lastSection = -1;
     const update = (time: number) => {
-      if (time - lastUpdate > 75) { setTick(engineRef.current?.tick ?? 0); lastUpdate = time; }
+      const position = readTick();
+      const sectionIndex = arrangement.sections.findIndex(item => position >= item.startTick && position < item.endTick);
+      if (time - lastUpdate > 75 || sectionIndex !== lastSection) {
+        setTick(position); lastUpdate = time; lastSection = sectionIndex;
+      }
       frame = requestAnimationFrame(update);
     };
     frame = requestAnimationFrame(update);
     return () => cancelAnimationFrame(frame);
-  }, []);
+  }, [arrangement, readTick]);
 
   useEffect(() => { engineRef.current?.setBpm(bpm); }, [bpm, song]);
   useEffect(() => { engineRef.current?.setLoop(loop); }, [loop, song]);
@@ -55,14 +64,15 @@ export function App() {
 
   const engine = engineRef.current;
   const state = engine?.state ?? 'stopped';
-  const current = arrangement.sections.find(item => tick >= item.startTick && tick < item.endTick);
+  const current = arrangement.sections.find(item => tick >= item.startTick && tick < item.endTick)
+    ?? (state === 'finished' ? arrangement.sections.at(-1) : undefined);
   const section = state === 'finished' ? song.sections.at(-1)!
     : song.sections.find(item => item.id === current?.sectionId) ?? song.sections[0]!;
   const totalBeats = arrangement.durationTicks / TICKS_PER_BEAT;
   const beat = Math.floor(tick / TICKS_PER_BEAT) % song.beatsPerMeasure;
   const progress = Math.min(1, tick / arrangement.durationTicks);
   const status = state === 'playing' ? 'Playing' : state === 'loading' ? 'Loading samples…'
-    : state === 'finished' ? 'Song complete' : state === 'error' ? 'Playback unavailable' : 'Ready to play';
+    : state === 'finished' ? 'Song complete' : state === 'error' ? 'Playback unavailable' : '';
 
   function updateMix(id: string, change: Partial<TrackMix>) {
     setMixes(previous => ({ ...previous, [id]: { ...previous[id]!, ...change } }));
@@ -149,10 +159,11 @@ export function App() {
           </div>
           <div className="transport-bottom">
             <div className="beat-indicators" aria-label={`Beat ${beat + 1} of ${song.beatsPerMeasure}`}>
+              <span className="beat-label">Beat</span>
               {Array.from({ length: song.beatsPerMeasure }, (_, index) =>
                 <span key={index} className={state === 'playing' && beat === index ? 'beat active' : 'beat'}>{index + 1}</span>)}
             </div>
-            <span className="status" role="status">{status}</span>
+            {status && <span className="status" role="status">{status}</span>}
             <span className="time">{formatTime(tick / TICKS_PER_BEAT * 60 / bpm)}
               <span> / {formatTime(totalBeats * 60 / bpm)}</span>
             </span>
@@ -180,10 +191,10 @@ export function App() {
                       <span className="track-swatch" style={{ background: track.color }} />
                       <h3>{track.name}</h3><span>{part ? part.notation.name : 'Rest'}</span>
                     </div>
-                    {part ? <div className="score-scroll" tabIndex={0} role="region"
-                      aria-label={`${track.name}: ${part.notation.name}`}>
-                      <pre className="notation" aria-label={part.notation.raw}>{part.notation.raw}</pre>
-                    </div> : <div className="rest">Listening for the next entrance</div>}
+                    {part ? <NotationScore notation={part.notation} label={`${track.name}: ${part.notation.name}`}
+                      readTick={readTick} sectionStart={current?.startTick ?? 0}
+                      sectionEnd={current?.endTick ?? part.notation.durationTicks} playing={state === 'playing'} />
+                      : <div className="rest">Listening for the next entrance</div>}
                   </div>
                 );
               })}

@@ -14,6 +14,14 @@ export interface NotationSound {
   delaySeconds: number;
 }
 
+/** Source glyphs tied to musical time, including rests and measure boundaries. */
+export interface NotationPosition {
+  tick: number;
+  offset: number;
+  measureIndex: number;
+  kind: 'pulse' | 'barline';
+}
+
 export interface Notation {
   name: string;
   raw: string;
@@ -24,6 +32,7 @@ export interface Notation {
   durationTicks: number;
   repeating: boolean;
   sounds: NotationSound[];
+  positions: NotationPosition[];
 }
 
 export interface Track {

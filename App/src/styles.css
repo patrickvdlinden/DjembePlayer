@@ -61,7 +61,8 @@ h1 { font-family: Georgia, 'Times New Roman', serif; font-size: clamp(3rem, 5vw,
 .transport-options { display: flex; gap: 22px; font-size: .875rem; }
 .transport-options label, .plain-toggle { display: flex; align-items: center; gap: 9px; cursor: pointer; }
 .transport-bottom { display: flex; align-items: center; gap: 18px; padding: 15px 28px 22px; }
-.beat-indicators { display: flex; gap: 8px; }
+.beat-indicators { display: flex; align-items: center; gap: 8px; }
+.beat-label { color: var(--muted); font-size: .875rem; margin-right: 4px; }
 .beat { width: 29px; height: 29px; border-radius: 50%; border: 1px solid #445148; display: grid; place-items: center; font-size: .8rem; color: var(--muted); }
 .beat.active { background: var(--accent); border-color: var(--accent); color: #1b241f; }
 .status { font-size: .875rem; color: var(--muted); }
@@ -82,6 +83,8 @@ h3 { font-size: .9375rem; font-weight: 550; margin: 0; }
 .track-swatch { display: inline-block; width: 4px; height: 15px; border-radius: 2px; flex-shrink: 0; }
 .track-label > span:last-child { font-size: .8rem; color: var(--muted); margin-left: auto; }
 .score-scroll { overflow: auto; border-radius: 7px; background: #e7ecdf; color: #17231b; }
+.score-content { position: relative; width: max-content; min-width: 100%; }
+.notation-playhead { position: absolute; left: 0; top: 0; width: 2px; background: #df2435; pointer-events: none; z-index: 1; will-change: transform; }
 .notation { font-family: SlapToonToonSlap, monospace; font-size: 25px; line-height: 2.1; font-variant-ligatures: none; white-space: pre; margin: 0; padding: 12px 17px; min-height: 80px; }
 .rest { height: 80px; display: flex; align-items: center; padding: 15px 17px; color: var(--muted); font-size: .875rem; background: #18201b; border: 1px dashed #3c4940; border-radius: 7px; }
 .arrangement { margin-top: 30px; border-top: 1px solid var(--line); padding-top: 20px; font-size: .875rem; }

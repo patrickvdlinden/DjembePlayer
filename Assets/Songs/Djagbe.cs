@@ -37,9 +37,9 @@ namespace Songs
             _djembeCallNotation = Notation.Notation.Parse("Call", "miO1.1O1O .1O1.1O O1.1O1. O1.1.1. m", InstrumentType.Djembe);
             _djembeEndNotation = Notation.Notation.Parse("Call", "miO1.1.1. .1.1.1. .1.1.1. .1.1.1. m", InstrumentType.Djembe);
 
-            _sangbanStartNotation = Notation.Notation.Parse("Sangban Base", "m.1.1.1. .1.1.1. .1.1.1. .1.1vX1.m", InstrumentType.Sangban);
-            _sangbanNotation = Notation.Notation.Parse("Sangban Base", "m>vX1.1v.1vO .1vO1.1v. vO1.1vO1. v.1.1vX1.<m", InstrumentType.Sangban);
-            _sangbanEndNotation = Notation.Notation.Parse("Sangban Base", "mvO1.1.1. .1.1.1. .1.1.1. .1.1.1.m", InstrumentType.Sangban);
+            _sangbanStartNotation = Notation.Notation.Parse("Sangban Base", "m.1.1.1. .1.1.1. .1.1.1. .1.1vX1. m", InstrumentType.Sangban);
+            _sangbanNotation = Notation.Notation.Parse("Sangban Base", "m>vX1.1v.1vO .1vO1.1v. vO1.1vO1. v.1.1vX1. <m", InstrumentType.Sangban);
+            _sangbanEndNotation = Notation.Notation.Parse("Sangban Base", "mvO1.1.1. .1.1.1. .1.1.1. .1.1.1. .1.1.1. m", InstrumentType.Sangban);
 
             _dununbaNotation = Notation.Notation.Parse("Dununba Base", "m>v1.1vO1vO .1v.1v.1. .v1.1vO1. v.1.1v.1. <m", InstrumentType.Dununba);
             _dununbaVariationNotation = Notation.Notation.Parse("Dununba Variation", "mv1.1vO1vO .1v.1v.1. .v1.1vO1. v.1vO1.1v. mvO1.1v1vO .1v.1v.1. .v1.1vO1. v.1.1v.1. m", InstrumentType.Dununba);
