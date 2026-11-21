@@ -2,7 +2,7 @@ import { parseNotation } from '../core/parser';
 import type { Instrument, Song } from '../core/model';
 import { ensembleSection, ensembleTracks } from './ensemble';
 
-// Complete arrangement from Assets/Songs/Soro.cs.
+// Arrangement from Assets/Songs/Soro.cs, with the opening metronome rest removed.
 const pattern = (name: string, raw: string, instrument: Instrument) =>
   parseNotation(raw, { name, instrument, subdivisions: 4 });
 
@@ -44,7 +44,6 @@ export const soro: Song = {
   description: "Calls, five djembe solos, and échauffement over the full dunun ensemble.",
   tracks: ensembleTracks(),
   sections: [
-    ensembleSection('section-01', "Opening rest", 1, { lead: patterns.djembeWait }),
     ensembleSection('section-02', "Call", 1, { lead: patterns.djembeCall, sangban: patterns.sangbanStart, dununba: patterns.dununbaStart }),
     ensembleSection('section-03', "Accompany 1", 1, { lead: patterns.djembeAccompany1, accompaniment: patterns.djembeAccompany2, kenkeni: patterns.kenkeni, sangban: patterns.sangban, dununba: patterns.dununba }),
     ensembleSection('section-04', "Accompany 1", 1, { lead: patterns.djembeAccompany1, accompaniment: patterns.djembeAccompany2, kenkeni: patterns.kenkeni, sangban: patterns.sangban, dununba: patterns.dununba }),

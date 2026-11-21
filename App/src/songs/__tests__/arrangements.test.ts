@@ -3,6 +3,7 @@ import { existsSync, readFileSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
 import { samplesFor } from '../../audio/samples';
 import { compileArrangement } from '../../core/arrangement';
+import { TICKS_PER_BEAT } from '../../core/model';
 import { songs } from '../catalog';
 
 interface Reference {
@@ -21,24 +22,27 @@ const references = JSON.parse(readFileSync(new URL('./original-arrangements.json
 
 describe.each(songs)('$name complete arrangement', song => {
   const reference = references.find(item => item.id === song.id)!;
+  // The app omits Soro/Soli's silent count-in; the C# reference stays unchanged.
+  const omittedSections = song.id === 'soro' || song.id === 'soli' ? 1 : 0;
+  const omittedTicks = omittedSections * 4 * TICKS_PER_BEAT;
 
-  it('preserves every source section, pattern, track assignment, and repeat count', () => {
-    expect(song.sections).toHaveLength(reference.sectionCount);
+  it('preserves every musical section, pattern, track assignment, and repeat count', () => {
+    expect(song.sections).toHaveLength(reference.sectionCount - omittedSections);
     expect(song.sections.map(section => ({
       times: section.times,
       parts: section.parts.map(part => ({
         trackId: part.trackId, raw: part.notation.raw, subdivisions: part.notation.subdivisions,
       })),
-    }))).toEqual(reference.sections);
+    }))).toEqual(reference.sections.slice(omittedSections));
   });
 
   it('matches every timed sound in the C# arrangement, including flams and shorter-part cycles', () => {
     const arrangement = compileArrangement(song);
-    expect(arrangement.sections).toHaveLength(reference.occurrences);
-    expect(arrangement.durationTicks).toBe(reference.durationTicks);
+    expect(arrangement.sections).toHaveLength(reference.occurrences - omittedSections);
+    expect(arrangement.durationTicks).toBe(reference.durationTicks - omittedTicks);
     expect(arrangement.events).toHaveLength(reference.soundEvents);
     const timeline = arrangement.events
-      .map(event => `${event.tick},${event.trackId},${event.type},${event.delaySeconds.toFixed(3)}`)
+      .map(event => `${event.tick + omittedTicks},${event.trackId},${event.type},${event.delaySeconds.toFixed(3)}`)
       .sort().join('\n');
     expect(createHash('sha256').update(timeline).digest('hex')).toBe(reference.timelineHash);
   });

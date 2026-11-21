@@ -2,13 +2,12 @@ import { parseNotation } from '../core/parser';
 import type { Instrument, Song } from '../core/model';
 import { ensembleSection, ensembleTracks } from './ensemble';
 
-// Complete arrangement from Assets/Songs/Soli.cs.
+// Arrangement from Assets/Songs/Soli.cs, with the opening metronome rest removed.
 const pattern = (name: string, raw: string, instrument: Instrument) =>
   parseNotation(raw, { name, instrument, subdivisions: 3 });
 
 const patterns = {
   djembeCall: pattern("Call", "miO1.1O O1.1O O1.1O O1.1. m", 'djembe'),
-  djembeWait: pattern("Wait", "m.1.1. .1.1. .1.1. .1.1. m", 'djembe'),
   djembeAccompany1: pattern("Accompany 1", "m>X1.1O X1.1B X1.1O X1.1. <m", 'djembe'),
   djembePhrase1: pattern("Phrase 1", "m>O1O1X .1O1X B1.1X B1.1X <m", 'djembe'),
   djembePhrase2: pattern("Phrase 2", "m>O1O1X .1B1X O1O1X .1B1X <m", 'djembe'),
@@ -49,7 +48,6 @@ export const soli: Song = {
   description: "A ternary groove with three phrases, three solos, breaks, and échauffement.",
   tracks: ensembleTracks(),
   sections: [
-    ensembleSection('section-01', "Opening rest", 1, { lead: patterns.djembeWait }),
     ensembleSection('section-02', "Call", 1, { lead: patterns.djembeCall }),
     ensembleSection('section-03', "Break End", 3, { lead: patterns.djembeBreakEnd, accompaniment: patterns.djembeBreak, kenkeni: patterns.kenkeniBreak, sangban: patterns.sangbanBreak, dununba: patterns.dununbaBreak }),
     ensembleSection('section-04', "Break with Call", 1, { lead: patterns.djembeBreakWithCall, accompaniment: patterns.djembeBreak, kenkeni: patterns.kenkeniBreak, sangban: patterns.sangbanStartFromBreak, dununba: patterns.dununbaStartFromBreak }),
