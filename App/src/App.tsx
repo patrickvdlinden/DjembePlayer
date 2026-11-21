@@ -3,47 +3,79 @@ import { PlayerEngine } from './audio/PlayerEngine';
 import type { TrackMix } from './audio/PlayerEngine';
 import { compileArrangement } from './core/arrangement';
 import { TICKS_PER_BEAT } from './core/model';
-import type { Instrument, Song } from './core/model';
-import { parseNotation } from './core/parser';
+import type { Song } from './core/model';
 import { djagbe } from './songs/djagbe';
 import { songs } from './songs/catalog';
 import { NotationScore } from './notation/NotationScore';
 import { notationWidthReference } from './notation/wrapNotation';
+import { SongComposer } from './composer/SongComposer';
+import { compileDraft, createDraft, readDrafts } from './composer/draft';
+import type { SongDraft } from './composer/draft';
 
-const formatTime = (seconds: number) =>
-  `${Math.floor(seconds / 60)}:${Math.floor(seconds % 60).toString().padStart(2, '0')}`;
-const initialPattern = djagbe.sections[2]!.parts[0]!.notation.raw;
-const instruments: Instrument[] = ['djembe', 'kenkeni', 'sangban', 'dununba', 'krin'];
+const formatTime = (seconds: number, precise: boolean) =>
+  `${Math.floor(seconds / 60)}:${precise ? (seconds % 60).toFixed(1).padStart(4, '0') : Math.floor(seconds % 60).toString().padStart(2, '0')}`;
+const draftStorageKey = 'djembe-player.custom-songs';
+function loadCustomSongs(): { songs: SongDraft[]; error: string } {
+  try {
+    const json = localStorage.getItem(draftStorageKey);
+    return { songs: json ? readDrafts(json) : [], error: '' };
+  } catch {
+    return { songs: [], error: 'Saved songs could not be loaded. New edits will stay in this tab.' };
+  }
+}
 
 export function App() {
   const [song, setSong] = useState(djagbe);
-  const [librarySong, setLibrarySong] = useState(djagbe);
+  const [storedLibrary] = useState(loadCustomSongs);
+  const [customSongs, setCustomSongs] = useState(storedLibrary.songs);
+  const [selectedDraftId, setSelectedDraftId] = useState<string | null>(null);
+  const activeDraft = customSongs.find(item => item.id === selectedDraftId);
+  const [saveMessage, setSaveMessage] = useState(storedLibrary.error || 'Saved on this device');
+  const [composeError, setComposeError] = useState('');
   const [bpm, setBpm] = useState(djagbe.bpm);
   const [loop, setLoop] = useState(false);
   const [metronome, setMetronome] = useState(false);
   const [, refresh] = useState(0);
   const [tick, setTick] = useState(0);
   const [mixes, setMixes] = useState<Record<string, TrackMix>>({});
-  const [raw, setRaw] = useState(initialPattern);
-  const [instrument, setInstrument] = useState<Instrument>('dununba');
-  const [subdivisions, setSubdivisions] = useState<3 | 4>(4);
-  const [patternError, setPatternError] = useState('');
-  const [plainText, setPlainText] = useState(false);
   const engineRef = useRef<PlayerEngine | null>(null);
   const arrangement = useMemo(() => compileArrangement(song), [song]);
   const readTick = useCallback(() => engineRef.current?.tick ?? 0, []);
 
-  useEffect(() => {
-    let mounted = true;
-    const engine = new PlayerEngine(song, () => {
-      if (mounted) { setTick(engine.tick); refresh(value => value + 1); }
+  function installEngine(nextSong: Song) {
+    const engine = new PlayerEngine(nextSong, () => {
+      if (engineRef.current === engine) { setTick(engine.tick); refresh(value => value + 1); }
     });
     engineRef.current = engine;
-    setTick(0);
-    setMixes(Object.fromEntries(song.tracks.map(track =>
-      [track.id, { volume: track.volume, pan: track.pan, muted: false }])));
-    return () => { mounted = false; engine.dispose(); engineRef.current = null; };
+    const draft = customSongs.find(item => item.id === nextSong.id);
+    const initialMixes = Object.fromEntries(nextSong.tracks.map(track =>
+      [track.id, { volume: track.volume, pan: track.pan, muted: draft?.channels.find(channel => channel.id === track.id)?.muted ?? false }]));
+    Object.entries(initialMixes).forEach(([id, mix]) => engine.setMix(id, mix));
+    engine.setLoop(loop);
+    engine.setMetronome(metronome);
+    setMixes(initialMixes);
+    return engine;
+  }
+
+  useEffect(() => {
+    // Preview engines are prepared in the click handler so browser audio is
+    // unlocked by the user gesture. Reuse that engine when React commits.
+    const engine = engineRef.current?.song === song ? engineRef.current : installEngine(song);
+    setTick(engine.tick);
+    return () => {
+      if (engineRef.current === engine) engineRef.current = null;
+      engine.dispose();
+    };
   }, [song]);
+
+  useEffect(() => {
+    if (customSongs === storedLibrary.songs) return;
+    if (storedLibrary.error) { setSaveMessage(storedLibrary.error); return; }
+    try {
+      localStorage.setItem(draftStorageKey, JSON.stringify(customSongs));
+      setSaveMessage('Saved on this device');
+    } catch { setSaveMessage('Could not save on this device. Keep this tab open to retain your edits.'); }
+  }, [customSongs, storedLibrary]);
 
   useEffect(() => {
     let frame = 0;
@@ -66,60 +98,90 @@ export function App() {
   useEffect(() => { engineRef.current?.setMetronome(metronome); }, [metronome, song]);
 
   const engine = engineRef.current;
-  const state = engine?.state ?? 'stopped';
+  const previewAvailable = !activeDraft || song.id === activeDraft.id;
+  const state = previewAvailable ? engine?.state ?? 'stopped' : 'stopped';
   const current = arrangement.sections.find(item => tick >= item.startTick && tick < item.endTick)
     ?? (state === 'finished' ? arrangement.sections.at(-1) : undefined);
   const section = state === 'finished' ? song.sections.at(-1)!
     : song.sections.find(item => item.id === current?.sectionId) ?? song.sections[0]!;
-  const totalBeats = arrangement.durationTicks / TICKS_PER_BEAT;
+  const totalBeats = previewAvailable ? arrangement.durationTicks / TICKS_PER_BEAT : 0;
   const beat = Math.floor(tick / TICKS_PER_BEAT) % song.beatsPerMeasure;
-  const progress = Math.min(1, tick / arrangement.durationTicks);
+  const progress = previewAvailable ? Math.min(1, tick / arrangement.durationTicks) : 0;
   const status = state === 'playing' ? 'Playing' : state === 'loading' ? 'Loading samples…'
     : state === 'finished' ? 'Song complete' : state === 'error' ? 'Playback unavailable' : '';
 
   function updateMix(id: string, change: Partial<TrackMix>) {
     setMixes(previous => ({ ...previous, [id]: { ...previous[id]!, ...change } }));
     engineRef.current?.setMix(id, change);
+    if (activeDraft) updateDraft({ ...activeDraft,
+      channels: activeDraft.channels.map(channel => channel.id === id ? { ...channel, ...change } : channel) });
+  }
+
+  function updateDraft(draft: SongDraft) {
+    setCustomSongs(previous => previous.some(item => item.id === draft.id)
+      ? previous.map(item => item.id === draft.id ? draft : item) : [...previous, draft]);
+    setComposeError('');
+  }
+
+  function setTempo(value: number) {
+    setBpm(value);
+    if (activeDraft) updateDraft({ ...activeDraft, bpm: value });
   }
 
   function selectSong(id: string) {
+    engineRef.current?.stop();
+    setComposeError('');
+    if (id === 'new') {
+      const draft = createDraft();
+      updateDraft(draft);
+      setSelectedDraftId(draft.id);
+      setSong(compileDraft(draft));
+      setBpm(draft.bpm);
+      return;
+    }
+    const draft = customSongs.find(item => item.id === id);
+    if (draft) {
+      setSelectedDraftId(draft.id);
+      setBpm(draft.bpm);
+      try { setSong(compileDraft(draft)); }
+      catch (error) { setComposeError(error instanceof Error ? error.message : 'Check your notation.'); }
+      return;
+    }
     const selected = songs.find(item => item.id === id);
     if (!selected) return;
-    engineRef.current?.stop();
-    setLibrarySong(selected);
+    setSelectedDraftId(null);
     setSong(selected);
     setBpm(selected.bpm);
     setTick(0);
-    setPatternError('');
   }
 
-  function loadPattern() {
+  function playDraft(sectionId?: string) {
+    if (!activeDraft) return;
+    engineRef.current?.stop();
     try {
-      const notation = parseNotation(raw, { instrument, subdivisions, name: 'Your pattern' });
-      if (!notation.sounds.length) throw new Error('This pattern contains no playable sounds for the selected instrument.');
-      const custom: Song = {
-        id: 'custom', name: 'Your pattern', bpm, beatsPerMeasure: 4,
-        description: 'Four passes through your notation. Make a change and try it again.',
-        tracks: [{ id: 'custom-1', name: instrument[0]!.toUpperCase() + instrument.slice(1), instrument,
-          sampleSet: 'solo', color: '#e2ad6e', volume: 0.65, pan: 0 }],
-        sections: [{ id: 'custom-pattern', name: 'Your pattern', times: 4,
-          parts: [{ trackId: 'custom-1', notation }] }],
-      };
-      engineRef.current?.stop();
-      setSong(custom);
-      setPatternError('');
-    } catch (error) { setPatternError(error instanceof Error ? error.message : 'Invalid notation.'); }
+      const next = compileDraft(activeDraft, { sectionId, requireSound: true });
+      const nextEngine = installEngine(next);
+      setSong(next);
+      setTick(0);
+      setComposeError('');
+      void nextEngine.play();
+    } catch (error) { setComposeError(error instanceof Error ? error.message : 'Check your notation.'); }
   }
+
+  const draftMeasures = useMemo(() => {
+    if (!activeDraft) return null;
+    try { return compileArrangement(compileDraft(activeDraft)).durationTicks / TICKS_PER_BEAT / activeDraft.beatsPerMeasure; }
+    catch { return '—'; }
+  }, [activeDraft]);
+  const channelCount = activeDraft?.channels.length ?? song.tracks.length;
+  const shownMeasures = draftMeasures ?? totalBeats / song.beatsPerMeasure;
+  const preciseTime = Boolean(activeDraft) && totalBeats * 60 / bpm < 10;
 
   return (
     <div className="app-shell">
       <header className="site-header">
-        <a className="brand" href="./" aria-label="Djembe Player home">
-          <svg viewBox="0 0 40 40" aria-hidden="true">
-            <ellipse cx="20" cy="11" rx="14" ry="6" />
-            <path d="M6 11l6 16h16l6-16M15 27l-3 8h16l-3-8M12 14l5 13m11-13l-5 13" />
-          </svg>
-          <span>Djembe<span className="brand-light">Player</span></span>
+        <a className="brand" href="./" aria-label="jedeyafola home">
+          <img src={`${import.meta.env.BASE_URL}branding/jedeyafola.svg`} alt="jedeyafola" width="1140" height="282" />
         </a>
         <span className="header-note">A little practice. A deeper groove.</span>
       </header>
@@ -128,28 +190,30 @@ export function App() {
         <div className="song-library">
           <p className="eyebrow">THE PRACTICE ROOM</p>
           <label className="song-selector" htmlFor="song-selector">Song
-            <select id="song-selector" value={song.id} onChange={event => selectSong(event.target.value)}>
-              {songs.map(item => <option key={item.id} value={item.id}>{item.name}</option>)}
-              {song.id === 'custom' && <option value="custom" disabled>Your pattern</option>}
+            <select id="song-selector" value={activeDraft?.id ?? song.id} onChange={event => selectSong(event.target.value)}>
+              <optgroup label="Song library">{songs.map(item => <option key={item.id} value={item.id}>{item.name}</option>)}</optgroup>
+              {customSongs.length > 0 && <optgroup label="Your songs">{customSongs.map(item =>
+                <option key={item.id} value={item.id}>{item.name.trim() || 'Untitled song'}</option>)}</optgroup>}
+              <option value="new">+ New song</option>
             </select>
           </label>
         </div>
         <div className="song-heading">
           <div>
-            <h1>{song.name}<span className="title-dot">.</span></h1>
-            <p className="description">{song.description}</p>
+            <h1>{activeDraft ? activeDraft.name.trim() || 'Untitled song' : song.name}<span className="title-dot">.</span></h1>
+            <p className="description">{activeDraft ? 'Your arrangement. Build a fragment or bring the whole band together.' : song.description}</p>
           </div>
           <div className="song-facts">
-            <span><strong>{song.tracks.length}</strong> {song.tracks.length === 1 ? 'instrument' : 'instruments'}</span>
-            <span><strong>{totalBeats / song.beatsPerMeasure}</strong> measures</span>
-            <span><strong>{song.sections[0]!.parts[0]!.notation.subdivisions}</strong> pulses / beat</span>
+            <span><strong>{channelCount}</strong> {channelCount === 1 ? 'channel' : 'channels'}</span>
+            <span><strong>{shownMeasures}</strong> {shownMeasures === 1 ? 'measure' : 'measures'}</span>
+            <span><strong>{activeDraft?.subdivisions ?? song.sections[0]!.parts[0]!.notation.subdivisions}</strong> pulses / beat</span>
           </div>
         </div>
 
         <section className="transport panel" aria-label="Playback controls">
           <div className="transport-top">
             <div className="playback-buttons">
-              <button className="play-button" onClick={() => void engineRef.current?.play()}
+              <button className="play-button" onClick={() => activeDraft ? playDraft() : void engineRef.current?.play()}
                 disabled={state === 'loading' || state === 'playing'}>
                 <span aria-hidden="true">▶</span>
                 {state === 'loading' ? 'Loading…' : state === 'playing' ? 'Playing'
@@ -163,31 +227,31 @@ export function App() {
             </div>
             <div className="tempo">
               <label htmlFor="bpm">TEMPO</label>
-              <button aria-label="Decrease tempo" onClick={() => setBpm(value => Math.max(30, value - 5))}>−</button>
+              <button aria-label="Decrease tempo" onClick={() => setTempo(Math.max(30, bpm - 5))}>−</button>
               <input id="bpm" type="number" min="30" max="240" value={bpm}
                 onChange={event => {
                   const value = event.currentTarget.valueAsNumber;
-                  if (Number.isFinite(value)) setBpm(Math.max(30, Math.min(240, value)));
+                  if (Number.isFinite(value)) setTempo(Math.max(30, Math.min(240, value)));
                 }} />
-              <button aria-label="Increase tempo" onClick={() => setBpm(value => Math.min(240, value + 5))}>+</button>
+              <button aria-label="Increase tempo" onClick={() => setTempo(Math.min(240, bpm + 5))}>+</button>
               <span>BPM</span>
             </div>
             <div className="transport-options">
               <label><input type="checkbox" checked={metronome}
                 onChange={event => setMetronome(event.target.checked)} /> Metronome</label>
               <label><input type="checkbox" checked={loop}
-                onChange={event => setLoop(event.target.checked)} /> Loop song</label>
+                onChange={event => setLoop(event.target.checked)} /> {activeDraft ? 'Loop playback' : 'Loop song'}</label>
             </div>
           </div>
-          <div className="section-navigation">
-            <label htmlFor="section-selector">Jump to section</label>
+          {previewAvailable && <div className="section-navigation">
+            <label htmlFor="section-selector">{activeDraft ? 'Jump within preview' : 'Jump to section'}</label>
             <select id="section-selector" value={section.id}
               onChange={event => void engineRef.current?.jumpToSection(event.target.value)}>
               {song.sections.map((item, index) => <option key={item.id} value={item.id}>
                 {`${String(index + 1).padStart(2, '0')} · ${item.name}${item.times > 1 ? ` (${item.times}x)` : ''}`}
               </option>)}
             </select>
-          </div>
+          </div>}
           <div className="transport-bottom">
             <div className="beat-indicators" aria-label={`Beat ${beat + 1} of ${song.beatsPerMeasure}`}>
               <span className="beat-label">Beat</span>
@@ -195,8 +259,8 @@ export function App() {
                 <span key={index} className={state === 'playing' && beat === index ? 'beat active' : 'beat'}>{index + 1}</span>)}
             </div>
             {status && <span className="status" role="status">{status}</span>}
-            <span className="time">{formatTime(tick / TICKS_PER_BEAT * 60 / bpm)}
-              <span> / {formatTime(totalBeats * 60 / bpm)}</span>
+            <span className="time">{formatTime((previewAvailable ? tick : 0) / TICKS_PER_BEAT * 60 / bpm, preciseTime)}
+              <span> / {formatTime(totalBeats * 60 / bpm, preciseTime)}</span>
             </span>
           </div>
           <div className="progress" role="progressbar" aria-label="Song progress"
@@ -204,15 +268,20 @@ export function App() {
             <span style={{ width: `${progress * 100}%` }} />
           </div>
           {engine?.error && <p className="error" role="alert">{engine.error} Try Play again.</p>}
+          {activeDraft && composeError && <p className="error" role="alert">{composeError}</p>}
         </section>
 
-        <div className="workspace-grid">
+        {activeDraft && <SongComposer key={activeDraft.id} draft={activeDraft} onChange={updateDraft}
+          onPlay={playDraft} onStop={() => engineRef.current?.stop()} playing={state === 'playing' || state === 'loading'}
+          saveMessage={saveMessage} playError={composeError} />}
+
+        {previewAvailable && <div className="workspace-grid">
           <section className="panel notation-panel" aria-labelledby="notation-heading">
             <pre className="notation notation-width-reference" aria-hidden="true">
               {notationWidthReference(section.parts[0]!.notation)}
             </pre>
             <div className="panel-heading">
-              <div><p className="eyebrow">THE NOTATION</p><h2 id="notation-heading">{section.name}</h2></div>
+              <div><p className="eyebrow">{activeDraft ? 'PLAYBACK PREVIEW' : 'THE NOTATION'}</p><h2 id="notation-heading">{section.name}</h2></div>
               <span className="tag">{current && current.times > 1
                 ? `Pass ${current.iteration} / ${current.times}` : 'SlapToonToonSlap'}</span>
             </div>
@@ -286,38 +355,9 @@ export function App() {
             })}
             <p className="mixer-footnote">Headphones help you hear each instrument’s place.</p>
           </section>
-        </div>
-
-        <section className="panel pattern-lab" aria-labelledby="lab-heading">
-          <div className="panel-heading">
-            <div><p className="eyebrow">MAKE IT YOUR OWN</p><h2 id="lab-heading">Try a pattern</h2></div>
-            <label className="plain-toggle"><input type="checkbox" checked={plainText}
-              onChange={event => setPlainText(event.target.checked)} /> Show source text</label>
-          </div>
-          <p className="panel-description">Write with your notation font, choose an instrument, and hear four passes.</p>
-          <label className="sr-only" htmlFor="custom-notation">Custom notation</label>
-          <textarea id="custom-notation" className={plainText ? 'source-input' : 'notation-input'}
-            value={raw} onChange={event => setRaw(event.target.value)} spellCheck={false}
-            autoCapitalize="off" autoCorrect="off" />
-          <div className="lab-controls">
-            <label>Instrument<select value={instrument}
-              onChange={event => setInstrument(event.target.value as Instrument)}>
-              {instruments.map(item => <option key={item} value={item}>{item[0]!.toUpperCase() + item.slice(1)}</option>)}
-            </select></label>
-            <label>Pulses per beat<select value={subdivisions}
-              onChange={event => setSubdivisions(Number(event.target.value) as 3 | 4)}>
-              <option value="4">4 · straight</option><option value="3">3 · ternary</option>
-            </select></label>
-            <button className="secondary-button" onClick={loadPattern}>Load pattern</button>
-            {song.id === 'custom' && <button className="text-button"
-              onClick={() => selectSong(librarySong.id)}>Return to {librarySong.name}</button>}
-          </div>
-          {patternError && <p className="error" role="alert">{patternError}</p>}
-          <p className="notation-hint"><code>m</code> measure · <code>B O X</code> bass, tone, slap ·
-            <code>v</code> bell · <code>1</code> pulse spacing · space separates beats</p>
-        </section>
+        </div>}
       </main>
-      <footer><span>Made for the rhythm.</span><span>Original notation & recordings · SlapToonToonSlap</span></footer>
+      <footer><span>jedeyafola · Made for the rhythm.</span><span>Original notation & recordings · SlapToonToonSlap</span></footer>
     </div>
   );
 }

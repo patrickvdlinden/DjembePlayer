@@ -1,6 +1,8 @@
-# Djembe Player — React app
+# jedeyafola — Rhythm studio
 
 A React, TypeScript, Vite, and Tone.js player with the **complete Djagbé, Soro, Soli, and Kadan arrangements** from `Assets/Songs/`, the original SlapToonToonSlap font, and the original recordings.
+
+The supplied jedeyafola artwork is preserved in `public/branding/jedeyafola.svg`. Its default view displays the wordmark, and the `#icon` view displays the matching app icon. The interface uses the artwork's cream, deep brown, and orange palette.
 
 ## Run
 
@@ -25,7 +27,7 @@ Vite copies the audio and font from `../Assets/Resources/` into the ignored `pub
 
 ## What works
 
-- Song selector for Djagbé, Soro, Soli, and Kadan. Changing songs stops playback and resets the position, tempo, and track mixer for the selected song.
+- Song selector for Djagbé, Soro, Soli, Kadan, and your custom songs. Choose `+ New song` to open the builder. The editing tools stay hidden for library songs.
 - Complete calls, accompaniments, solos, breaks, échauffement, section order, and repeats from each original song definition.
 - Playback starts with the opening call. Soro and Soli omit the original one-measure metronome rest; Djagbé and Kadan already start with their calls.
 - Soro, Soli, and Kadan group consecutive sections only where all instrument parts are identical, showing repeat counts such as `Accompany 1 (3x)` and `Solo 1 (4x)`. Sections with different accompaniment or an intervening section remain separate. Soli and Kadan already express all eligible repetitions as repeat counts in their original arrangements.
@@ -36,7 +38,10 @@ Vite copies the audio and font from `../Assets/Resources/` into the ignored `pub
 - Current section, repeat pass, labeled beat indicators, and progress.
 - Smooth red playheads follow the audio clock across notes, rests, pattern repeats, and multiline measures, remaining aligned when the score resizes.
 - Scores wrap after every two measures (eight beats) at a fixed 25px font size. A complete two-measure reference in the same font reserves the notation panel's width, keeping it stable for shorter parts; notation backgrounds fill that width. The mixer moves below when it cannot fit beside the score. Narrow screens can scroll the notation horizontally, following the playhead. Existing line breaks are reflowed for display; source notation and playback timing stay unchanged.
-- Notation display/editing in the original font, with a source-text toggle. Load custom patterns for djembe, kenkeni, sangban, dununba, or krin, using three or four pulses per beat; each custom pattern plays four times.
+- Custom songs with multiple instrument channels, separate djembe recordings, named sections, repeat counts, section duplication, and arrangement reordering.
+- Each channel's pattern can be typed in the original font or source text, or built using stroke buttons and a pulse grid. The buttons support rests, instrument-specific strokes, combined bell/drum hits, djembe flams, and adding/removing measures.
+- Play one section as a fragment, or the complete custom arrangement. Choose three or four pulses per beat and 1–12 beats per measure, including one-beat fragments. Loop playback for practice.
+- Custom songs, unfinished notation, editor modes, tempo, and mix settings save in browser storage on this device. Switching back to a library song keeps your drafts.
 - Responsive layout for desktop and phone-sized screens.
 
 | Song | App sections | Measures including repeats | Beats | Sound events |
@@ -46,13 +51,16 @@ Vite copies the audio and font from `../Assets/Resources/` into the ignored `pub
 | Soli | 23 | 73 | 292 | 3,157 |
 | Kadan | 18 | 70 | 280 | 3,425 |
 
-The pattern editor remains separate from the song library. Loading a custom pattern remembers which library song you were practicing, so its return button takes you back to that song.
+To create a fragment, choose `+ New song`, name the song and its first section, then use the stroke buttons or custom notation to fill a channel. Add channels to layer instruments. `Play section` auditions the section being edited; `Play song` follows the full section order and repeat counts. The builder has its own Stop button. Shorter patterns cycle through longer sections, as they do in the library arrangements.
+
+Edits apply to playback when you next press Play; they do not interrupt a running preview. Buttons and custom mode share the same notation text. Switching modes preserves that text. Button mode refuses patterns with fractional spacing, hand markings, visual repeat markers, or mixed-stroke flams that it cannot represent exactly; these remain fully editable and playable in custom mode. Timing changes are refused if they would remove notes. Failed storage writes are reported while keeping edits in memory. Browser storage is local to the current browser and site address; there is no cross-device syncing or export yet.
 
 ## Structure
 
 - `src/core/`: framework-independent tokenizer, parser, model, and arrangement compiler. No React, Tone.js, DOM, or browser dependencies; suitable for sharing with a future Expo app.
 - `src/songs/`: original patterns and complete arrangements expressed as native TypeScript data. `catalog.ts` lists the library; `ensemble.ts` defines explicit lead/accompaniment/percussion track identities for the five-track songs.
 - `src/audio/`: sample mappings and a Tone.js engine with its own AudioContext, transport, and node lifecycle.
+- `src/composer/`: custom-song editing models, safe grid/notation conversion, arrangement compilation, and the React builder.
 - `src/App.tsx`: React controls and notation view.
 - `scripts/sync-assets.mjs`: copy original font and samples into Vite's public directory.
 
@@ -74,6 +82,8 @@ At a natural ending, playback callbacks are invalidated and removed **before** t
 
 `src/songs/__tests__/original-arrangements.json` was independently exported by executing the C# song definitions. All four song imports are checked against its section/track/pattern/repeat sequences and a SHA-256 digest of every timed sound event, including short-part cycles and flam delays. For Soro and Soli, the tests account for the omitted opening rest by comparing the remaining sections and shifting event times back one measure before hashing. For Soro, Soli, and Kadan, expected groups are determined from the reference by comparing every instrument part of adjacent sections; each complete timed-sound digest remains identical. The original reference stays unchanged. The tests also verify that all referenced instrument recordings exist.
 
+Composer tests cover one-beat fragments, combined drum/bell hits, separate channels for the same instrument, section order and repetitions, shorter-pattern cycling, safe editor conversions, flams, timing changes, contextual notation errors, and saved-draft validation.
+
 For real Web Audio regressions, run `pnpm dev`, open `http://127.0.0.1:5173/tests/audio.html`, and click **Run audio regressions (silent)**. This development-only page measures hard-left/right separation, live panning of the original dununba recordings, the exact strike count at a natural ending, silence after Stop, and clean section jumps while stopped or playing. It uses the actual player, Tone transport, and audio nodes; synthetic sine buffers replace sample I/O only where deterministic input is needed. Speaker output is muted. These measurements occur before the device/preview's final output path, so they cannot verify downstream mono settings. The test page is not included in the production build.
 
-All four existing song arrangements are migrated. Persistence, offline installation, and native mobile playback are future work. Tone.js runs in the browser; a future Expo app can share `core/` and song data but needs a validated native audio backend and adapted UI. Phone lock/background audio is subject to browser/OS interruptions.
+All four existing song arrangements are migrated, and custom songs are saved locally in the browser. Cross-device syncing, offline installation, and native mobile playback are future work. Tone.js runs in the browser; a future Expo app can share `core/` and song data but needs a validated native audio backend and adapted UI. Phone lock/background audio is subject to browser/OS interruptions.

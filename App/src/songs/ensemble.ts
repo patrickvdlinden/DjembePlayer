@@ -20,10 +20,10 @@ export function ensembleSection(id: string, name: string, times: number,
 
 export function ensembleTracks(): Track[] {
   return [
-    { id: trackIds.lead, name: 'Djembe 1', instrument: 'djembe', sampleSet: 'solo', color: '#e2ad6e', volume: 0.65, pan: 0 },
-    { id: trackIds.accompaniment, name: 'Djembe 2', instrument: 'djembe', sampleSet: 'accompany', color: '#d39483', volume: 0.65, pan: -0.3 },
-    { id: trackIds.kenkeni, name: 'Kenkeni', instrument: 'kenkeni', color: '#c5bc82', volume: 0.65, pan: -0.6 },
-    { id: trackIds.sangban, name: 'Sangban', instrument: 'sangban', color: '#97b8a0', volume: 0.65, pan: 0.3 },
-    { id: trackIds.dununba, name: 'Dununba', instrument: 'dununba', color: '#9aaed3', volume: 0.65, pan: 0.6 },
+    { id: trackIds.lead, name: 'Djembe 1', instrument: 'djembe', sampleSet: 'solo', color: '#dc7700', volume: 0.65, pan: 0 },
+    { id: trackIds.accompaniment, name: 'Djembe 2', instrument: 'djembe', sampleSet: 'accompany', color: '#b44d24', volume: 0.65, pan: -0.3 },
+    { id: trackIds.kenkeni, name: 'Kenkeni', instrument: 'kenkeni', color: '#b18c20', volume: 0.65, pan: -0.6 },
+    { id: trackIds.sangban, name: 'Sangban', instrument: 'sangban', color: '#8d583a', volume: 0.65, pan: 0.3 },
+    { id: trackIds.dununba, name: 'Dununba', instrument: 'dununba', color: '#63341d', volume: 0.65, pan: 0.6 },
   ];
 }

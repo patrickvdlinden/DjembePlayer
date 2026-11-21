@@ -37,9 +37,9 @@ export const djagbe: Song = {
   id: 'djagbe', name: 'Djagbé', bpm: 100, beatsPerMeasure: 4,
   description: 'A conversation between sangban and dununba, framed by the djembe call.',
   tracks: [
-    { id: 'djembe-1', name: 'Djembe', instrument: 'djembe', sampleSet: 'solo', color: '#e2ad6e', volume: 0.65, pan: 0 },
-    { id: 'sangban-1', name: 'Sangban', instrument: 'sangban', color: '#97b8a0', volume: 0.65, pan: -0.3 },
-    { id: 'dununba-1', name: 'Dununba', instrument: 'dununba', color: '#9aaed3', volume: 0.65, pan: 0.3 },
+    { id: 'djembe-1', name: 'Djembe', instrument: 'djembe', sampleSet: 'solo', color: '#dc7700', volume: 0.65, pan: 0 },
+    { id: 'sangban-1', name: 'Sangban', instrument: 'sangban', color: '#8d583a', volume: 0.65, pan: -0.3 },
+    { id: 'dununba-1', name: 'Dununba', instrument: 'dununba', color: '#63341d', volume: 0.65, pan: 0.3 },
   ],
   sections,
 };
