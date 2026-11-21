@@ -1,5 +1,6 @@
 import { createHash } from 'node:crypto';
 import { existsSync, readFileSync } from 'node:fs';
+import { isDeepStrictEqual } from 'node:util';
 import { describe, expect, it } from 'vitest';
 import { samplesFor } from '../../audio/samples';
 import { compileArrangement } from '../../core/arrangement';
@@ -27,13 +28,23 @@ describe.each(songs)('$name complete arrangement', song => {
   const omittedTicks = omittedSections * 4 * TICKS_PER_BEAT;
 
   it('preserves every musical section, pattern, track assignment, and repeat count', () => {
-    expect(song.sections).toHaveLength(reference.sectionCount - omittedSections);
+    const expected: Reference['sections'] = [];
+    for (const section of reference.sections.slice(omittedSections)) {
+      const previous = expected.at(-1);
+      // Only Soro groups adjacent entries, and every instrument part must match.
+      if (song.id === 'soro' && previous && isDeepStrictEqual(previous.parts, section.parts)) {
+        previous.times += section.times;
+      } else {
+        expected.push({ ...section });
+      }
+    }
+    expect(song.sections).toHaveLength(expected.length);
     expect(song.sections.map(section => ({
       times: section.times,
       parts: section.parts.map(part => ({
         trackId: part.trackId, raw: part.notation.raw, subdivisions: part.notation.subdivisions,
       })),
-    }))).toEqual(reference.sections.slice(omittedSections));
+    }))).toEqual(expected);
   });
 
   it('matches every timed sound in the C# arrangement, including flams and shorter-part cycles', () => {

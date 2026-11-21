@@ -156,7 +156,7 @@ export function App() {
               </button>
               <button className="stop-button" aria-label="Stop playback"
                 onClick={() => engineRef.current?.stop()}
-                disabled={!['playing', 'loading', 'finished'].includes(state)}>
+                disabled={!['playing', 'loading', 'finished'].includes(state) && tick === 0}>
                 <span aria-hidden="true">■</span>
               </button>
             </div>
@@ -177,6 +177,15 @@ export function App() {
               <label><input type="checkbox" checked={loop}
                 onChange={event => setLoop(event.target.checked)} /> Loop song</label>
             </div>
+          </div>
+          <div className="section-navigation">
+            <label htmlFor="section-selector">Jump to section</label>
+            <select id="section-selector" value={section.id}
+              onChange={event => void engineRef.current?.jumpToSection(event.target.value)}>
+              {song.sections.map((item, index) => <option key={item.id} value={item.id}>
+                {`${String(index + 1).padStart(2, '0')} · ${item.name}${item.times > 1 ? ` (${item.times}x)` : ''}`}
+              </option>)}
+            </select>
           </div>
           <div className="transport-bottom">
             <div className="beat-indicators" aria-label={`Beat ${beat + 1} of ${song.beatsPerMeasure}`}>
@@ -222,10 +231,15 @@ export function App() {
             </div>
             <details className="arrangement">
               <summary>Explore the full arrangement <span>{song.sections.length} {song.sections.length === 1 ? 'section' : 'sections'}</span></summary>
+              <p className="arrangement-hint">Choose a section to start there. Jump during playback to keep playing.</p>
               <ol>{song.sections.map((item, index) =>
                 <li key={item.id} className={current?.sectionId === item.id ? 'current-section' : ''}>
-                  <span className="section-number">{String(index + 1).padStart(2, '0')}</span>
-                  <span>{item.name}</span><span>× {item.times}</span>
+                  <button className="section-button" aria-label={`Jump to section ${index + 1}: ${item.name}`}
+                    aria-current={current?.sectionId === item.id ? 'location' : undefined}
+                    onClick={() => void engineRef.current?.jumpToSection(item.id)}>
+                    <span className="section-number">{String(index + 1).padStart(2, '0')}</span>
+                    <span>{item.name}</span>{item.times > 1 && <span className="section-repeats">({item.times}x)</span>}
+                  </button>
                 </li>)}
               </ol>
             </details>

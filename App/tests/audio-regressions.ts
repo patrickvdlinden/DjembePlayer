@@ -129,6 +129,28 @@ async function stopping() {
   } finally { test.dispose(); }
 }
 
+async function sectionJump(whilePlaying: boolean) {
+  const definition = song();
+  definition.sections = ['opening', 'middle', 'ending'].map(id => ({ ...definition.sections[0]!, id }));
+  const test = await setup(definition, 1);
+  try {
+    if (whilePlaying) {
+      await test.engine.play();
+      await sleep(350);
+    }
+    const before = test.strikes();
+    await test.engine.jumpToSection('ending');
+    const selectedTick = test.engine.tick;
+    if (!whilePlaying) await test.engine.play();
+    const deadline = performance.now() + 5000;
+    while (test.engine.state === 'playing' && performance.now() < deadline) await sleep(20);
+    await sleep(200);
+    report(whilePlaying ? 'Live section jump cancels old strikes and finishes cleanly' : 'Play begins at the selected section',
+      selectedTick === 8 * 720 && test.engine.state === 'finished' && test.strikes() === before + 12,
+      { selectedTick, state: test.engine.state, expectedStrikes: before + 12, actualStrikes: test.strikes() });
+  } finally { test.dispose(); }
+}
+
 button.addEventListener('click', async () => {
   button.disabled = true;
   reports.length = 0;
@@ -139,6 +161,8 @@ button.addEventListener('click', async () => {
     await livePanning();
     await ending();
     await stopping();
+    await sectionJump(false);
+    await sectionJump(true);
     results.textContent = `${reports.every(item => item.passed) ? 'PASS' : 'FAIL'}\n${JSON.stringify(reports, null, 2)}`;
   } catch (error) { results.textContent = `ERROR\n${error instanceof Error ? error.stack : String(error)}`; }
   finally { button.disabled = false; }

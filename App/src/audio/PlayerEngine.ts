@@ -21,6 +21,8 @@ export class PlayerEngine {
   private abort = new AbortController();
   private generation = 0;
   private disposed = false;
+  private positionTick = 0;
+  private playbackStartTime = 0;
   private bpm: number;
   private looping = false;
   private metronome = false;
@@ -36,8 +38,13 @@ export class PlayerEngine {
 
   get tick(): number {
     if (this.state === 'finished') return this.arrangement.durationTicks;
-    return this.state === 'playing' && this.context
-      ? Math.max(0, this.context.transport.getTicksAtTime(this.context.immediate())) : 0;
+    if (this.state === 'playing' && this.context) {
+      const now = this.context.immediate();
+      if (now >= this.playbackStartTime) {
+        return Math.max(0, this.context.transport.getTicksAtTime(now));
+      }
+    }
+    return this.positionTick;
   }
 
   private initialize(): Tone.Context {
@@ -78,6 +85,7 @@ export class PlayerEngine {
 
   async play(): Promise<void> {
     if (this.state === 'loading' || this.state === 'playing' || this.disposed) return;
+    if (this.state === 'finished') this.positionTick = 0;
     const generation = ++this.generation;
     this.state = 'loading';
     this.error = '';
@@ -124,9 +132,10 @@ export class PlayerEngine {
       }, `${this.arrangement.durationTicks}i`);
       this.silenceAndRetireSources();
       const startTime = context.now() + 0.05;
+      this.playbackStartTime = startTime;
       this.output!.gain.setValueAtTime(1, startTime);
       this.state = 'playing';
-      transport.start(startTime, 0);
+      transport.start(startTime, `${this.positionTick}i`);
       this.onChange();
     } catch (error) {
       if (generation !== this.generation || this.disposed) return;
@@ -166,7 +175,19 @@ export class PlayerEngine {
     }
   }
 
-  stop() {
+  /** Select the first pass of a section, resuming only if playback was active. */
+  async jumpToSection(sectionId: string): Promise<void> {
+    if (this.disposed) return;
+    const section = this.arrangement.sections.find(item => item.sectionId === sectionId);
+    if (!section) throw new Error(`Unknown section: ${sectionId}`);
+    const resume = this.state === 'playing' || this.state === 'loading';
+    this.stopAt(section.startTick);
+    if (resume) await this.play();
+  }
+
+  stop() { this.stopAt(0); }
+
+  private stopAt(tick: number) {
     this.generation++;
     if (this.context) {
       this.context.transport.cancel(0);
@@ -174,6 +195,7 @@ export class PlayerEngine {
       this.context.draw.cancel(0);
     }
     this.silenceAndRetireSources();
+    this.positionTick = tick;
     this.state = 'stopped';
     this.onChange();
   }

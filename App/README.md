@@ -28,8 +28,10 @@ Vite copies the audio and font from `../Assets/Resources/` into the ignored `pub
 - Song selector for Djagbé, Soro, Soli, and Kadan. Changing songs stops playback and resets the position, tempo, and track mixer for the selected song.
 - Complete calls, accompaniments, solos, breaks, échauffement, section order, and repeats from each original song definition.
 - Playback starts with the opening call. Soro and Soli omit the original one-measure metronome rest; Djagbé and Kadan already start with their calls.
+- Soro groups consecutive sections only where all instrument parts are identical, showing repeat counts such as `Accompany 1 (3x)` and `Solo 1 (4x)`. Sections with different accompaniment or an intervening section remain separate.
 - Independent tracks, including two djembes with separate solo/accompaniment recordings, kenkeni, sangban, and dununba; simultaneous bell/drum strikes and overlapping sample tails.
 - Play, Stop, tempo changes (30–240 BPM), whole-song looping, and metronome.
+- Jump to any section using the playback dropdown or a row in the full arrangement. While stopped, Play begins at the selected section; during playback, a jump continues from that section's first pass. Stop returns to the beginning. Tempo, mixer settings, and whole-song looping are preserved when jumping.
 - Track mute, volume, and stereo panning.
 - Current section, repeat pass, labeled beat indicators, and progress.
 - Smooth red playheads follow the audio clock across notes, rests, pattern repeats, and multiline measures. Long notation scrolls to keep the playhead visible.
@@ -39,7 +41,7 @@ Vite copies the audio and font from `../Assets/Resources/` into the ignored `pub
 | Song | App sections | Measures including repeats | Beats | Sound events |
 | --- | ---: | ---: | ---: | ---: |
 | Djagbé | 23 | 43 | 172 | 1,153 |
-| Soro | 41 | 70 | 280 | 4,159 |
+| Soro | 31 | 70 | 280 | 4,159 |
 | Soli | 23 | 73 | 292 | 3,157 |
 | Kadan | 18 | 70 | 280 | 3,425 |
 
@@ -69,8 +71,8 @@ At a natural ending, playback callbacks are invalidated and removed **before** t
 
 `original-patterns.json` contains independent reference output exported from the unchanged C# parser for all **94 distinct patterns** used in Soro, Soli, Kadan, and Djagbé. The tests compare sound types, ticks, flam delays, durations, and repeat metadata. These reference fixtures are test data, not runtime adapters. Additional tests cover exact fractional spacing, malformed input, complete song counts, shorter-part cycling, distinct tracks of the same instrument, and audio cancellation/retry behavior.
 
-`src/songs/__tests__/original-arrangements.json` was independently exported by executing the C# song definitions. All four song imports are checked against its section/track/pattern/repeat sequences and a SHA-256 digest of every timed sound event, including short-part cycles and flam delays. For Soro and Soli, the tests account for the omitted opening rest by comparing the remaining sections and shifting event times back one measure before hashing. The original reference stays unchanged. The tests also verify that all referenced instrument recordings exist.
+`src/songs/__tests__/original-arrangements.json` was independently exported by executing the C# song definitions. All four song imports are checked against its section/track/pattern/repeat sequences and a SHA-256 digest of every timed sound event, including short-part cycles and flam delays. For Soro and Soli, the tests account for the omitted opening rest by comparing the remaining sections and shifting event times back one measure before hashing. For Soro, expected groups are determined from the reference by comparing every instrument part of adjacent sections; the complete timed-sound digest remains identical. The original reference stays unchanged. The tests also verify that all referenced instrument recordings exist.
 
-For real Web Audio regressions, run `pnpm dev`, open `http://127.0.0.1:5173/tests/audio.html`, and click **Run audio regressions (silent)**. This development-only page measures hard-left/right separation, live panning of the original dununba recordings, the exact strike count at a natural ending, and silence after Stop. It uses the actual player, Tone transport, and audio nodes; synthetic sine buffers replace sample I/O only where deterministic input is needed. Speaker output is muted. These measurements occur before the device/preview's final output path, so they cannot verify downstream mono settings. The test page is not included in the production build.
+For real Web Audio regressions, run `pnpm dev`, open `http://127.0.0.1:5173/tests/audio.html`, and click **Run audio regressions (silent)**. This development-only page measures hard-left/right separation, live panning of the original dununba recordings, the exact strike count at a natural ending, silence after Stop, and clean section jumps while stopped or playing. It uses the actual player, Tone transport, and audio nodes; synthetic sine buffers replace sample I/O only where deterministic input is needed. Speaker output is muted. These measurements occur before the device/preview's final output path, so they cannot verify downstream mono settings. The test page is not included in the production build.
 
 All four existing song arrangements are migrated. Persistence, offline installation, and native mobile playback are future work. Tone.js runs in the browser; a future Expo app can share `core/` and song data but needs a validated native audio backend and adapted UI. Phone lock/background audio is subject to browser/OS interruptions.

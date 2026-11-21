@@ -6,6 +6,7 @@ const audio = vi.hoisted(() => ({
   events: [] as { at: string; callback: (time: number) => void }[],
   starts: [] as number[],
   transportStarts: 0,
+  offsets: [] as (string | number)[],
   disposals: 0,
   mixes: [] as { volume: { value: number }; pan: { value: number }; mute: boolean }[],
   onTransportStop: undefined as (() => void) | undefined,
@@ -30,7 +31,7 @@ vi.mock('tone', () => {
         getTicksAtTime: () => 0,
         schedule: (callback: (time: number) => void, at: string) => { audio.events.push({ at, callback }); },
         scheduleRepeat: vi.fn(),
-        start: () => { audio.transportStarts++; },
+        start: (_time: number, offset: string | number) => { audio.transportStarts++; audio.offsets.push(offset); },
         stop: () => { audio.onTransportStop?.(); },
         cancel: () => { audio.events = []; },
       };
@@ -73,6 +74,7 @@ describe('audio scheduling lifecycle', () => {
     audio.events = [];
     audio.starts = [];
     audio.transportStarts = 0;
+    audio.offsets = [];
     audio.disposals = 0;
     audio.mixes = [];
     audio.onTransportStop = undefined;
@@ -166,5 +168,68 @@ describe('audio scheduling lifecycle', () => {
     engine.setMix('djembe-1', { pan: -0.5 });
     expect(audio.mixes[0]?.volume.value).toBeCloseTo(20 * Math.log10(0.35));
     expect(audio.mixes[0]?.pan.value).toBe(-0.5);
+  });
+
+  it('selects the first pass of a section while stopped and starts Play there', async () => {
+    const start = engine.arrangement.sections.find(section => section.sectionId === 'base-4')!.startTick;
+    await engine.jumpToSection('base-4');
+    expect(engine.state).toBe('stopped');
+    expect(engine.tick).toBe(start);
+    expect(fetch).not.toHaveBeenCalled();
+    await engine.play();
+    expect(audio.offsets).toEqual([`${start}i`]);
+    // The UI stays at the selected section until its audio-clock start time.
+    expect(engine.tick).toBe(start);
+  });
+
+  it('continues from a new section and invalidates queued strikes before resetting the clock', async () => {
+    await engine.play();
+    const oldStrike = audio.events[0]!;
+    oldStrike.callback(10);
+    audio.onTransportStop = () => oldStrike.callback(11);
+    const start = engine.arrangement.sections.find(section => section.sectionId === 'variation-6')!.startTick;
+    await engine.jumpToSection('variation-6');
+    expect(engine.state).toBe('playing');
+    expect(engine.tick).toBe(start);
+    expect(audio.offsets.at(-1)).toBe(`${start}i`);
+    expect(audio.starts).toEqual([10]);
+    expect(audio.gainRamps.at(-1)?.value).toBe(0);
+    audio.cleanups.forEach(cleanup => cleanup.callback());
+    expect(audio.disposals).toBeGreaterThan(0);
+  });
+
+  it('uses only the latest section when jumped repeatedly during sample loading', async () => {
+    let release!: (response: unknown) => void;
+    const pending = new Promise(resolve => { release = resolve; });
+    vi.stubGlobal('fetch', vi.fn(() => pending));
+    const initial = engine.play();
+    const firstJump = engine.jumpToSection('base-2');
+    const lastJump = engine.jumpToSection('variation-7');
+    const start = engine.arrangement.sections.find(section => section.sectionId === 'variation-7')!.startTick;
+    expect(engine.state).toBe('loading');
+    expect(engine.tick).toBe(start);
+    release({ ok: true, arrayBuffer: async () => new ArrayBuffer(4) });
+    await Promise.all([initial, firstJump, lastJump]);
+    expect(engine.state).toBe('playing');
+    expect(audio.offsets).toEqual([`${start}i`]);
+  });
+
+  it('resets a selected section to the beginning on Stop', async () => {
+    await engine.jumpToSection('ending');
+    engine.stop();
+    expect(engine.tick).toBe(0);
+    await engine.play();
+    expect(audio.offsets).toEqual(['0i']);
+  });
+
+  it('can select a section after the song finishes', async () => {
+    await engine.play();
+    audio.events.at(-1)!.callback(100);
+    await engine.jumpToSection('closing-call');
+    const start = engine.arrangement.sections.find(section => section.sectionId === 'closing-call')!.startTick;
+    expect(engine.state).toBe('stopped');
+    expect(engine.tick).toBe(start);
+    await engine.play();
+    expect(audio.offsets.at(-1)).toBe(`${start}i`);
   });
 });

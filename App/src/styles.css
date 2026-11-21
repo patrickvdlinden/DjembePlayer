@@ -95,10 +95,17 @@ h3 { font-size: .9375rem; font-weight: 550; margin: 0; }
 .arrangement summary { cursor: pointer; color: #c7d1c8; line-height: 1.7; }
 .arrangement summary > span { float: right; color: var(--muted); font-size: .8rem; }
 .arrangement ol { list-style: none; padding: 0; margin: 16px 0 0; max-height: 290px; overflow: auto; }
-.arrangement li { display: flex; gap: 14px; padding: 11px; border-radius: 5px; color: var(--muted); }
-.arrangement li > span:last-child { margin-left: auto; }
+.arrangement-hint { color: var(--muted); font-size: .8rem; line-height: 1.6; }
+.arrangement li { border-radius: 5px; color: var(--muted); }
+.section-button { display: flex; align-items: center; gap: 14px; width: 100%; padding: 11px; text-align: left; color: inherit; background: transparent; border-radius: inherit; }
+.section-button:hover { background: #344437; color: #edf0e8; }
+.section-button:focus-visible { outline-offset: -2px; }
+.section-repeats { margin-left: auto; white-space: nowrap; }
 .arrangement .current-section { background: #303d32; color: #edf0e8; }
 .section-number { font-size: .75rem; font-variant-numeric: tabular-nums; opacity: .65; }
+.section-navigation { display: flex; align-items: center; gap: 14px; padding: 0 28px 18px; }
+.section-navigation label { font-size: .875rem; color: var(--muted); flex-shrink: 0; }
+.section-navigation select { min-width: 0; width: min(100%, 360px); }
 .mixer-icon { width: 26px; height: 26px; fill: none; stroke: var(--muted); stroke-width: 1.2; }
 .panel-description { color: var(--muted); font-size: .875rem; line-height: 1.6; margin: 14px 0 20px; }
 .mixer-track { padding: 20px 0; border-bottom: 1px solid var(--line); }
@@ -148,6 +155,8 @@ footer { display: flex; justify-content: space-between; gap: 20px; color: #a4b0a
   .song-facts span { gap: 5px; font-size: .8rem; }
   .workspace-grid { grid-template-columns: minmax(0, 1fr); }
   .transport-top { padding: 20px; gap: 17px; }
+  .section-navigation { flex-wrap: wrap; gap: 8px; padding: 0 20px 12px; }
+  .section-navigation select { width: 100%; }
   .transport-bottom { padding: 12px 20px 20px; gap: 10px; flex-wrap: wrap; }
   .tempo { gap: 3px; }
   .tempo label { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; margin: 0; }

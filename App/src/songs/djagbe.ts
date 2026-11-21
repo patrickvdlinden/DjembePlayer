@@ -20,9 +20,9 @@ const sections: SongSection[] = [
 ];
 for (let cycle = 1; cycle <= 10; cycle++) {
   sections.push(
-    { id: `base-${cycle}`, name: `Base · ${cycle}`, times: 2,
+    { id: `base-${cycle}`, name: 'Base', times: 2,
       parts: [{ trackId: 'dununba-1', notation: dununba }, { trackId: 'sangban-1', notation: sangban }] },
-    { id: `variation-${cycle}`, name: `Variation · ${cycle}`, times: 1,
+    { id: `variation-${cycle}`, name: 'Variation', times: 1,
       parts: [{ trackId: 'dununba-1', notation: variation }, { trackId: 'sangban-1', notation: sangban }] },
   );
 }

@@ -3,6 +3,7 @@ import type { Instrument, Song } from '../core/model';
 import { ensembleSection, ensembleTracks } from './ensemble';
 
 // Arrangement from Assets/Songs/Soro.cs, with the opening metronome rest removed.
+// Consecutive identical full-ensemble parts are expressed as section repetitions.
 const pattern = (name: string, raw: string, instrument: Instrument) =>
   parseNotation(raw, { name, instrument, subdivisions: 4 });
 
@@ -45,34 +46,24 @@ export const soro: Song = {
   tracks: ensembleTracks(),
   sections: [
     ensembleSection('section-02', "Call", 1, { lead: patterns.djembeCall, sangban: patterns.sangbanStart, dununba: patterns.dununbaStart }),
-    ensembleSection('section-03', "Accompany 1", 1, { lead: patterns.djembeAccompany1, accompaniment: patterns.djembeAccompany2, kenkeni: patterns.kenkeni, sangban: patterns.sangban, dununba: patterns.dununba }),
-    ensembleSection('section-04', "Accompany 1", 1, { lead: patterns.djembeAccompany1, accompaniment: patterns.djembeAccompany2, kenkeni: patterns.kenkeni, sangban: patterns.sangban, dununba: patterns.dununba }),
-    ensembleSection('section-05', "Accompany 1", 1, { lead: patterns.djembeAccompany1, accompaniment: patterns.djembeAccompany2, kenkeni: patterns.kenkeni, sangban: patterns.sangban, dununba: patterns.dununba }),
+    ensembleSection('section-03', "Accompany 1", 3, { lead: patterns.djembeAccompany1, accompaniment: patterns.djembeAccompany2, kenkeni: patterns.kenkeni, sangban: patterns.sangban, dununba: patterns.dununba }),
     ensembleSection('section-06', "Accompany 1 End", 1, { lead: patterns.djembeAccompany1End, accompaniment: patterns.djembeAccompany2, kenkeni: patterns.kenkeni, sangban: patterns.sangban, dununba: patterns.dununba }),
     ensembleSection('section-07', "Call", 1, { lead: patterns.djembeCall, accompaniment: patterns.djembeAccompany2, kenkeni: patterns.kenkeni, sangban: patterns.sangban, dununba: patterns.dununba }),
-    ensembleSection('section-08', "Échauffement", 1, { lead: patterns.djembeEchauffement, accompaniment: patterns.djembeAccompany2, kenkeni: patterns.kenkeni, sangban: patterns.sangban, dununba: patterns.dununba }),
+    ensembleSection('section-08', "Échauffement start", 1, { lead: patterns.djembeEchauffement, accompaniment: patterns.djembeAccompany2, kenkeni: patterns.kenkeni, sangban: patterns.sangban, dununba: patterns.dununba }),
     ensembleSection('section-09', "Échauffement", 2, { lead: patterns.djembeEchauffement, accompaniment: patterns.djembeAccompany2, kenkeni: patterns.kenkeni, sangban: patterns.sangbanEchauffement, dununba: patterns.dununbaEchauffement }),
     ensembleSection('section-10', "Échauffement ending", 1, { lead: patterns.djembeEchauffementEnd, accompaniment: patterns.djembeAccompany2, kenkeni: patterns.kenkeni, sangban: patterns.sangbanEchauffement, dununba: patterns.dununbaEchauffement }),
     ensembleSection('section-11', "Call", 1, { lead: patterns.djembeCall, accompaniment: patterns.djembeAccompany2, kenkeni: patterns.kenkeni, sangban: patterns.sangbanEchauffementEnd, dununba: patterns.dununbaEchauffementEnd }),
-    ensembleSection('section-12', "Rest", 1, { lead: patterns.djembeWait, accompaniment: patterns.djembeAccompany2, kenkeni: patterns.kenkeni, sangban: patterns.sangban, dununba: patterns.dununba }),
-    ensembleSection('section-13', "Rest", 1, { lead: patterns.djembeWait, accompaniment: patterns.djembeAccompany2, kenkeni: patterns.kenkeni, sangban: patterns.sangban, dununba: patterns.dununba }),
-    ensembleSection('section-14', "Solo 1", 1, { lead: patterns.djembeSolo1, accompaniment: patterns.djembeAccompany2, kenkeni: patterns.kenkeni, sangban: patterns.sangban, dununba: patterns.dununba }),
-    ensembleSection('section-15', "Solo 1", 1, { lead: patterns.djembeSolo1, accompaniment: patterns.djembeAccompany2, kenkeni: patterns.kenkeni, sangban: patterns.sangban, dununba: patterns.dununba }),
-    ensembleSection('section-16', "Solo 1", 1, { lead: patterns.djembeSolo1, accompaniment: patterns.djembeAccompany2, kenkeni: patterns.kenkeni, sangban: patterns.sangban, dununba: patterns.dununba }),
-    ensembleSection('section-17', "Solo 1", 1, { lead: patterns.djembeSolo1, accompaniment: patterns.djembeAccompany2, kenkeni: patterns.kenkeni, sangban: patterns.sangban, dununba: patterns.dununba }),
+    ensembleSection('section-12', "Rest", 2, { lead: patterns.djembeWait, accompaniment: patterns.djembeAccompany2, kenkeni: patterns.kenkeni, sangban: patterns.sangban, dununba: patterns.dununba }),
+    ensembleSection('section-14', "Solo 1", 4, { lead: patterns.djembeSolo1, accompaniment: patterns.djembeAccompany2, kenkeni: patterns.kenkeni, sangban: patterns.sangban, dununba: patterns.dununba }),
     ensembleSection('section-18', "Call", 1, { lead: patterns.djembeCall, accompaniment: patterns.djembeAccompany2, kenkeni: patterns.kenkeni, sangban: patterns.sangban, dununba: patterns.dununba }),
-    ensembleSection('section-19', "Solo 2", 1, { lead: patterns.djembeSolo2, accompaniment: patterns.djembeAccompany2, kenkeni: patterns.kenkeni, sangban: patterns.sangban, dununba: patterns.dununba }),
-    ensembleSection('section-20', "Solo 2", 1, { lead: patterns.djembeSolo2, accompaniment: patterns.djembeAccompany2, kenkeni: patterns.kenkeni, sangban: patterns.sangban, dununba: patterns.dununba }),
-    ensembleSection('section-21', "Solo 2", 1, { lead: patterns.djembeSolo2, accompaniment: patterns.djembeAccompany2, kenkeni: patterns.kenkeni, sangban: patterns.sangban, dununba: patterns.dununba }),
-    ensembleSection('section-22', "Solo 2", 1, { lead: patterns.djembeSolo2, accompaniment: patterns.djembeAccompany2, kenkeni: patterns.kenkeni, sangban: patterns.sangban, dununba: patterns.dununba }),
+    ensembleSection('section-19', "Solo 2", 4, { lead: patterns.djembeSolo2, accompaniment: patterns.djembeAccompany2, kenkeni: patterns.kenkeni, sangban: patterns.sangban, dununba: patterns.dununba }),
     ensembleSection('section-23', "Landing 1", 1, { lead: patterns.djembeLanding1, accompaniment: patterns.djembeAccompany2, kenkeni: patterns.kenkeni, sangban: patterns.sangban, dununba: patterns.dununba }),
     ensembleSection('section-24', "Solo 3 Start", 1, { lead: patterns.djembeSolo3Start, accompaniment: patterns.djembeAccompany2, kenkeni: patterns.kenkeni, sangban: patterns.sangban, dununba: patterns.dununba }),
     ensembleSection('section-25', "Solo 3", 1, { lead: patterns.djembeSolo3, accompaniment: patterns.djembeAccompany2, kenkeni: patterns.kenkeni, sangban: patterns.sangban, dununba: patterns.dununba }),
     ensembleSection('section-26', "Solo 3 End", 1, { lead: patterns.djembeSolo3End, accompaniment: patterns.djembeAccompany2, kenkeni: patterns.kenkeni, sangban: patterns.sangban, dununba: patterns.dununba }),
     ensembleSection('section-27', "Landing 3", 1, { lead: patterns.djembeLanding3, accompaniment: patterns.djembeAccompany2, kenkeni: patterns.kenkeni, sangban: patterns.sangban, dununba: patterns.dununba }),
     ensembleSection('section-28', "Rest", 1, { lead: patterns.djembeWait, accompaniment: patterns.djembeAccompany2, kenkeni: patterns.kenkeni, sangban: patterns.sangban, dununba: patterns.dununba }),
-    ensembleSection('section-29', "Solo 4", 1, { lead: patterns.djembeSolo4, accompaniment: patterns.djembeAccompany2, kenkeni: patterns.kenkeni, sangban: patterns.sangban, dununba: patterns.dununba }),
-    ensembleSection('section-30', "Solo 4", 1, { lead: patterns.djembeSolo4, accompaniment: patterns.djembeAccompany2, kenkeni: patterns.kenkeni, sangban: patterns.sangban, dununba: patterns.dununba }),
+    ensembleSection('section-29', "Solo 4", 2, { lead: patterns.djembeSolo4, accompaniment: patterns.djembeAccompany2, kenkeni: patterns.kenkeni, sangban: patterns.sangban, dununba: patterns.dununba }),
     ensembleSection('section-31', "Rest", 1, { lead: patterns.djembeWait, accompaniment: patterns.djembeAccompany2, kenkeni: patterns.kenkeni, sangban: patterns.sangban, dununba: patterns.dununba }),
     ensembleSection('section-32', "Solo 5", 1, { lead: patterns.djembeSolo5, accompaniment: patterns.djembeAccompany2, kenkeni: patterns.kenkeni, sangban: patterns.sangban, dununba: patterns.dununba }),
     ensembleSection('section-33', "Rest", 1, { lead: patterns.djembeWait, accompaniment: patterns.djembeAccompany2, kenkeni: patterns.kenkeni, sangban: patterns.sangban, dununba: patterns.dununba }),
@@ -80,7 +71,7 @@ export const soro: Song = {
     ensembleSection('section-35', "Landing 2", 1, { lead: patterns.djembeLanding2, accompaniment: patterns.djembeAccompany2, kenkeni: patterns.kenkeni, sangban: patterns.sangban, dununba: patterns.dununba }),
     ensembleSection('section-36', "Rest", 1, { lead: patterns.djembeWait, accompaniment: patterns.djembeAccompany2, kenkeni: patterns.kenkeni, sangban: patterns.sangban, dununba: patterns.dununba }),
     ensembleSection('section-37', "Call", 1, { lead: patterns.djembeCall, accompaniment: patterns.djembeAccompany2, kenkeni: patterns.kenkeni, sangban: patterns.sangban, dununba: patterns.dununba }),
-    ensembleSection('section-38', "Échauffement", 1, { lead: patterns.djembeEchauffement, accompaniment: patterns.djembeAccompany2, kenkeni: patterns.kenkeni, sangban: patterns.sangban, dununba: patterns.dununba }),
+    ensembleSection('section-38', "Échauffement start", 1, { lead: patterns.djembeEchauffement, accompaniment: patterns.djembeAccompany2, kenkeni: patterns.kenkeni, sangban: patterns.sangban, dununba: patterns.dununba }),
     ensembleSection('section-39', "Échauffement", 6, { lead: patterns.djembeEchauffement, accompaniment: patterns.djembeAccompany2, kenkeni: patterns.kenkeni, sangban: patterns.sangbanEchauffement, dununba: patterns.dununbaEchauffement }),
     ensembleSection('section-40', "Échauffement ending", 1, { lead: patterns.djembeEchauffementEnd, accompaniment: patterns.djembeAccompany2, kenkeni: patterns.kenkeni, sangban: patterns.sangbanEchauffement, dununba: patterns.dununbaEchauffement }),
     ensembleSection('section-41', "Call", 1, { lead: patterns.djembeCall, accompaniment: patterns.djembeAccompany2, kenkeni: patterns.kenkeni, sangban: patterns.sangbanEchauffementEnd, dununba: patterns.dununbaEchauffementEnd }),
