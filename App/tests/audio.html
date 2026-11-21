@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Djembe audio regressions</title>
+    <style>
+      body { font: 16px/1.6 system-ui; max-width: 1000px; margin: 40px auto; padding: 20px; }
+      button { font: inherit; padding: 12px 20px; }
+      pre { white-space: pre-wrap; overflow-wrap: anywhere; }
+    </style>
+  </head>
+  <body>
+    <h1>Audio regressions</h1>
+    <p>Exercises the real Tone.js engine and measures left/right waveforms. Test output is muted at the speaker destination.</p>
+    <button id="run">Run audio regressions (silent)</button>
+    <pre id="results" role="status">Ready</pre>
+    <script type="module" src="./audio-regressions.ts"></script>
+  </body>
+</html>
