@@ -76,7 +76,7 @@ h1 { font-family: Georgia, 'Times New Roman', serif; font-size: clamp(3rem, 5vw,
 .progress > span { display: block; height: 100%; background: var(--accent); transition: width 75ms linear; }
 .workspace-grid { display: flex; flex-wrap: wrap; gap: 26px; align-items: flex-start; }
 .notation-panel { flex: 0 1 auto; width: max-content; max-width: 100%; min-width: 0; }
-.mixer { flex: 0 0 300px; max-width: 100%; }
+.mixer { flex: 1 0 300px; max-width: 100%; }
 .panel-heading { display: flex; justify-content: space-between; align-items: center; gap: 14px; }
 .panel-heading .eyebrow { margin-bottom: 8px; }
 h2 { font-size: 1.3rem; font-weight: 500; margin: 0; letter-spacing: -.02em; }
