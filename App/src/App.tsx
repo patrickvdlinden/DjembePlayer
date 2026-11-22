@@ -11,6 +11,7 @@ import { notationWidthReference } from './notation/wrapNotation';
 import { SongComposer } from './composer/SongComposer';
 import { compileDraft, createDraft, readDrafts } from './composer/draft';
 import type { SongDraft } from './composer/draft';
+import { ThemeToggle } from './ThemeToggle';
 
 const formatTime = (seconds: number, precise: boolean) =>
   `${Math.floor(seconds / 60)}:${precise ? (seconds % 60).toFixed(1).padStart(4, '0') : Math.floor(seconds % 60).toString().padStart(2, '0')}`;
@@ -183,7 +184,10 @@ export function App() {
         <a className="brand" href="./" aria-label="jedeyafola home">
           <img src={`${import.meta.env.BASE_URL}branding/jedeyafola.svg`} alt="jedeyafola" width="1140" height="282" />
         </a>
-        <span className="header-note">A little practice. A deeper groove.</span>
+        <div className="header-actions">
+          <span className="header-note">A little practice. A deeper groove.</span>
+          <ThemeToggle />
+        </div>
       </header>
 
       <main>

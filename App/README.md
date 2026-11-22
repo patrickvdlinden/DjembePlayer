@@ -4,6 +4,8 @@ A React, TypeScript, Vite, and Tone.js player with the **complete Djagbé, Soro,
 
 The supplied jedeyafola artwork is preserved in `public/branding/jedeyafola.svg`. Its default view displays the wordmark, and the `#icon` view displays the matching app icon. The interface uses the artwork's cream, deep brown, and orange palette.
 
+Use the sun/moon switch in the header to choose light or dark mode. The first visit follows the system preference; an explicit choice is remembered on this device. Dark mode uses a near-black brown page with slightly lighter content panels, the logo's deep brown (`#511700`) borders, cream text, and orange accents.
+
 ## Run
 
 Use Node.js 22.12 or later (Node 24 recommended) and pnpm 11.25.
