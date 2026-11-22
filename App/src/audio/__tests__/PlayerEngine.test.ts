@@ -5,6 +5,7 @@ import { djagbe } from '../../songs/djagbe';
 const audio = vi.hoisted(() => ({
   events: [] as { at: string; callback: (time: number) => void }[],
   starts: [] as number[],
+  sampleUrls: [] as string[],
   transportStarts: 0,
   offsets: [] as (string | number)[],
   disposals: 0,
@@ -37,7 +38,7 @@ vi.mock('tone', () => {
       };
       draw = { schedule: (callback: () => void) => callback(), cancel: vi.fn() };
       resume = async () => {};
-      decodeAudioData = async () => ({} as AudioBuffer);
+      decodeAudioData = async (bytes: ArrayBuffer) => ({ sampleUrl: new TextDecoder().decode(bytes) } as unknown as AudioBuffer);
       now = () => 10;
       immediate = () => 10;
       setTimeout = (callback: () => void, delay: number) => { audio.cleanups.push({ callback, delay }); return 0; };
@@ -62,6 +63,10 @@ vi.mock('tone', () => {
       };
     },
     ToneBufferSource: class extends Node {
+      constructor(options: { url: AudioBuffer }) {
+        super();
+        audio.sampleUrls.push((options.url as unknown as { sampleUrl: string }).sampleUrl);
+      }
       start(time: number) { audio.starts.push(time); }
     },
     gainToDb: (gain: number) => 20 * Math.log10(gain),
@@ -73,6 +78,7 @@ describe('audio scheduling lifecycle', () => {
   beforeEach(() => {
     audio.events = [];
     audio.starts = [];
+    audio.sampleUrls = [];
     audio.transportStarts = 0;
     audio.offsets = [];
     audio.disposals = 0;
@@ -80,7 +86,8 @@ describe('audio scheduling lifecycle', () => {
     audio.onTransportStop = undefined;
     audio.gainRamps = [];
     audio.cleanups = [];
-    vi.stubGlobal('fetch', vi.fn(async () => ({ ok: true, arrayBuffer: async () => new ArrayBuffer(4) })));
+    vi.stubGlobal('fetch', vi.fn(async (url: string) => ({ ok: true,
+      arrayBuffer: async () => new TextEncoder().encode(url).buffer })));
     engine = new PlayerEngine(djagbe, vi.fn());
   });
   afterEach(() => { engine.dispose(); vi.unstubAllGlobals(); });
@@ -105,6 +112,137 @@ describe('audio scheduling lifecycle', () => {
     expect(audio.events).toHaveLength(1154);
     audio.events.filter(event => event.at === '0i').forEach(event => event.callback(42));
     expect(audio.starts).toEqual([42, 42.05]);
+  });
+
+  it('selects a sound before Play without loading audio or losing the chosen section', async () => {
+    await engine.jumpToSection('variation-3');
+    const position = engine.tick;
+    expect(await engine.setSoundSet('djembe-1', 'ballet')).toBe(true);
+    expect(fetch).not.toHaveBeenCalled();
+    expect(engine.getSoundSet('djembe-1')).toBe('ballet');
+    expect(engine.tick).toBe(position);
+    await engine.play();
+    expect(audio.offsets).toEqual([`${position}i`]);
+    expect(fetch).toHaveBeenCalledWith(expect.stringContaining('Ballet%20Djembe%20Bass.wav'), expect.anything());
+  });
+
+  it('changes subsequent strikes live without restarting or changing volume, pan, or mute', async () => {
+    await engine.play();
+    engine.setMix('djembe-1', { volume: .27, pan: .8, muted: true });
+    const mix = { volume: { value: audio.mixes[0]!.volume.value }, pan: { value: .8 }, mute: true };
+    const events = audio.events;
+    const strike = events[0]!;
+    strike.callback(42);
+    expect(audio.sampleUrls.at(-1)).toContain('0102%20Djembe%20toon.wav');
+    expect(await engine.setSoundSet('djembe-1', 'ballet')).toBe(true);
+    strike.callback(43);
+    expect(audio.sampleUrls.at(-1)).toContain('Ballet%20Djembe%20Tone.wav');
+    expect(audio.events).toBe(events);
+    expect(audio.transportStarts).toBe(1);
+    expect(audio.mixes[0]).toMatchObject(mix);
+    expect(audio.mixes).toHaveLength(4);
+    expect(engine.state).toBe('playing');
+  });
+
+  it('keeps both djembe channels independent', async () => {
+    engine.dispose();
+    engine = new PlayerEngine({ ...djagbe, tracks: [...djagbe.tracks,
+      { ...djagbe.tracks[0]!, id: 'djembe-2', name: 'Djembe 2', sampleSet: 'accompany' }] }, vi.fn());
+    await engine.play();
+    await engine.setSoundSet('djembe-2', 'ballet');
+    expect(engine.getSoundSet('djembe-1')).toBe('solo');
+    expect(engine.getSoundSet('djembe-2')).toBe('ballet');
+    audio.events[0]!.callback(42);
+    expect(audio.sampleUrls.at(-1)).toContain('0102%20Djembe%20toon.wav');
+    await engine.setSoundSet('djembe-1', 'accompany');
+    expect(engine.getSoundSet('djembe-2')).toBe('ballet');
+    audio.events[0]!.callback(43);
+    expect(audio.sampleUrls.at(-1)).toContain('Djembe%20Tone.mp3');
+  });
+
+  it.each([false, true])('keeps the latest selection when an older load finishes late (failure: %s)', async failed => {
+    await engine.play();
+    let release!: () => void;
+    const pending = new Promise<void>(resolve => { release = resolve; });
+    vi.stubGlobal('fetch', vi.fn(async (url: string) => {
+      const ballet = url.includes('Ballet');
+      if (ballet) await pending;
+      return { ok: !(ballet && failed), status: 404, arrayBuffer: async () => new TextEncoder().encode(url).buffer };
+    }));
+    const older = engine.setSoundSet('djembe-1', 'ballet');
+    expect(await engine.setSoundSet('djembe-1', 'accompany')).toBe(true);
+    release();
+    expect(await older).toBe(false);
+    expect(engine.getSoundSet('djembe-1')).toBe('accompany');
+    audio.events[0]!.callback(42);
+    expect(audio.sampleUrls.at(-1)).toContain('Djembe%20Tone.mp3');
+    expect(audio.transportStarts).toBe(1);
+  });
+
+  it('keeps the previous set playing when a replacement cannot load', async () => {
+    await engine.play();
+    vi.stubGlobal('fetch', vi.fn(async () => ({ ok: false, status: 404 })));
+    await expect(engine.setSoundSet('djembe-1', 'ballet')).rejects.toThrow('404');
+    expect(engine.getSoundSet('djembe-1')).toBe('solo');
+    expect(engine.state).toBe('playing');
+    audio.events[0]!.callback(42);
+    expect(audio.sampleUrls.at(-1)).toContain('0102%20Djembe%20toon.wav');
+    expect(audio.transportStarts).toBe(1);
+  });
+
+  it('does not overwrite a mixer selection when the initial song load finishes later', async () => {
+    let release!: () => void;
+    const pending = new Promise<void>(resolve => { release = resolve; });
+    vi.stubGlobal('fetch', vi.fn(async (url: string) => {
+      if (/010[123]/.test(url)) await pending;
+      return { ok: true, arrayBuffer: async () => new TextEncoder().encode(url).buffer };
+    }));
+    const playing = engine.play();
+    expect(engine.state).toBe('loading');
+    await engine.setSoundSet('djembe-1', 'ballet');
+    release();
+    await playing;
+    expect(engine.state).toBe('playing');
+    audio.events[0]!.callback(42);
+    expect(audio.sampleUrls.at(-1)).toContain('Ballet%20Djembe%20Tone.wav');
+  });
+
+  it('does not restart playback when a sound finishes loading after Stop', async () => {
+    await engine.play();
+    const oldStrike = audio.events[0]!;
+    let release!: () => void;
+    const pending = new Promise<void>(resolve => { release = resolve; });
+    vi.stubGlobal('fetch', vi.fn(async (url: string) => {
+      await pending;
+      return { ok: true, arrayBuffer: async () => new TextEncoder().encode(url).buffer };
+    }));
+    const changing = engine.setSoundSet('djembe-1', 'ballet');
+    engine.stop();
+    release();
+    expect(await changing).toBe(true);
+    expect(engine.state).toBe('stopped');
+    oldStrike.callback(42);
+    expect(audio.starts).toHaveLength(0);
+    expect(audio.transportStarts).toBe(1);
+    await engine.play();
+    audio.events[0]!.callback(43);
+    expect(audio.sampleUrls.at(-1)).toContain('Ballet%20Djembe%20Tone.wav');
+  });
+
+  it('ignores pending sound changes after the engine is disposed', async () => {
+    await engine.play();
+    let release!: () => void;
+    const pending = new Promise<void>(resolve => { release = resolve; });
+    vi.stubGlobal('fetch', vi.fn(async (url: string) => {
+      await pending;
+      return { ok: true, arrayBuffer: async () => new TextEncoder().encode(url).buffer };
+    }));
+    const changing = engine.setSoundSet('djembe-1', 'ballet');
+    engine.dispose();
+    release();
+    expect(await changing).toBe(false);
+    expect(engine.getSoundSet('djembe-1')).toBe('solo');
+    expect(audio.transportStarts).toBe(1);
   });
 
   it('does not start when stopped while samples are still loading', async () => {

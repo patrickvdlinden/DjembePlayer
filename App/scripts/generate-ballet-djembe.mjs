@@ -8,9 +8,9 @@ const appRoot = fileURLToPath(new URL('../', import.meta.url));
 const destination = path.join(appRoot, 'soundsets/ballet-djembe');
 const sampleRate = 48000;
 const settings = [
-  { name: 'Bass', source: '0101 Djembe bas.wav', semitones: 1, highpass: 42, presence: 145, gain: 1.5, shelf: 0, decay: .36, length: .26, peak: .72 },
-  { name: 'Tone', source: '0102 Djembe toon.wav', semitones: 4, highpass: 155, presence: 1000, gain: 2, shelf: 3, decay: .19, length: .20, peak: .68 },
-  { name: 'Slap', source: '0103 Djembe slap.wav', semitones: 5, highpass: 260, presence: 2800, gain: 2.5, shelf: 4, decay: .13, length: .17, peak: .67 },
+  { name: 'Bass', source: '0101 Djembe bas.wav', semitones: 1, highpass: 42, presence: 145, gain: 1.5, shelf: 0, decay: .36, length: .26, peak: .90, drive: .7 },
+  { name: 'Tone', source: '0102 Djembe toon.wav', semitones: 4, highpass: 155, presence: 1000, gain: 2, shelf: 3, decay: .19, length: .20, peak: .90, drive: 2 },
+  { name: 'Slap', source: '0103 Djembe slap.wav', semitones: 5, highpass: 260, presence: 2800, gain: 2.5, shelf: 4, decay: .13, length: .17, peak: .90, drive: 2 },
 ];
 
 function readWave(filename) {
@@ -34,22 +34,38 @@ function readWave(filename) {
 }
 
 // Windowed sinc interpolation avoids the brittle high end of linear resampling.
-function retune(samples, rate, semitones) {
-  const step = rate / sampleRate * 2 ** (semitones / 12);
+function retune(samples, rate, semitones, targetRate = sampleRate) {
+  const step = rate / targetRate * 2 ** (semitones / 12);
+  const cutoff = Math.min(1, 1 / step);
+  const radius = 16 / cutoff;
   return Float64Array.from({ length: Math.ceil(samples.length / step) }, (_, index) => {
     const position = index * step;
     let value = 0;
     let weight = 0;
-    for (let source = Math.ceil(position - 16); source <= Math.floor(position + 16); source++) {
+    for (let source = Math.ceil(position - radius); source <= Math.floor(position + radius); source++) {
       const distance = position - source;
-      const sinc = Math.abs(distance) < 1e-8 ? 1 : Math.sin(Math.PI * distance) / (Math.PI * distance);
-      const window = .5 + .5 * Math.cos(Math.PI * distance / 16);
-      const coefficient = sinc * window;
+      const angle = Math.PI * distance * cutoff;
+      const sinc = Math.abs(angle) < 1e-8 ? 1 : Math.sin(angle) / angle;
+      const window = .5 + .5 * Math.cos(Math.PI * distance / radius);
+      const coefficient = cutoff * sinc * window;
       value += (samples[source] ?? 0) * coefficient;
       weight += coefficient;
     }
     return value / weight;
   });
+}
+
+// Peak normalization alone left the short tone/slap attacks much quieter than
+// the other recordings. Reduce their crest factor, with 4x oversampling and
+// anti-alias filtering, then set a safe output peak rather than hard clipping.
+function matchLevel(samples, peak, drive) {
+  const oversampled = retune(samples, sampleRate, 0, sampleRate * 4);
+  const inputPeak = Math.max(...oversampled.map(Math.abs));
+  const shaped = oversampled.map(value => Math.tanh(value / inputPeak * drive) / Math.tanh(drive));
+  const reduced = retune(shaped, sampleRate * 4, 0).slice(0, samples.length);
+  const faded = reduced.map((value, index) => value * Math.min(1, index / 10, (reduced.length - 1 - index) / 10));
+  const outputPeak = Math.max(...faded.map(Math.abs));
+  return faded.map(value => value / outputPeak * peak);
 }
 
 function filter(samples, type, frequency, gain = 0) {
@@ -116,8 +132,7 @@ for (const kit of settings) {
     const release = Math.min(1, (samples.length - 1 - index) / (sampleRate * .008));
     return value * attack * .5 * (1 - Math.cos(Math.PI * release)) * Math.exp(-seconds / kit.decay);
   });
-  const peak = Math.max(...samples.map(Math.abs));
-  samples = samples.map(value => value / peak * kit.peak);
+  samples = matchLevel(samples, kit.peak, kit.drive);
   writeWave(path.join(destination, `Ballet Djembe ${kit.name}.wav`), samples);
   rendered.push(samples);
   console.log(`${kit.name}: +${kit.semitones} semitones, ${(samples.length / sampleRate).toFixed(3)}s, ${kit.peak} peak`);

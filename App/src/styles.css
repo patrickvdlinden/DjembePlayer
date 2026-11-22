@@ -156,6 +156,9 @@ h3 { font-size: .9375rem; font-weight: 550; margin: 0; }
 .mixer-track.muted > input, .mixer-track.muted > label { opacity: .45; }
 .mixer-track-heading { display: flex; align-items: center; justify-content: space-between; margin-bottom: 15px; }
 .mixer-track-heading h3 { display: flex; gap: 8px; align-items: center; }
+.mixer-sound { display: grid; gap: 8px; margin-bottom: 16px; min-width: 0; font-size: .8rem; color: var(--muted); }
+.mixer-sound select { min-width: 0; width: 100%; font-size: .875rem; }
+.mixer-sound .mixer-sound-error { color: var(--danger); line-height: 1.6; overflow-wrap: anywhere; }
 .mute-button { border: 1px solid var(--control-border); border-radius: 5px; color: var(--ink); background: transparent; padding: 5px 9px; font-size: .875rem; }
 .mute-button.is-muted { color: var(--accent-ink); border-color: var(--accent-ink); background: var(--selection); }
 .range-label { display: flex; justify-content: space-between; font-size: .875rem; color: var(--muted); }

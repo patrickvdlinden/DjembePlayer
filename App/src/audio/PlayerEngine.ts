@@ -1,7 +1,7 @@
 import * as Tone from 'tone';
 import { compileArrangement } from '../core/arrangement';
 import { TICKS_PER_BEAT } from '../core/model';
-import type { Arrangement, Song, Track } from '../core/model';
+import type { Arrangement, DjembeSoundSet, Song, Track } from '../core/model';
 import { sampleUrl, samplesFor } from './samples';
 
 export type PlayerState = 'stopped' | 'loading' | 'playing' | 'finished' | 'error';
@@ -27,6 +27,8 @@ export class PlayerEngine {
   private looping = false;
   private metronome = false;
   private mixes = new Map<string, TrackMix>();
+  private soundSets = new Map<string, DjembeSoundSet>();
+  private soundSetRequests = new Map<string, number>();
   state: PlayerState = 'stopped';
   error = '';
 
@@ -34,6 +36,7 @@ export class PlayerEngine {
     this.arrangement = compileArrangement(song);
     this.bpm = song.bpm;
     song.tracks.forEach(track => this.mixes.set(track.id, { volume: track.volume, pan: track.pan, muted: false }));
+    song.tracks.filter(track => track.instrument === 'djembe').forEach(track => this.soundSets.set(track.id, track.sampleSet ?? 'solo'));
   }
 
   get tick(): number {
@@ -83,6 +86,47 @@ export class PlayerEngine {
     return promise;
   }
 
+  private async loadTrackSamples(track: Track, sampleSet?: DjembeSoundSet) {
+    return Promise.all(Object.entries(samplesFor({ ...track, sampleSet })).map(async ([type, filename]) =>
+      [type, await this.load(filename)] as const));
+  }
+
+  private async prepareTrack(track: Track): Promise<void> {
+    const soundSet = this.soundSets.get(track.id);
+    const samples = await this.loadTrackSamples(track, soundSet);
+    if (this.disposed) return;
+    // A mixer change may finish before the initial song load. Keep the latest
+    // confirmed sound instead of overwriting it with that older load.
+    if (soundSet !== this.soundSets.get(track.id)) return this.prepareTrack(track);
+    samples.forEach(([type, buffer]) => this.samples.set(`${track.id}:${type}`, buffer));
+  }
+
+  getSoundSet(trackId: string): DjembeSoundSet {
+    const soundSet = this.soundSets.get(trackId);
+    if (!soundSet) throw new Error(`Not a djembe channel: ${trackId}`);
+    return soundSet;
+  }
+
+  /** Load all three strokes before switching; existing strikes keep their tails. */
+  async setSoundSet(trackId: string, sampleSet: DjembeSoundSet): Promise<boolean> {
+    const track = this.song.tracks.find(item => item.id === trackId && item.instrument === 'djembe');
+    if (!track) throw new Error(`Not a djembe channel: ${trackId}`);
+    if (this.disposed) return false;
+    const request = (this.soundSetRequests.get(trackId) ?? 0) + 1;
+    this.soundSetRequests.set(trackId, request);
+    if (!this.context) { this.soundSets.set(trackId, sampleSet); return true; }
+    try {
+      const samples = await this.loadTrackSamples(track, sampleSet);
+      if (this.disposed || this.soundSetRequests.get(trackId) !== request) return false;
+      this.soundSets.set(trackId, sampleSet);
+      samples.forEach(([type, buffer]) => this.samples.set(`${trackId}:${type}`, buffer));
+      return true;
+    } catch (error) {
+      if (this.disposed || this.soundSetRequests.get(trackId) !== request) return false;
+      throw error;
+    }
+  }
+
   async play(): Promise<void> {
     if (this.state === 'loading' || this.state === 'playing' || this.disposed) return;
     if (this.state === 'finished') this.positionTick = 0;
@@ -94,10 +138,7 @@ export class PlayerEngine {
       const context = this.initialize();
       // Resume within the user's click, before fetching audio.
       const resume = context.resume();
-      const loading = this.song.tracks.flatMap(track =>
-        Object.entries(samplesFor(track)).map(async ([type, filename]) => {
-          this.samples.set(`${track.id}:${type}`, await this.load(filename));
-        }));
+      const loading = this.song.tracks.map(track => this.prepareTrack(track));
       loading.push(this.load('1001 Metronome.wav').then(buffer => { this.samples.set('metronome', buffer); }));
       await Promise.all([resume, ...loading]);
       if (generation !== this.generation || this.disposed) return;
@@ -108,10 +149,12 @@ export class PlayerEngine {
       transport.loop = this.looping;
       transport.loopEnd = `${this.arrangement.durationTicks}i`;
       this.arrangement.events.forEach(event => {
-        const buffer = this.samples.get(`${event.trackId}:${event.type}`);
-        if (!buffer) throw new Error(`Missing sample for ${event.trackId}: ${event.type}.`);
+        const sampleKey = `${event.trackId}:${event.type}`;
+        if (!this.samples.has(sampleKey)) throw new Error(`Missing sample for ${event.trackId}: ${event.type}.`);
         transport.schedule(time => {
-          if (generation === this.generation) this.hit(buffer, event.trackId, time + event.delaySeconds);
+          if (generation !== this.generation) return;
+          const buffer = this.samples.get(sampleKey);
+          if (buffer) this.hit(buffer, event.trackId, time + event.delaySeconds);
         }, `${event.tick}i`);
       });
       transport.scheduleRepeat(time => {

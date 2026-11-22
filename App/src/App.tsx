@@ -1,9 +1,10 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { PlayerEngine } from './audio/PlayerEngine';
 import type { TrackMix } from './audio/PlayerEngine';
+import { djembeSoundSets } from './audio/samples';
 import { compileArrangement } from './core/arrangement';
 import { TICKS_PER_BEAT } from './core/model';
-import type { Song } from './core/model';
+import type { DjembeSoundSet, Song } from './core/model';
 import { djagbe } from './songs/djagbe';
 import { songs } from './songs/catalog';
 import { NotationScore } from './notation/NotationScore';
@@ -16,6 +17,7 @@ import { ThemeToggle } from './ThemeToggle';
 const formatTime = (seconds: number, precise: boolean) =>
   `${Math.floor(seconds / 60)}:${precise ? (seconds % 60).toFixed(1).padStart(4, '0') : Math.floor(seconds % 60).toString().padStart(2, '0')}`;
 const draftStorageKey = 'djembe-player.custom-songs';
+type MixerSound = { value: DjembeSoundSet; loading: boolean; error: string };
 function loadCustomSongs(): { songs: SongDraft[]; error: string } {
   try {
     const json = localStorage.getItem(draftStorageKey);
@@ -39,6 +41,7 @@ export function App() {
   const [, refresh] = useState(0);
   const [tick, setTick] = useState(0);
   const [mixes, setMixes] = useState<Record<string, TrackMix>>({});
+  const [mixerSounds, setMixerSounds] = useState<Record<string, MixerSound>>({});
   const engineRef = useRef<PlayerEngine | null>(null);
   const arrangement = useMemo(() => compileArrangement(song), [song]);
   const readTick = useCallback(() => engineRef.current?.tick ?? 0, []);
@@ -55,6 +58,8 @@ export function App() {
     engine.setLoop(loop);
     engine.setMetronome(metronome);
     setMixes(initialMixes);
+    setMixerSounds(Object.fromEntries(nextSong.tracks.filter(track => track.instrument === 'djembe').map(track =>
+      [track.id, { value: engine.getSoundSet(track.id), loading: false, error: '' }])));
     return engine;
   }
 
@@ -116,6 +121,23 @@ export function App() {
     engineRef.current?.setMix(id, change);
     if (activeDraft) updateDraft({ ...activeDraft,
       channels: activeDraft.channels.map(channel => channel.id === id ? { ...channel, ...change } : channel) });
+  }
+
+  async function selectMixerSound(id: string, value: DjembeSoundSet) {
+    const currentEngine = engineRef.current;
+    if (!currentEngine) return;
+    setMixerSounds(previous => ({ ...previous, [id]: { value, loading: true, error: '' } }));
+    try {
+      const applied = await currentEngine.setSoundSet(id, value);
+      if (engineRef.current !== currentEngine || !applied) return;
+      setMixerSounds(previous => previous[id]?.value !== value ? previous
+        : { ...previous, [id]: { value, loading: false, error: '' } });
+    } catch (error) {
+      if (engineRef.current !== currentEngine) return;
+      setMixerSounds(previous => previous[id]?.value !== value ? previous
+        : { ...previous, [id]: { value: currentEngine.getSoundSet(id), loading: false,
+          error: error instanceof Error ? error.message : 'Could not load this sound.' } });
+    }
   }
 
   function updateDraft(draft: SongDraft) {
@@ -333,6 +355,7 @@ export function App() {
             <p className="panel-description">Bring your part forward. Let the others guide you.</p>
             {song.tracks.map(track => {
               const mix = mixes[track.id] ?? { volume: track.volume, pan: track.pan, muted: false };
+              const sound = mixerSounds[track.id] ?? { value: track.sampleSet ?? 'solo', loading: false, error: '' };
               return (
                 <div className={`mixer-track ${mix.muted ? 'muted' : ''}`} key={track.id}>
                   <div className="mixer-track-heading">
@@ -343,6 +366,15 @@ export function App() {
                       {mix.muted ? 'Muted' : 'Mute'}
                     </button>
                   </div>
+                  {!activeDraft && track.instrument === 'djembe' && <div className="mixer-sound">
+                    <label htmlFor={`sound-${track.id}`}>Sound</label>
+                    <select id={`sound-${track.id}`} aria-label={`${track.name} sound`} value={sound.value}
+                      aria-busy={sound.loading} onChange={event => void selectMixerSound(track.id, event.target.value as DjembeSoundSet)}>
+                      {djembeSoundSets.map(soundSet => <option key={soundSet.id} value={soundSet.id}>{soundSet.name}</option>)}
+                    </select>
+                    {sound.loading && <span role="status">Loading sound…</span>}
+                    {sound.error && <span className="mixer-sound-error" role="alert">{sound.error}</span>}
+                  </div>}
                   <label className="range-label" htmlFor={`volume-${track.id}`}>
                     <span>Volume</span><span>{Math.round(mix.volume * 100)}%</span>
                   </label>

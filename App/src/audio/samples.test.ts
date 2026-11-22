@@ -27,11 +27,17 @@ describe('ballet djembe samples', () => {
     expect(wav.readUInt32LE(24)).toBe(48000);
     expect(wav.readUInt16LE(34)).toBe(16);
     const pcm = Array.from({ length: (wav.length - 44) / 2 }, (_, index) => wav.readInt16LE(44 + index * 2) / 32768);
-    expect(Math.max(...pcm.map(Math.abs))).toBeGreaterThan(.6);
-    expect(Math.max(...pcm.map(Math.abs))).toBeLessThan(.73);
+    expect(Math.max(...pcm.map(Math.abs))).toBeGreaterThan(.88);
+    expect(Math.max(...pcm.map(Math.abs))).toBeLessThan(.91);
     expect(pcm[0]).toBe(0);
     expect(pcm.at(-1)).toBe(0);
     expect(pcm.length / 48000).toBeGreaterThan(.1);
     expect(pcm.length / 48000).toBeLessThan(.3);
+    // A healthy peak can still hide an inaudibly thin attack. Keep perceived
+    // level comparable to the other recordings, especially tone and slap.
+    const onset = pcm.findIndex(value => Math.abs(value) > .9 * .025);
+    const attack = pcm.slice(onset, onset + 2400);
+    const rmsDb = 20 * Math.log10(Math.sqrt(attack.reduce((sum, value) => sum + value ** 2, 0) / 2400));
+    expect(rmsDb).toBeGreaterThan(filename.includes('Bass') ? -11 : -10.5);
   });
 });
