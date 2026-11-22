@@ -1,4 +1,5 @@
-import type { Instrument, Song } from '../core/model';
+import type { DjembeSoundSet, Instrument, Song } from '../core/model';
+import { djembeSoundSets } from '../audio/samples';
 import { TICKS_PER_BEAT } from '../core/model';
 import { parseNotation } from '../core/parser';
 
@@ -7,7 +8,7 @@ export type EditableInstrument = typeof editableInstruments[number];
 export interface Timing { subdivisions: 3 | 4; beatsPerMeasure: number }
 export interface DraftPart { raw: string; mode: 'builder' | 'manual' }
 export interface DraftChannel {
-  id: string; name: string; instrument: EditableInstrument; sampleSet: 'solo' | 'accompany';
+  id: string; name: string; instrument: EditableInstrument; sampleSet: DjembeSoundSet;
   volume: number; pan: number; muted: boolean;
 }
 export interface DraftSection { id: string; name: string; times: number; parts: Record<string, DraftPart> }
@@ -188,7 +189,7 @@ export function readDrafts(json: string): SongDraft[] {
       || !Array.isArray(value.channels) || !value.channels.length || !Array.isArray(value.sections) || !value.sections.length) return false;
     const channels = value.channels;
     if (!channels.every(channel => record(channel) && typeof channel.id === 'string' && typeof channel.name === 'string'
-      && editableInstruments.includes(channel.instrument as EditableInstrument) && ['solo', 'accompany'].includes(channel.sampleSet as string)
+      && editableInstruments.includes(channel.instrument as EditableInstrument) && djembeSoundSets.some(soundSet => soundSet.id === channel.sampleSet)
       && numberIn(channel.volume, 0, 1) && numberIn(channel.pan, -1, 1) && typeof channel.muted === 'boolean')) return false;
     if (new Set(channels.map(channel => channel.id)).size !== channels.length) return false;
     if (!value.sections.every(section => record(section) && typeof section.id === 'string' && typeof section.name === 'string'

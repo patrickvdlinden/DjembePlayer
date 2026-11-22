@@ -129,4 +129,15 @@ describe('custom song drafts', () => {
     expect(() => readDrafts(JSON.stringify([{ ...draft, sections: [{ ...draft.sections[0], parts: {} }] }]))).toThrow();
     expect(() => readDrafts(JSON.stringify([draft, draft]))).toThrow();
   });
+
+  it('saves and compiles the ballet djembe sound independently for each channel', () => {
+    const draft = addChannel(withBass());
+    draft.channels[0]!.sampleSet = 'ballet';
+    draft.channels[1]!.sampleSet = 'accompany';
+    const saved = readDrafts(JSON.stringify([draft]))[0]!;
+    expect(compileDraft(saved).tracks.map(track => track.sampleSet)).toEqual(['ballet', 'accompany']);
+    const invalid = structuredClone(draft);
+    invalid.channels[0]!.sampleSet = 'missing' as typeof invalid.channels[0]['sampleSet'];
+    expect(() => readDrafts(JSON.stringify([invalid]))).toThrow();
+  });
 });

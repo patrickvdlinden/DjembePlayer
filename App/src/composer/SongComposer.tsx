@@ -1,6 +1,7 @@
 import { useMemo, useState } from 'react';
 import { parseNotation } from '../core/parser';
 import { NotationScore } from '../notation/NotationScore';
+import { djembeSoundSets } from '../audio/samples';
 import { addChannel, changeTiming, duplicateSection, editableInstruments, emptyStep, instrumentName,
   moveSection, newSection, readSteps, removeChannel, restNotation, stepNotation, writeSteps } from './draft';
 import type { DraftChannel, DraftPart, SongDraft, Step, Timing } from './draft';
@@ -62,9 +63,9 @@ function ChannelEditor({ channel, part, timing, index, canRemove, onChannel, onP
         onChange={event => onChannel({ instrument: event.target.value as DraftChannel['instrument'] })}>
         {editableInstruments.map(instrument => <option key={instrument} value={instrument}>{instrumentName(instrument)}</option>)}
       </select></label>
-      {channel.instrument === 'djembe' && <label>Recording<select aria-label={`Channel ${index + 1} recording`}
+      {channel.instrument === 'djembe' && <label>Sound<select aria-label={`Channel ${index + 1} djembe sound`}
         value={channel.sampleSet} onChange={event => onChannel({ sampleSet: event.target.value as DraftChannel['sampleSet'] })}>
-        <option value="solo">Solo djembe</option><option value="accompany">Accompaniment djembe</option>
+        {djembeSoundSets.map(soundSet => <option key={soundSet.id} value={soundSet.id}>{soundSet.name}</option>)}
       </select></label>}
       <button className="text-button remove-button" disabled={!canRemove} aria-label={`Remove channel ${index + 1}`}
         onClick={onRemove}>Remove channel</button>

@@ -93,6 +93,20 @@ describe('audio scheduling lifecycle', () => {
     expect(audio.starts).toEqual([42, 42.05]);
   });
 
+  it('loads the ballet sound set and schedules the same musical strikes', async () => {
+    engine.dispose();
+    engine = new PlayerEngine({ ...djagbe, tracks: djagbe.tracks.map(track =>
+      track.instrument === 'djembe' ? { ...track, sampleSet: 'ballet' } : track) }, vi.fn());
+    await engine.play();
+    expect(engine.state).toBe('playing');
+    for (const stroke of ['Bass', 'Tone', 'Slap']) {
+      expect(fetch).toHaveBeenCalledWith(expect.stringContaining(encodeURIComponent(`Ballet Djembe ${stroke}.wav`)), expect.anything());
+    }
+    expect(audio.events).toHaveLength(1154);
+    audio.events.filter(event => event.at === '0i').forEach(event => event.callback(42));
+    expect(audio.starts).toEqual([42, 42.05]);
+  });
+
   it('does not start when stopped while samples are still loading', async () => {
     let release!: (response: unknown) => void;
     const pending = new Promise(resolve => { release = resolve; });

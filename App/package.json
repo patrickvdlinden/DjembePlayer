@@ -10,6 +10,7 @@
     "check": "tsc --noEmit",
     "build": "tsc --noEmit && vite build",
     "preview": "vite preview --host 127.0.0.1",
+    "sounds:ballet": "node scripts/generate-ballet-djembe.mjs",
     "test": "vitest run"
   },
   "dependencies": {

@@ -2,6 +2,7 @@
 export const TICKS_PER_BEAT = 720;
 
 export type Instrument = 'djembe' | 'kenkeni' | 'sangban' | 'dununba' | 'krin' | 'feffo' | 'rattle';
+export type DjembeSoundSet = 'solo' | 'accompany' | 'ballet';
 export type SoundType =
   | 'bass-open' | 'tone-open' | 'slap-open'
   | 'doun-open' | 'doun-closed' | 'doun-bell'
@@ -39,7 +40,7 @@ export interface Track {
   id: string;
   name: string;
   instrument: Instrument;
-  sampleSet?: 'solo' | 'accompany';
+  sampleSet?: DjembeSoundSet;
   color: string;
   volume: number;
   pan: number;

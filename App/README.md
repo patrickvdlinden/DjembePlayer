@@ -25,7 +25,7 @@ pnpm build     # type-check and create dist/
 pnpm preview   # serve the production build locally
 ```
 
-Vite copies the audio and font from `../Assets/Resources/` into the ignored `public/assets/` directory before development, tests, and builds. The built `dist/` contains everything needed to host the player, including those assets. Keep the app beside the existing Unity `Assets` directory when building. The relative Vite base supports hosting the build in a subdirectory.
+Vite copies the audio and font from `../Assets/Resources/`, plus App sound sets from `soundsets/`, into the ignored `public/assets/` directory before development, tests, and builds. The built `dist/` contains everything needed to host the player, including those assets. Keep the app beside the existing Unity `Assets` directory when building. The relative Vite base supports hosting the build in a subdirectory.
 
 ## What works
 
@@ -41,6 +41,7 @@ Vite copies the audio and font from `../Assets/Resources/` into the ignored `pub
 - Smooth red playheads follow the audio clock across notes, rests, pattern repeats, and multiline measures, remaining aligned when the score resizes.
 - Scores wrap after every two measures (eight beats) at a fixed 25px font size. A complete two-measure reference in the same font reserves the notation panel's width, keeping it stable for shorter parts; notation backgrounds fill that width. The mixer moves below when it cannot fit beside the score. Narrow screens can scroll the notation horizontally, following the playhead. Existing line breaks are reflowed for display; source notation and playback timing stay unchanged.
 - Custom songs with multiple instrument channels, separate djembe recordings, named sections, repeat counts, section duplication, and arrangement reordering.
+- The djembe channel's **Sound** selector offers Solo, Accompaniment, and Ballet djembe. The ballet-inspired set retunes and processes the original solo recordings for brighter tones, crisp slaps, and shorter decay; it is not a new live recording. See `soundsets/ballet-djembe/README.md` for its sources and `pnpm sounds:ballet` regeneration command.
 - Each channel's pattern can be typed in the original font or source text, or built using stroke buttons and a pulse grid. The buttons support rests, instrument-specific strokes, combined bell/drum hits, djembe flams, and adding/removing measures.
 - Play one section as a fragment, or the complete custom arrangement. Choose three or four pulses per beat and 1–12 beats per measure, including one-beat fragments. Loop playback for practice.
 - Custom songs, unfinished notation, editor modes, tempo, and mix settings save in browser storage on this device. Switching back to a library song keeps your drafts.
