@@ -13,6 +13,7 @@
   -webkit-font-smoothing: antialiased;
   color-scheme: light;
   --ink: #511700;
+  --heading-ink: var(--ink);
   --canvas: #fdf4ed;
   --panel: #fffdf8;
   --surface: #fff8ee;
@@ -33,6 +34,7 @@
 :root[data-theme='dark'] {
   color-scheme: dark;
   --ink: #fdf4ed;
+  --heading-ink: #f6e5ce;
   --canvas: #160b07;
   --panel: #25140d;
   --surface: #1e0f09;
@@ -63,7 +65,9 @@ input[type='range'] { width: 100%; accent-color: var(--accent); height: 24px; ma
 .site-header { min-height: 104px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--line); gap: 24px; }
 .brand { display: block; min-width: 0; width: 280px; max-width: 100%; }
 .brand img { display: block; width: 100%; height: auto; }
-:root[data-theme='dark'] .brand { background: #fdf4ed; border-radius: 3px; box-shadow: 0 0 0 7px #fdf4ed; }
+.brand .brand-logo-dark { display: none; }
+:root[data-theme='dark'] .brand-logo-light { display: none; }
+:root[data-theme='dark'] .brand-logo-dark { display: block; }
 .header-actions { display: flex; align-items: center; gap: 22px; flex-shrink: 0; }
 .header-note { font-size: .875rem; color: var(--muted); }
 .theme-toggle { display: inline-flex; align-items: center; justify-content: center; gap: 9px; min-width: 44px; min-height: 44px; padding: 10px 13px; border: 1px solid var(--control-border); border-radius: 7px; background: var(--panel); color: var(--ink); font-size: .875rem; white-space: nowrap; }
@@ -76,6 +80,7 @@ main { padding-top: 46px; }
 .song-selector select { min-width: 170px; }
 .song-heading { display: flex; align-items: flex-end; justify-content: space-between; gap: 30px; margin-bottom: 32px; }
 .eyebrow { color: var(--muted); font-size: .75rem; font-weight: 600; letter-spacing: .15em; margin: 0 0 12px; }
+h1, h2, h3 { color: var(--heading-ink); }
 h1 { font-family: Georgia, 'Times New Roman', serif; font-size: clamp(3rem, 5vw, 4.5rem); font-weight: 400; line-height: 1.05; letter-spacing: -.04em; margin: 0 0 18px; }
 .title-dot { color: var(--accent); }
 .description { color: var(--muted); margin: 0; max-width: 500px; line-height: 1.7; }

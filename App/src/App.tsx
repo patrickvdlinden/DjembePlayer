@@ -182,7 +182,8 @@ export function App() {
     <div className="app-shell">
       <header className="site-header">
         <a className="brand" href="./" aria-label="jedeyafola home">
-          <img src={`${import.meta.env.BASE_URL}branding/jedeyafola.svg`} alt="jedeyafola" width="1140" height="282" />
+          <img className="brand-logo-light" src={`${import.meta.env.BASE_URL}branding/jedeyafola.svg`} alt="jedeyafola" width="1140" height="282" />
+          <img className="brand-logo-dark" src={`${import.meta.env.BASE_URL}branding/jedeyafola-dark.svg`} alt="jedeyafola" width="1140" height="282" />
         </a>
         <div className="header-actions">
           <span className="header-note">A little practice. A deeper groove.</span>
