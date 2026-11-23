@@ -2,7 +2,7 @@
 
 A React, TypeScript, Vite, and Tone.js player with the **complete Djagbé, Soro, Soli, and Kadan arrangements** from `Assets/Songs/`, the original SlapToonToonSlap font, and the original recordings.
 
-The supplied jedeyafola artwork is preserved in `public/branding/jedeyafola.svg`. Its default view displays the wordmark, and the `#icon` view displays the matching app icon. Dark mode uses `public/branding/jedeyafola-dark.svg`, a transparent variant with fixed warm cream lettering and the orange drum detail. The interface uses the artwork's cream, deep brown, and orange palette.
+The supplied jedeyafola artwork is preserved in `public/branding/jedeyafola.svg`. Its default view displays the wordmark. The favicon uses `public/branding/jedeyafola-icon.svg`, which frames the original image's bottom-right app icon directly. Dark mode uses `public/branding/jedeyafola-dark.svg`, a transparent variant with fixed warm cream lettering and the orange drum detail. The interface uses the artwork's cream, deep brown, and orange palette.
 
 Use the sun/moon switch in the header to choose light or dark mode. The first visit follows the system preference; an explicit choice is remembered on this device. Dark mode uses a near-black brown page with slightly lighter content panels, the logo's deep brown (`#511700`) borders, cream text, and orange accents.
 

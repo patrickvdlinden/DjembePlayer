@@ -7,7 +7,7 @@
       <feComposite in="cream" in2="SourceAlpha" operator="in" result="cream-wordmark" />
       <feColorMatrix in="SourceGraphic" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  4 0 -4 0 -2.2" result="orange-mask" />
       <feComposite in="orange-mask" in2="SourceAlpha" operator="in" result="orange-alpha" />
-      <feFlood flood-color="#fd9203" result="orange" />
+      <feFlood flood-color="#e86a06" result="orange" />
       <feComposite in="orange" in2="orange-alpha" operator="in" result="orange-detail" />
       <feMerge><feMergeNode in="cream-wordmark" /><feMergeNode in="orange-detail" /></feMerge>
     </filter>

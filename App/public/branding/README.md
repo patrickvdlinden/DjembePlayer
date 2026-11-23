@@ -1,7 +1,8 @@
 # jedeyafola artwork
 
 - `jedeyafola.svg` preserves the original supplied artwork. The `#icon` view frames its app icon.
-- `jedeyafola-dark.svg` embeds a transparent wordmark cutout, with SVG colors fixed to warm cream `#f6e5ce` and orange `#fd9203`. It has no background rectangle. The header selects it in dark mode.
+- `jedeyafola-icon.svg` frames that same bottom-right app icon as a standalone square SVG, used directly as the favicon. A clip path follows just inside its brown outline, removing the surrounding paper and making the outside transparent. The embedded original artwork and the cream drum inside the icon are preserved.
+- `jedeyafola-dark.svg` embeds a transparent wordmark cutout, with SVG colors fixed to warm cream `#f6e5ce` and orange `#e86a06`. The orange is sampled from the app icon's djembe at original-image coordinates `(1532, 720)`. It has no background rectangle. The header selects it in dark mode.
 
 The cutout was made with the built-in imagegen tool from the supplied artwork. Recoloring the cream directly during generation left background speckles, so the selected output preserves the original brown ink and clean transparency. The SVG applies the final cream and orange colors without changing that alpha silhouette.
 
