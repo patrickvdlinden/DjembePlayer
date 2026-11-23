@@ -21,11 +21,13 @@ Open the URL printed by Vite (normally `http://127.0.0.1:5173/`) and click **Pla
 ```sh
 pnpm test       # parser, arrangement, and audio lifecycle tests
 pnpm check      # strict TypeScript checking
-pnpm build     # type-check and create dist/
+pnpm build     # type-check, create dist/, and package deploy/jedeyafola.zip
 pnpm preview   # serve the production build locally
 ```
 
 Vite copies the audio and font from `../Assets/Resources/`, plus App sound sets from `soundsets/`, into the ignored `public/assets/` directory before development, tests, and builds. The built `dist/` contains everything needed to host the player, including those assets. Keep the app beside the existing Unity `Assets` directory when building. The relative Vite base supports hosting the build in a subdirectory.
+
+Every successful `pnpm build` also creates `deploy/jedeyafola.zip`, ready to upload to the VPS. Extract its contents into the IIS website folder: `index.html`, `assets/`, and `branding/` are directly at the archive root. The packaging step verifies every file against `dist/` before replacing the previous ZIP. The generated `deploy/` directory is ignored by Git.
 
 ## What works
 
