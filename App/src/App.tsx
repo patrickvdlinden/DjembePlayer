@@ -5,7 +5,6 @@ import { djembeSoundSets } from './audio/samples';
 import { compileArrangement } from './core/arrangement';
 import { TICKS_PER_BEAT } from './core/model';
 import type { DjembeSoundSet, Song } from './core/model';
-import { djagbe } from './songs/djagbe';
 import { songs } from './songs/catalog';
 import { NotationScore } from './notation/NotationScore';
 import { notationWidthReference } from './notation/wrapNotation';
@@ -14,6 +13,7 @@ import { compileDraft, createDraft, readDrafts } from './composer/draft';
 import type { SongDraft } from './composer/draft';
 import { ThemeToggle } from './ThemeToggle';
 
+const initialSong = songs[0]!;
 const formatTime = (seconds: number, precise: boolean) =>
   `${Math.floor(seconds / 60)}:${precise ? (seconds % 60).toFixed(1).padStart(4, '0') : Math.floor(seconds % 60).toString().padStart(2, '0')}`;
 const draftStorageKey = 'djembe-player.custom-songs';
@@ -28,14 +28,14 @@ function loadCustomSongs(): { songs: SongDraft[]; error: string } {
 }
 
 export function App() {
-  const [song, setSong] = useState(djagbe);
+  const [song, setSong] = useState(initialSong);
   const [storedLibrary] = useState(loadCustomSongs);
   const [customSongs, setCustomSongs] = useState(storedLibrary.songs);
   const [selectedDraftId, setSelectedDraftId] = useState<string | null>(null);
   const activeDraft = customSongs.find(item => item.id === selectedDraftId);
   const [saveMessage, setSaveMessage] = useState(storedLibrary.error || 'Saved on this device');
   const [composeError, setComposeError] = useState('');
-  const [bpm, setBpm] = useState(djagbe.bpm);
+  const [bpm, setBpm] = useState(initialSong.bpm);
   const [loop, setLoop] = useState(false);
   const [metronome, setMetronome] = useState(false);
   const [, refresh] = useState(0);
